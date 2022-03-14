@@ -1,6 +1,8 @@
 # GF0604 Procesamiento de datos geográficos 2021-I
 
-## Ambiente conda
+## Apuntes técnicos
+
+### Ambiente conda
 
 Se creó un ambiente conda con los paquetes de R utilizados en el curso. 
 
@@ -15,7 +17,7 @@ conda install r-base r-essentials r-bookdown r-ggplot2 r-plotly r-sf r-terra r-l
 
 Se prefirió instalar los paquetes desde la línea de comandos del sistema operativo, como parte del ambiente conda, en lugar de instalarlos desde R mediante `install.packages()`. Aparentemente, así se obtienen mejores resultados, particularmente con los paquetes geoespaciales.
 
-# Archivo `_bookdown.yml`
+### Archivo `_bookdown.yml`
 
 ```
 book_filename: "2022-i"
