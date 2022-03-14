@@ -2,10 +2,7 @@ fig:nice-fig
 tab:nice-tab
 eq:binom
 thm:tri
-about
-usage
-render-book
-preview-book
+gf0604-procesamiento-de-datos-geográficos-2022-i
 hello-bookdown
 a-section
 cross

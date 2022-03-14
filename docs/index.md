@@ -1,5 +1,5 @@
 --- 
-title: "GF0604 Procesamiento de datos geográficos 2021-I"
+title: "GF0604 Procesamiento de datos geográficos 2022-I"
 author: "Manuel Vargas"
 date: "2022-03-13"
 site: bookdown::bookdown_site
@@ -13,43 +13,25 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
-# About
+# GF0604 Procesamiento de datos geográficos 2022-I
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
+Este es un curso introductorio al procesamiento de datos geográficos mediante el lenguaje de programación [R](https://www.r-project.org/). Se imparte en la [Escuela de Geografía](https://www.geografia.fcs.ucr.ac.cr/) de la [Universidad de Costa Rica](https://www.ucr.ac.cr/).
 
-## Usage 
+Se estudian los fundamentos del lenguaje R, sus bibliotecas geoespaciales y sus capacidades para generar gráficos y modelos estadísticos. Se utilizan herramientas para facilitar la reproducibilidad de los procedimientos y para su comunicación a través de la Web y otros medios.
 
-Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
+El enfoque del curso es teórico-práctico, con lecciones teóricas combinadas con ejercicios de programación en los cuales los estudiantes aplican en diversos escenarios de procesamiento de datos los conocimientos y habilidades aprendidas. No se requiere de experiencia previa en programación de computadoras.
 
-Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`.
+Este sitio web corresponde al curso impartido durante el primer ciclo lectivo de 2022. Para consultar las versiones de otros ciclos lectivos, puede visitar el [sitio web general del curso](https://gf0604-procesamientodatosgeograficos.github.io/).
 
-The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book.
+**Información de contacto**
 
-## Render book
+Si tiene alguna pregunta o comentario sobre este curso, por favor contacte a:
 
-You can render the HTML version of this example book without changing anything:
+> Manuel Vargas - manuel.vargas_d@ucr.ac.cr  
+Profesor  
+Universidad de Costa Rica,  
+Ciudad Universitaria Rodrigo Facio,  
+San Pedro de Montes de Oca,  
+Costa Rica.
 
-1. Find the **Build** pane in the RStudio IDE, and
-
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
-
-Or build the book from the R console:
-
-
-```r
-bookdown::render_book()
-```
-
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
-
-## Preview book
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
-
-
-```r
-bookdown::serve_book()
-```
-
-
-
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Los contenidos de este curso, a menos que se especifique de otra forma, se comparten mediante una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licencia de Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional</a>.
