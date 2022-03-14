@@ -1,13 +1,29 @@
-Welcome! 
+# GF0604 Procesamiento de datos geográficos 2021-I
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+## Ambiente conda
 
-This template provides a skeleton file structure that you can edit to create your book. 
+Se creó un ambiente conda con los paquetes de R utilizados en el curso. 
 
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
+```shell
+conda update conda
+conda create -n gf0604-2022i
+conda activate gf0604-2022i
+conda config --env --add channels conda-forge
+conda config --env --set channel_priority strict
+conda install r-base r-essentials r-bookdown r-ggplot2 r-plotly r-sf r-terra r-leaflet r-leaflet.providers r-leaflet.extras r-leaflet.minicharts r-leafem r-flexdashboard r-shiny r-shinydashboard r-packrat r-rsconnect
+```
 
-Additional resources:
+Se prefirió instalar los paquetes desde la línea de comandos del sistema operativo, como parte del ambiente conda, en lugar de instalarlos desde R mediante `install.packages()`. Aparentemente, así se obtienen mejores resultados, particularmente con los paquetes geoespaciales.
 
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
+# Archivo `_bookdown.yml`
 
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
+```
+book_filename: "2022-i"
+new_session: true
+before_chapter_script: _common.R
+delete_merged_file: true
+output_dir: "docs"
+language:
+  ui:
+    chapter_name: "Chapter "
+```

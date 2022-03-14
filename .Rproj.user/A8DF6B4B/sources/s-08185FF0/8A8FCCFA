@@ -3,7 +3,7 @@
     "path": "~/gf0604-procesamientodatosgeograficos/2022-i/README.md",
     "project_path": "README.md",
     "type": "markdown",
-    "hash": "0",
+    "hash": "1408472208",
     "contents": "",
     "dirty": false,
     "created": 1647226846719.0,
@@ -11,14 +11,16 @@
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
-        "Source": "Source"
+        "Source": "Source",
+        "cursorPosition": "17,11",
+        "scrollLine": "14"
     },
     "folds": "",
-    "lastKnownWriteTime": 1647226843,
+    "lastKnownWriteTime": 1647229441,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1647226843,
+    "last_content_update": 1647229441938,
     "read_only": false,
     "read_only_alternatives": []
 }
