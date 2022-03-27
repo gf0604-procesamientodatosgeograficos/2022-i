@@ -13,7 +13,7 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
-# GF0604 Procesamiento de datos geográficos 2022-I
+# Bienvenida
 
 Este es un curso introductorio al procesamiento de datos geográficos mediante el lenguaje de programación [R](https://www.r-project.org/). Se imparte en la [Escuela de Geografía](https://www.geografia.fcs.ucr.ac.cr/) de la [Universidad de Costa Rica](https://www.ucr.ac.cr/).
 
