@@ -1,3 +1,6 @@
 gf0604-procesamiento-de-datos-geográficos-2022-i
 programa-del-curso
 pensamiento-computacional
+resumen
+diapositivas
+recursos-de-interés

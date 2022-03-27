@@ -17,7 +17,7 @@ csl: chicago-fullnote-bibliography.csl
 
 Este es un curso introductorio al procesamiento de datos geográficos mediante el lenguaje de programación [R](https://www.r-project.org/). Se imparte en la [Escuela de Geografía](https://www.geografia.fcs.ucr.ac.cr/) de la [Universidad de Costa Rica](https://www.ucr.ac.cr/).
 
-Se estudian los fundamentos del lenguaje R, sus bibliotecas geoespaciales y sus capacidades para generar gráficos y modelos estadísticos. Se utilizan herramientas para facilitar la reproducibilidad de los procedimientos y para su comunicación a través de la Web y otros medios.
+Se estudian los fundamentos de R, sus bibliotecas geoespaciales y sus capacidades para generar gráficos estadísticos. También se utilizan herramientas para facilitar la reproducibilidad de los procedimientos y su comunicación a través de la Internet y otros medios.
 
 El enfoque del curso es teórico-práctico, con lecciones teóricas combinadas con ejercicios de programación en los cuales los estudiantes aplican en diversos escenarios de procesamiento de datos los conocimientos y habilidades aprendidas. No se requiere de experiencia previa en programación de computadoras.
 
