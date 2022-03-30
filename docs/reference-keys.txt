@@ -4,3 +4,6 @@ pensamiento-computacional
 resumen
 diapositivas
 recursos-de-interés
+arquitectura-de-computadoras-y-lenguajes-de-programación
+resumen-1
+diapositivas-1
