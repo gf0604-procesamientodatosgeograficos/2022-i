@@ -1,3 +1,5 @@
+fig:cli-ubuntu
+fig:gui-ubuntu
 pensamiento-computacional
 resumen
 diapositivas
