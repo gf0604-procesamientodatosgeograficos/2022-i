@@ -1,7 +1,7 @@
 --- 
 title: "GF0604 Procesamiento de datos geográficos 2022-I"
 author: "Manuel Vargas"
-date: "2022-04-02"
+date: "2022-04-03"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -13,7 +13,7 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
-# Bienvenida
+# Bienvenida {-}
 
 Este es un curso introductorio al procesamiento de datos geográficos mediante el lenguaje de programación [R](https://www.r-project.org/). Se imparte en la [Escuela de Geografía](https://www.geografia.fcs.ucr.ac.cr/) de la [Universidad de Costa Rica](https://www.ucr.ac.cr/).
 

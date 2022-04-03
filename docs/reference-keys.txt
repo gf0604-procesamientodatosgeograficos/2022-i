@@ -1,5 +1,3 @@
-bienvenida
-programa-del-curso
 pensamiento-computacional
 resumen
 diapositivas
@@ -7,3 +5,10 @@ recursos-de-interés
 arquitectura-de-computadoras-y-lenguajes-de-programación
 resumen-1
 diapositivas-1
+interacción-humano-computadora
+resumen-2
+interfaces-de-usuario
+interfaces-de-línea-de-comandos
+interfaces-gráficas-de-usuario
+interfaces-naturales-de-usuario
+recursos-de-interés-1
