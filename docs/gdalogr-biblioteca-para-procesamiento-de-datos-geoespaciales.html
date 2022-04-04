@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bienvenida | GF0604 Procesamiento de datos geográficos 2022-I</title>
+<title>Chapter 4 GDAL/OGR: biblioteca para procesamiento de datos geoespaciales | GF0604 Procesamiento de datos geográficos 2022-I</title>
 <meta name="author" content="Manuel Vargas">
-<meta name="description" content="Este es el sitio web del curso GF0604 Procesamiento de datos geográficos 2021-I de la Escuela de Geografía de la Universidad de Costa Rica.">
+<meta name="description" content="4.1 Resumen   4.2 Recursos de interés Codecademy. (s. f.). Command Line Tutorial: Learn The Command Line. Codecademy. Recuperado 19 de marzo de 2022, de...">
 <meta name="generator" content="bookdown 0.25 with bs4_book()">
-<meta property="og:title" content="Bienvenida | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta property="og:title" content="Chapter 4 GDAL/OGR: biblioteca para procesamiento de datos geoespaciales | GF0604 Procesamiento de datos geográficos 2022-I">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Este es el sitio web del curso GF0604 Procesamiento de datos geográficos 2021-I de la Escuela de Geografía de la Universidad de Costa Rica.">
+<meta property="og:description" content="4.1 Resumen   4.2 Recursos de interés Codecademy. (s. f.). Command Line Tutorial: Learn The Command Line. Codecademy. Recuperado 19 de marzo de 2022, de...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bienvenida | GF0604 Procesamiento de datos geográficos 2022-I">
-<meta name="twitter:description" content="Este es el sitio web del curso GF0604 Procesamiento de datos geográficos 2021-I de la Escuela de Geografía de la Universidad de Costa Rica.">
+<meta name="twitter:title" content="Chapter 4 GDAL/OGR: biblioteca para procesamiento de datos geoespaciales | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta name="twitter:description" content="4.1 Resumen   4.2 Recursos de interés Codecademy. (s. f.). Command Line Tutorial: Learn The Command Line. Codecademy. Recuperado 19 de marzo de 2022, de...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -43,13 +43,13 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html">Bienvenida</a></li>
+<li><a class="" href="index.html">Bienvenida</a></li>
 <li><a class="" href="programa-del-curso.html">Programa del curso</a></li>
 <li class="book-part">I. Introducción a la programación de computadoras</li>
 <li><a class="" href="pensamiento-computacional.html"><span class="header-section-number">1</span> Pensamiento computacional</a></li>
 <li><a class="" href="arquitectura-de-computadoras-y-lenguajes-de-programaci%C3%B3n.html"><span class="header-section-number">2</span> Arquitectura de computadoras y lenguajes de programación</a></li>
 <li><a class="" href="interacci%C3%B3n-humano-computadora.html"><span class="header-section-number">3</span> Interacción humano-computadora</a></li>
-<li><a class="" href="gdalogr-biblioteca-para-lectura-y-escritura-de-datos-geoespaciales.html"><span class="header-section-number">4</span> GDAL/OGR: biblioteca para lectura y escritura de datos geoespaciales</a></li>
+<li><a class="active" href="gdalogr-biblioteca-para-procesamiento-de-datos-geoespaciales.html"><span class="header-section-number">4</span> GDAL/OGR: biblioteca para procesamiento de datos geoespaciales</a></li>
 <li class="book-part">Apéndices</li>
 <li><a class="" href="conjuntos-de-datos.html">Conjuntos de datos</a></li>
 </ul>
@@ -59,37 +59,44 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="bienvenida" class="section level1 unnumbered">
-<h1>Bienvenida<a class="anchor" aria-label="anchor" href="#bienvenida"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="gdalogr-biblioteca-para-procesamiento-de-datos-geoespaciales" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> GDAL/OGR: biblioteca para procesamiento de datos geoespaciales<a class="anchor" aria-label="anchor" href="#gdalogr-biblioteca-para-procesamiento-de-datos-geoespaciales"><i class="fas fa-link"></i></a>
 </h1>
-<p>Este es un curso introductorio al procesamiento de datos geográficos mediante el lenguaje de programación <a href="https://www.r-project.org/">R</a>. Se imparte en la <a href="https://www.geografia.fcs.ucr.ac.cr/">Escuela de Geografía</a> de la <a href="https://www.ucr.ac.cr/">Universidad de Costa Rica</a>.</p>
-<p>Se estudian los fundamentos de R, sus bibliotecas geoespaciales y sus capacidades para generar gráficos estadísticos. También se utilizan herramientas para facilitar la reproducibilidad de los procedimientos y su comunicación a través de la Internet y otros medios.</p>
-<p>El enfoque del curso es teórico-práctico, con lecciones teóricas combinadas con ejercicios de programación en los cuales los estudiantes aplican en diversos escenarios de procesamiento de datos los conocimientos y habilidades aprendidas. No se requiere de experiencia previa en programación de computadoras.</p>
-<p>Este sitio web corresponde al curso impartido durante el primer ciclo lectivo de 2022. Para consultar las versiones de otros ciclos lectivos, puede visitar el <a href="https://gf0604-procesamientodatosgeograficos.github.io/">sitio web general del curso</a>.</p>
-<p><strong>Información de contacto</strong></p>
-<p>Si tiene alguna pregunta o comentario sobre este curso, por favor contacte a:</p>
-<blockquote>
-<p>Manuel Vargas - <a href="mailto:manuel.vargas_d@ucr.ac.cr" class="email">manuel.vargas_d@ucr.ac.cr</a><br>
-Profesor<br>
-Universidad de Costa Rica,<br>
-Ciudad Universitaria Rodrigo Facio,<br>
-San Pedro de Montes de Oca,<br>
-Costa Rica.</p>
-</blockquote>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>Los contenidos de este curso, a menos que se especifique de otra forma, se comparten mediante una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licencia de Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional</a>.</p>
+<div id="resumen-3" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Resumen<a class="anchor" aria-label="anchor" href="#resumen-3"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="recursos-de-interés-2" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Codecademy. (s. f.). <em>Command Line Tutorial: Learn The Command Line</em>. Codecademy. Recuperado 19 de marzo de 2022, de <a href="https://www.codecademy.com/learn/learn-the-command-line" class="uri">https://www.codecademy.com/learn/learn-the-command-line</a></p>
+<p>Gandhi, U. (2020). Mastering GDAL Tools. <em>Spatial Thoughts</em>. <a href="https://spatialthoughts.com/courses/mastering-gdal-tools/" class="uri">https://spatialthoughts.com/courses/mastering-gdal-tools/</a></p>
+<p>Pebesma, E., Wagner, W., Verbesselt, J., Goor, E., Briese, C., &amp; Neteler, M. (2016). <em>OpenEO: a GDAL for Earth Observation Analytics</em>. <a href="https://r-spatial.org/2016/11/29/openeo.html" class="uri">https://r-spatial.org/2016/11/29/openeo.html</a></p>
+<p><em>SS64 Command line reference</em>. (s. f.). Recuperado 3 de abril de 2022, de <a href="https://ss64.com/" class="uri">https://ss64.com/</a></p>
 
 </div>
+</div>
+
+
+
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="next"><a href="programa-del-curso.html">Programa del curso</a></div>
+<div class="prev"><a href="interacci%C3%B3n-humano-computadora.html"><span class="header-section-number">3</span> Interacción humano-computadora</a></div>
+<div class="next"><a href="conjuntos-de-datos.html">Conjuntos de datos</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#bienvenida">Bienvenida</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#gdalogr-biblioteca-para-procesamiento-de-datos-geoespaciales"><span class="header-section-number">4</span> GDAL/OGR: biblioteca para procesamiento de datos geoespaciales</a></li>
+<li><a class="nav-link" href="#resumen-3"><span class="header-section-number">4.1</span> Resumen</a></li>
+<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-2"><span class="header-section-number">4.2</span> Recursos de interés</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/04-gdal-ogr.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/04-gdal-ogr.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
