@@ -28,4 +28,7 @@ programas-para-datos-vectoriales
 ogrinfo
 ogr2ogr
 ejercicios
+programas-para-datos-raster
+gdalinfo
+gdalwarp
 recursos-de-interés-2
