@@ -175,82 +175,83 @@ ogr2ogr -t_srs EPSG:4326 -makevalid cantones-wgs84.gpkg WFS:"http://geos.snitcr.
 2. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones de las provincia de Guanacaste, Puntarenas y Limón.
 3. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2.
 4. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de la provincia de Limón.
+5. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de las provincias de Guanacaste, Puntarenas y Limón.
 
-#### Programas para datos raster
+<!-- #### Programas para datos raster -->
 
-##### gdalinfo
-El programa [gdalinfo](https://gdal.org/programs/gdalinfo.html) despliega información acerca de una fuente de datos raster.
+<!-- ##### gdalinfo -->
+<!-- El programa [gdalinfo](https://gdal.org/programs/gdalinfo.html) despliega información acerca de una fuente de datos raster. -->
 
-Los siguientes comandos trabajan con la capa global de altitud de la base de datos climática [WorldClim](https://www.worldclim.org/).
+<!-- Los siguientes comandos trabajan con la capa global de altitud de la base de datos climática [WorldClim](https://www.worldclim.org/). -->
 
-- Descargue en su carpeta de trabajo la capa de altitud desde la dirección [https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip](https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip).
-- Descomprima el archivo ZIP.
-- Con una herramienta de escritorio (ej. QGIS), visualice la capa descomprimida.
-- Desde una interfaz de línea de comandos (ej. OSGeo4W Shell), ubíquese en la carpeta que creó y ejecute los siguientes comandos para obtener información sobre la capa:
+<!-- - Descargue en su carpeta de trabajo la capa de altitud desde la dirección [https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip](https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip). -->
+<!-- - Descomprima el archivo ZIP. -->
+<!-- - Con una herramienta de escritorio (ej. QGIS), visualice la capa descomprimida. -->
+<!-- - Desde una interfaz de línea de comandos (ej. OSGeo4W Shell), ubíquese en la carpeta que creó y ejecute los siguientes comandos para obtener información sobre la capa: -->
 
-```shell
-# Información sobre la capa
-gdalinfo -stats wc2.1_30s_elev.tif
-```
-```
-Driver: GTiff/GeoTIFF
-Files: wc2.1_30s_elev.tif
-Size is 43200, 21600
-Coordinate System is:
-GEOGCRS["WGS 84",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS["geodetic latitude (Lat)",north,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["geodetic longitude (Lon)",east,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433]],
-    ID["EPSG",4326]]
-Data axis to CRS axis mapping: 2,1
-Origin = (-180.000000000000000,90.000000000000000)
-Pixel Size = (0.008333333333333,-0.008333333333333)
-Metadata:
-  AREA_OR_POINT=Area
-Image Structure Metadata:
-  COMPRESSION=DEFLATE
-  INTERLEAVE=BAND
-Corner Coordinates:
-Upper Left  (-180.0000000,  90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"N)
-Lower Left  (-180.0000000, -90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"S)
-Upper Right ( 180.0000000,  90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"N)
-Lower Right ( 180.0000000, -90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"S)
-Center      (   0.0000000,   0.0000000) (  0d 0' 0.01"E,  0d 0' 0.01"N)
-Band 1 Block=43200x1 Type=Int16, ColorInterp=Gray
-  Min=-415.000 Max=8424.000 
-  Minimum=-415.000, Maximum=8424.000, Mean=nan, StdDev=nan
-  NoData Value=-32768
-  Metadata:
-    STATISTICS_MAXIMUM=8424
-    STATISTICS_MEAN=1.#SNAN
-    STATISTICS_MINIMUM=-415
-    STATISTICS_STDDEV=1.#SNAN
-```
+<!-- ```shell -->
+<!-- # Información sobre la capa -->
+<!-- gdalinfo -stats wc2.1_30s_elev.tif -->
+<!-- ``` -->
+<!-- ``` -->
+<!-- Driver: GTiff/GeoTIFF -->
+<!-- Files: wc2.1_30s_elev.tif -->
+<!-- Size is 43200, 21600 -->
+<!-- Coordinate System is: -->
+<!-- GEOGCRS["WGS 84", -->
+<!--     DATUM["World Geodetic System 1984", -->
+<!--         ELLIPSOID["WGS 84",6378137,298.257223563, -->
+<!--             LENGTHUNIT["metre",1]]], -->
+<!--     PRIMEM["Greenwich",0, -->
+<!--         ANGLEUNIT["degree",0.0174532925199433]], -->
+<!--     CS[ellipsoidal,2], -->
+<!--         AXIS["geodetic latitude (Lat)",north, -->
+<!--             ORDER[1], -->
+<!--             ANGLEUNIT["degree",0.0174532925199433]], -->
+<!--         AXIS["geodetic longitude (Lon)",east, -->
+<!--             ORDER[2], -->
+<!--             ANGLEUNIT["degree",0.0174532925199433]], -->
+<!--     ID["EPSG",4326]] -->
+<!-- Data axis to CRS axis mapping: 2,1 -->
+<!-- Origin = (-180.000000000000000,90.000000000000000) -->
+<!-- Pixel Size = (0.008333333333333,-0.008333333333333) -->
+<!-- Metadata: -->
+<!--   AREA_OR_POINT=Area -->
+<!-- Image Structure Metadata: -->
+<!--   COMPRESSION=DEFLATE -->
+<!--   INTERLEAVE=BAND -->
+<!-- Corner Coordinates: -->
+<!-- Upper Left  (-180.0000000,  90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"N) -->
+<!-- Lower Left  (-180.0000000, -90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"S) -->
+<!-- Upper Right ( 180.0000000,  90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"N) -->
+<!-- Lower Right ( 180.0000000, -90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"S) -->
+<!-- Center      (   0.0000000,   0.0000000) (  0d 0' 0.01"E,  0d 0' 0.01"N) -->
+<!-- Band 1 Block=43200x1 Type=Int16, ColorInterp=Gray -->
+<!--   Min=-415.000 Max=8424.000  -->
+<!--   Minimum=-415.000, Maximum=8424.000, Mean=nan, StdDev=nan -->
+<!--   NoData Value=-32768 -->
+<!--   Metadata: -->
+<!--     STATISTICS_MAXIMUM=8424 -->
+<!--     STATISTICS_MEAN=1.#SNAN -->
+<!--     STATISTICS_MINIMUM=-415 -->
+<!--     STATISTICS_STDDEV=1.#SNAN -->
+<!-- ``` -->
 
-##### gdalwarp
-El programa [gdalwarp](https://gdal.org/programs/gdalwarp.html) se utiliza para reproyectar y transformar datos raster.
+<!-- ##### gdalwarp -->
+<!-- El programa [gdalwarp](https://gdal.org/programs/gdalwarp.html) se utiliza para reproyectar y transformar datos raster. -->
 
-- Recorte la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica:
+<!-- - Recorte la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica: -->
 
-```shell
-# Recorte de la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica
-gdalwarp \
-  -dstnodata -9999 \
-  -tr 0.00833333 0.00833333 -q \
-  -cutline 'cantones-wgs84.gpkg' -crop_to_cutline wc2.1_30s_elev.tif altitud-cr.tif
+<!-- ```shell -->
+<!-- # Recorte de la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica -->
+<!-- gdalwarp \ -->
+<!--   -dstnodata -9999 \ -->
+<!--   -tr 0.00833333 0.00833333 -q \ -->
+<!--   -cutline 'cantones-wgs84.gpkg' -crop_to_cutline wc2.1_30s_elev.tif altitud-cr.tif -->
 
-# Información sobre la capa de altitud de Costa Rica
-gdalinfo -stats altitud-cr.tif
-```
+<!-- # Información sobre la capa de altitud de Costa Rica -->
+<!-- gdalinfo -stats altitud-cr.tif -->
+<!-- ``` -->
 
 ## Recursos de interés
 Codecademy. (s. f.). *Command Line Tutorial: Learn The Command Line*. Codecademy. Recuperado 19 de marzo de 2022, de https://www.codecademy.com/learn/learn-the-command-line
