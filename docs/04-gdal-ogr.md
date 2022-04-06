@@ -170,7 +170,7 @@ ogr2ogr -makevalid cantones.gpkg WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IG
 ogr2ogr -t_srs EPSG:4326 -makevalid cantones-wgs84.gpkg WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
 ```
 
-##### Ejercicios
+### Ejercicios
 1. De la capa de países de Natural Earth, extraiga los registros con población estimada superior a mil millones. En la capa resultante, incluya solamente los campos de nombre del país en español y población estimada. ¿Cuál opción debe utilizar para especificar los campos que desea incluir en el archivo de salida?
 2. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones de las provincia de Guanacaste, Puntarenas y Limón.
 3. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2.
