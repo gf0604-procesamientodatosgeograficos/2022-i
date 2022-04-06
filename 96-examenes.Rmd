@@ -15,4 +15,4 @@
 - [Interacción humano-computador](https://gf0604-procesamientodatosgeograficos.github.io/2022-i/interacci%C3%B3n-humano-computadora.html)  
 - [GDAL/OGR: biblioteca para lectura y escritura de datos geoespaciales](https://gf0604-procesamientodatosgeograficos.github.io/2022-i/gdalogr-biblioteca-para-lectura-y-escritura-de-datos-geoespaciales.html)
 
-- [Pebesma et al., 2016](https://r-spatial.org/2016/11/29/openeo.html)  
+- Pebesma, E., Wagner, W., Verbesselt, J., Goor, E., Briese, C., & Neteler, M. (2016). *OpenEO: a GDAL for Earth Observation Analytics*. https://r-spatial.org/2016/11/29/openeo.html  
