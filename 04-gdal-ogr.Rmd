@@ -97,12 +97,12 @@ ogrinfo -al -where "CONTINENT='Oceania'" -geom=NO ne_110m_admin_0_countries.shp
 ogrinfo -al -where "CONTINENT='Oceania' AND TYPE='Country'" -geom=NO ne_110m_admin_0_countries.shp
 ```
 
-- Note el uso del operador `AND` (y), el cuál es un operador lógico, así como el `OR` (o) y el `NOT` (no).
+- Note el uso del operador `AND` (y), el cuál es un operador lógico, como también lo son el `OR` (o) y el `NOT` (no).
 
 ##### ogr2ogr
 El programa [ogr2ogr](https://gdal.org/programs/ogr2ogr.html) realiza conversiones entre formatos de fuentes de datos vectoriales. A la vez, puede ejecutar otras operaciones como selección de atributos y geometrías, filtrado por criterios espaciales y no espaciales, reproyección y validación de geometrías, entre otras.
 
-- Ejecute el siguiente comando para desplegar la lista de formatos (*drivers*) soportados por GDAL/OGR:
+- Ejecute el siguiente comando para desplegar la lista de formatos (*drivers*) vectoriales soportados por OGR:
 ```shell
 # Despliegue de la lista de formatos vectoriales soportados por GDAL/OGR
 ogr2ogr --formats
@@ -124,13 +124,13 @@ Supported Formats:
 ...
 ```
 
-- Ejecute los siguientes comandos para convertir la capa de países (en SHP) a otros formatos:
+- Ejecute los siguientes comandos para convertir la capa de países (en SHP) a otros formatos y cambiar su nombre:
 ```shell
 # Conversión de SHP a GeoJSON
-ogr2ogr ne_110m_admin_0_countries.geojson ne_110m_admin_0_countries.shp
+ogr2ogr paises.geojson ne_110m_admin_0_countries.shp
 
 # Conversión de SHP a GeoPackage
-ogr2ogr ne_110m_admin_0_countries.gpkg ne_110m_admin_0_countries.shp
+ogr2ogr paises.gpkg ne_110m_admin_0_countries.shp
 ```
 
 - Ejecute el siguiente comando para desplegar la lista de capas en el WFS "IGN Cartografía 1:5mil" del Instituto Geográfico Nacional (IGN):
@@ -171,11 +171,12 @@ ogr2ogr -t_srs EPSG:4326 -makevalid cantones-wgs84.gpkg WFS:"http://geos.snitcr.
 ```
 
 ##### Ejercicios
-1. De la capa de países de Natural Earth, extraiga los registros con población estimada superior a mil millones. En la capa resultante, incluya solamente los campos de nombre del país en español y población estimada.
+1. De la capa de países de Natural Earth, extraiga los registros con población estimada superior a mil millones. En la capa resultante, incluya solamente los campos de nombre del país en español y población estimada. ¿Cuál opción debe utilizar para especificar los campos que desea incluir en el archivo de salida?
 2. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones de las provincia de Guanacaste, Puntarenas y Limón.
 3. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2.
 4. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de la provincia de Limón.
 5. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de las provincias de Guanacaste, Puntarenas y Limón.
+6. De la capa de cantones de Costa Rica, extraiga en un archivo GML, los cantones de Guanacaste, con la excepción de Liberia.
 
 <!-- #### Programas para datos raster -->
 
