@@ -29,3 +29,9 @@ ogrinfo
 ogr2ogr
 ejercicios
 recursos-de-interés-2
+reproducibilidad
+resumen-4
+el-concepto-de-reproducibilidad
+reproducibilidad-en-ciencia-de-datos-geoespaciales
+herramientas-para-facilitar-la-reproducibilidad
+recursos-de-interés-3

@@ -1,26 +1,74 @@
 {
     "sources": [
         {
-            "URL": "http://yihui.org/knitr/",
-            "author": [
-                {
-                    "family": "Xie",
-                    "given": "Yihui"
-                }
-            ],
-            "edition": "2nd",
-            "id": "xie2015",
-            "issued": {
+            "DOI": "10.1080/13658816.2015.1137579",
+            "ISSN": "1365-8816",
+            "URL": "https://doi.org/10.1080/13658816.2015.1137579",
+            "abstract": "When conducting research within a framework of Geographic Information Science (GISc), the scientific validity of this work can be argued as highly dependent upon the extent to which the methods employed are reproducible, and that, in the strictest sense, can only be fully achieved by implementing transparent workflows that utilize both open source software and openly available data. After considering the scientific implications of non-reproducible methods, we provide a review of both open source Geographic Information Systems (GIS) and openly available data, before describing an integrated model for Open GISc. We conclude with a critical review of this embryonic paradigm, with directions for future development in supporting spatial data infrastructure.",
+            "accessed": {
                 "date-parts": [
                     [
-                        2015
+                        2022,
+                        4,
+                        9
                     ]
                 ]
             },
-            "note": "ISBN 978-1498716963",
-            "publisher": "Chapman; Hall/CRC",
-            "publisher-place": "Boca Raton, Florida",
-            "title": "Dynamic documents with R and knitr",
+            "author": [
+                {
+                    "family": "Singleton",
+                    "given": "Alex David"
+                },
+                {
+                    "family": "Spielman",
+                    "given": "Seth"
+                },
+                {
+                    "family": "Brunsdon",
+                    "given": "Chris"
+                }
+            ],
+            "container-title": "International Journal of Geographical Information Science",
+            "id": "singleton_establishing_2016",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016,
+                        8
+                    ]
+                ]
+            },
+            "keyword": "gf0604, gf0604 2022-i, gis, reproducible research",
+            "note": "Publisher: Taylor & Francis _eprint: https://doi.org/10.1080/13658816.2015.1137579",
+            "page": "1507-1521",
+            "title": "Establishing a framework for Open Geographic Information science",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "ISBN": "978-0-367-14398-5 978-0-367-14402-9",
+            "abstract": "\"Brings together the skills and tools needed for doing and presenting computational research. Using straightforward examples, the book takes you through an entire reproducible research workflow\"–",
+            "author": [
+                {
+                    "family": "Gandrud",
+                    "given": "Christopher"
+                }
+            ],
+            "collection-title": "The R series",
+            "edition": "Third edition",
+            "id": "gandrud_reproducible_2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "keyword": "gf0604, gf0604 2022-i, r, reproducible research, rstudio",
+            "publisher": "CRC Press",
+            "publisher-place": "Boca Raton, FL",
+            "title": "Reproducible research with R and RStudio",
             "type": "book"
         },
         {
