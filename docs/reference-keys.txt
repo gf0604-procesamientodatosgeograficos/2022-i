@@ -1,5 +1,6 @@
 fig:cli-ubuntu
 fig:gui-ubuntu
+fig:espectro-reproducibilidad
 pensamiento-computacional
 resumen
 diapositivas

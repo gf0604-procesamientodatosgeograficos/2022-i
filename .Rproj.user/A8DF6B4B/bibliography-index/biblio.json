@@ -1,6 +1,41 @@
 {
     "sources": [
         {
+            "DOI": "10.1126/science.1213847",
+            "URL": "https://www.science.org/doi/10.1126/science.1213847",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2022,
+                        4,
+                        10
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "container-title": "Science",
+            "id": "peng_reproducible_2011",
+            "issue": "6060",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011,
+                        12
+                    ]
+                ]
+            },
+            "note": "Publisher: American Association for the Advancement of Science",
+            "page": "1226-1227",
+            "title": "Reproducible Research in Computational Science",
+            "type": "article-journal",
+            "volume": "334"
+        },
+        {
             "DOI": "10.1080/13658816.2015.1137579",
             "ISSN": "1365-8816",
             "URL": "https://doi.org/10.1080/13658816.2015.1137579",
