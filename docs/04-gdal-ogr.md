@@ -290,8 +290,4 @@ ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-g
 ## Recursos de interés
 Codecademy. (s. f.). *Command Line Tutorial: Learn The Command Line*. Codecademy. Recuperado 19 de marzo de 2022, de https://www.codecademy.com/learn/learn-the-command-line
 
-Gandhi, U. (2020). Mastering GDAL Tools. *Spatial Thoughts*. https://spatialthoughts.com/courses/mastering-gdal-tools/
-
-Pebesma, E., Wagner, W., Verbesselt, J., Goor, E., Briese, C., & Neteler, M. (2016). *OpenEO: a GDAL for Earth Observation Analytics*. https://r-spatial.org/2016/11/29/openeo.html
-
 *SS64 Command line reference*. (s. f.). Recuperado 3 de abril de 2022, de https://ss64.com/
