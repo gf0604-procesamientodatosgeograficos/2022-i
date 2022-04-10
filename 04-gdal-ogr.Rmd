@@ -1,4 +1,4 @@
-# GDAL/OGR: biblioteca para lectura y escritura de datos geoespaciales
+# Ejemplo de interfaz de línea de comandos - GDAL/OGR: biblioteca para lectura y escritura de datos geoespaciales
 
 ## Resumen
 Se introduce la biblioteca GDAL/OGR para lectura y escritura de datos geoespaciales y se muestran varios ejemplos de su uso a través de los programas para la línea de comandos del sistema operativo.

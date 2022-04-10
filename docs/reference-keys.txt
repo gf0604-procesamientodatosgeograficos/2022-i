@@ -15,7 +15,7 @@ interfaces-de-línea-de-comandos
 interfaces-gráficas-de-usuario
 interfaces-naturales-de-usuario
 recursos-de-interés-1
-gdalogr-biblioteca-para-lectura-y-escritura-de-datos-geoespaciales
+ejemplo-de-interfaz-de-línea-de-comandos---gdalogr-biblioteca-para-lectura-y-escritura-de-datos-geoespaciales
 resumen-3
 trabajo-previo
 lecturas
