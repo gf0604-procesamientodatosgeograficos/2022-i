@@ -273,13 +273,99 @@ ogr2ogr -t_srs EPSG:4326 -makevalid cantones-wgs84.gpkg WFS:"http://geos.snitcr.
 </h3>
 <ol style="list-style-type: decimal">
 <li>De la capa de países de Natural Earth, extraiga los registros con población estimada superior a mil millones. En la capa resultante, incluya solamente los campos de nombre del país en español y población estimada. ¿Cuál opción debe utilizar para especificar los campos que desea incluir en el archivo de salida?</li>
+</ol>
+<pre class="shell"><code># La opción -select especifica la lista de campos que se copian al archivo de salida
+ogr2ogr -select "NAME_ES, POP_EST" -where "POP_EST &gt;= 1000000000" paises-muy-poblados.gpkg ne_110m_admin_0_countries.shp</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li>De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones de las provincia de Guanacaste, Puntarenas y Limón.</li>
+</ol>
+<pre class="shell"><code>ogr2ogr -where "provincia = 'Guanacaste'" cantones-guanacaste.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li>De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2.</li>
+</ol>
+<pre class="shell"><code>ogr2ogr -where "area &gt;= 2000" cantones-grandes.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li>De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de la provincia de Limón.</li>
+</ol>
+<pre class="shell"><code># El operador lógico AND se utiliza para buscar los registros que cumplen dos condiciones simultáneamente
+ogr2ogr -where "area &gt;= 2000 AND provincia = 'Limón'" cantones-grandes-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
+<ol start="5" style="list-style-type: decimal">
 <li>De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de las provincias de Guanacaste, Puntarenas y Limón.</li>
+</ol>
+<pre class="shell"><code># En este caso, deben utilizarse paréntesis para alterar el orden de precedencia de los operadores lógicos AND y OR
+ogr2ogr -where "area &gt;= 2000 AND (provincia = 'Guanacaste' OR provincia = 'Puntarenas' OR provincia = 'Limón')" cantones-grandes-guanacaste-puntarenas-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
+<ol start="6" style="list-style-type: decimal">
 <li>De la capa de cantones de Costa Rica, extraiga en un archivo GML, los cantones de Guanacaste, con la excepción de Liberia.</li>
 </ol>
-<!-- #### Programas para datos raster --><!-- ##### gdalinfo --><!-- El programa [gdalinfo](https://gdal.org/programs/gdalinfo.html) despliega información acerca de una fuente de datos raster. --><!-- Los siguientes comandos trabajan con la capa global de altitud de la base de datos climática [WorldClim](https://www.worldclim.org/). --><!-- - Descargue en su carpeta de trabajo la capa de altitud desde la dirección [https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip](https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip). --><!-- - Descomprima el archivo ZIP. --><!-- - Con una herramienta de escritorio (ej. QGIS), visualice la capa descomprimida. --><!-- - Desde una interfaz de línea de comandos (ej. OSGeo4W Shell), ubíquese en la carpeta que creó y ejecute los siguientes comandos para obtener información sobre la capa: --><!-- ```shell --><!-- # Información sobre la capa --><!-- gdalinfo -stats wc2.1_30s_elev.tif --><!-- ``` --><!-- ``` --><!-- Driver: GTiff/GeoTIFF --><!-- Files: wc2.1_30s_elev.tif --><!-- Size is 43200, 21600 --><!-- Coordinate System is: --><!-- GEOGCRS["WGS 84", --><!--     DATUM["World Geodetic System 1984", --><!--         ELLIPSOID["WGS 84",6378137,298.257223563, --><!--             LENGTHUNIT["metre",1]]], --><!--     PRIMEM["Greenwich",0, --><!--         ANGLEUNIT["degree",0.0174532925199433]], --><!--     CS[ellipsoidal,2], --><!--         AXIS["geodetic latitude (Lat)",north, --><!--             ORDER[1], --><!--             ANGLEUNIT["degree",0.0174532925199433]], --><!--         AXIS["geodetic longitude (Lon)",east, --><!--             ORDER[2], --><!--             ANGLEUNIT["degree",0.0174532925199433]], --><!--     ID["EPSG",4326]] --><!-- Data axis to CRS axis mapping: 2,1 --><!-- Origin = (-180.000000000000000,90.000000000000000) --><!-- Pixel Size = (0.008333333333333,-0.008333333333333) --><!-- Metadata: --><!--   AREA_OR_POINT=Area --><!-- Image Structure Metadata: --><!--   COMPRESSION=DEFLATE --><!--   INTERLEAVE=BAND --><!-- Corner Coordinates: --><!-- Upper Left  (-180.0000000,  90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"N) --><!-- Lower Left  (-180.0000000, -90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"S) --><!-- Upper Right ( 180.0000000,  90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"N) --><!-- Lower Right ( 180.0000000, -90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"S) --><!-- Center      (   0.0000000,   0.0000000) (  0d 0' 0.01"E,  0d 0' 0.01"N) --><!-- Band 1 Block=43200x1 Type=Int16, ColorInterp=Gray --><!--   Min=-415.000 Max=8424.000  --><!--   Minimum=-415.000, Maximum=8424.000, Mean=nan, StdDev=nan --><!--   NoData Value=-32768 --><!--   Metadata: --><!--     STATISTICS_MAXIMUM=8424 --><!--     STATISTICS_MEAN=1.#SNAN --><!--     STATISTICS_MINIMUM=-415 --><!--     STATISTICS_STDDEV=1.#SNAN --><!-- ``` --><!-- ##### gdalwarp --><!-- El programa [gdalwarp](https://gdal.org/programs/gdalwarp.html) se utiliza para reproyectar y transformar datos raster. --><!-- - Recorte la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica: --><!-- ```shell --><!-- # Recorte de la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica --><!-- gdalwarp \ --><!--   -dstnodata -9999 \ --><!--   -tr 0.00833333 0.00833333 -q \ --><!--   -cutline 'cantones-wgs84.gpkg' -crop_to_cutline wc2.1_30s_elev.tif altitud-cr.tif --><!-- # Información sobre la capa de altitud de Costa Rica --><!-- gdalinfo -stats altitud-cr.tif --><!-- ``` -->
+<pre class="shell"><code># El operador NOT se utiliza para excluir el cantón de Liberia. Se usa el formato GeoJSON debido a que GML presentó problemas.
+ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-guanacaste-excepto-liberia.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
+<!-- #### Programas para datos raster -->
+<!-- ##### gdalinfo -->
+<!-- El programa [gdalinfo](https://gdal.org/programs/gdalinfo.html) despliega información acerca de una fuente de datos raster. -->
+<!-- Los siguientes comandos trabajan con la capa global de altitud de la base de datos climática [WorldClim](https://www.worldclim.org/). -->
+<!-- - Descargue en su carpeta de trabajo la capa de altitud desde la dirección [https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip](https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_30s_elev.zip). -->
+<!-- - Descomprima el archivo ZIP. -->
+<!-- - Con una herramienta de escritorio (ej. QGIS), visualice la capa descomprimida. -->
+<!-- - Desde una interfaz de línea de comandos (ej. OSGeo4W Shell), ubíquese en la carpeta que creó y ejecute los siguientes comandos para obtener información sobre la capa: -->
+<!-- ```shell -->
+<!-- # Información sobre la capa -->
+<!-- gdalinfo -stats wc2.1_30s_elev.tif -->
+<!-- ``` -->
+<!-- ``` -->
+<!-- Driver: GTiff/GeoTIFF -->
+<!-- Files: wc2.1_30s_elev.tif -->
+<!-- Size is 43200, 21600 -->
+<!-- Coordinate System is: -->
+<!-- GEOGCRS["WGS 84", -->
+<!--     DATUM["World Geodetic System 1984", -->
+<!--         ELLIPSOID["WGS 84",6378137,298.257223563, -->
+<!--             LENGTHUNIT["metre",1]]], -->
+<!--     PRIMEM["Greenwich",0, -->
+<!--         ANGLEUNIT["degree",0.0174532925199433]], -->
+<!--     CS[ellipsoidal,2], -->
+<!--         AXIS["geodetic latitude (Lat)",north, -->
+<!--             ORDER[1], -->
+<!--             ANGLEUNIT["degree",0.0174532925199433]], -->
+<!--         AXIS["geodetic longitude (Lon)",east, -->
+<!--             ORDER[2], -->
+<!--             ANGLEUNIT["degree",0.0174532925199433]], -->
+<!--     ID["EPSG",4326]] -->
+<!-- Data axis to CRS axis mapping: 2,1 -->
+<!-- Origin = (-180.000000000000000,90.000000000000000) -->
+<!-- Pixel Size = (0.008333333333333,-0.008333333333333) -->
+<!-- Metadata: -->
+<!--   AREA_OR_POINT=Area -->
+<!-- Image Structure Metadata: -->
+<!--   COMPRESSION=DEFLATE -->
+<!--   INTERLEAVE=BAND -->
+<!-- Corner Coordinates: -->
+<!-- Upper Left  (-180.0000000,  90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"N) -->
+<!-- Lower Left  (-180.0000000, -90.0000000) (180d 0' 0.00"W, 90d 0' 0.00"S) -->
+<!-- Upper Right ( 180.0000000,  90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"N) -->
+<!-- Lower Right ( 180.0000000, -90.0000000) (180d 0' 0.00"E, 90d 0' 0.00"S) -->
+<!-- Center      (   0.0000000,   0.0000000) (  0d 0' 0.01"E,  0d 0' 0.01"N) -->
+<!-- Band 1 Block=43200x1 Type=Int16, ColorInterp=Gray -->
+<!--   Min=-415.000 Max=8424.000  -->
+<!--   Minimum=-415.000, Maximum=8424.000, Mean=nan, StdDev=nan -->
+<!--   NoData Value=-32768 -->
+<!--   Metadata: -->
+<!--     STATISTICS_MAXIMUM=8424 -->
+<!--     STATISTICS_MEAN=1.#SNAN -->
+<!--     STATISTICS_MINIMUM=-415 -->
+<!--     STATISTICS_STDDEV=1.#SNAN -->
+<!-- ``` -->
+<!-- ##### gdalwarp -->
+<!-- El programa [gdalwarp](https://gdal.org/programs/gdalwarp.html) se utiliza para reproyectar y transformar datos raster. -->
+<!-- - Recorte la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica: -->
+<!-- ```shell -->
+<!-- # Recorte de la capa raster de altitud global con el contorno de la capa de cantones de Costa Rica -->
+<!-- gdalwarp \ -->
+<!--   -dstnodata -9999 \ -->
+<!--   -tr 0.00833333 0.00833333 -q \ -->
+<!--   -cutline 'cantones-wgs84.gpkg' -crop_to_cutline wc2.1_30s_elev.tif altitud-cr.tif -->
+<!-- # Información sobre la capa de altitud de Costa Rica -->
+<!-- gdalinfo -stats altitud-cr.tif -->
+<!-- ``` -->
 </div>
 </div>
 <div id="recursos-de-interés-2" class="section level2" number="4.5">
@@ -334,7 +420,7 @@ ogr2ogr -t_srs EPSG:4326 -makevalid cantones-wgs84.gpkg WFS:"http://geos.snitcr.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-04-09.</p>
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-04-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

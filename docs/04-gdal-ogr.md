@@ -172,11 +172,44 @@ ogr2ogr -t_srs EPSG:4326 -makevalid cantones-wgs84.gpkg WFS:"http://geos.snitcr.
 
 ### Ejercicios
 1. De la capa de países de Natural Earth, extraiga los registros con población estimada superior a mil millones. En la capa resultante, incluya solamente los campos de nombre del país en español y población estimada. ¿Cuál opción debe utilizar para especificar los campos que desea incluir en el archivo de salida?
+
+```shell
+# La opción -select especifica la lista de campos que se copian al archivo de salida
+ogr2ogr -select "NAME_ES, POP_EST" -where "POP_EST >= 1000000000" paises-muy-poblados.gpkg ne_110m_admin_0_countries.shp
+```
+
 2. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones de las provincia de Guanacaste, Puntarenas y Limón.
+
+```shell
+ogr2ogr -where "provincia = 'Guanacaste'" cantones-guanacaste.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
+```
+
 3. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2.
+
+```shell
+ogr2ogr -where "area >= 2000" cantones-grandes.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
+```
+
 4. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de la provincia de Limón.
+
+```shell
+# El operador lógico AND se utiliza para buscar los registros que cumplen dos condiciones simultáneamente
+ogr2ogr -where "area >= 2000 AND provincia = 'Limón'" cantones-grandes-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
+```
+
 5. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2 de las provincias de Guanacaste, Puntarenas y Limón.
+
+```shell
+# En este caso, deben utilizarse paréntesis para alterar el orden de precedencia de los operadores lógicos AND y OR
+ogr2ogr -where "area >= 2000 AND (provincia = 'Guanacaste' OR provincia = 'Puntarenas' OR provincia = 'Limón')" cantones-grandes-guanacaste-puntarenas-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
+```
+
 6. De la capa de cantones de Costa Rica, extraiga en un archivo GML, los cantones de Guanacaste, con la excepción de Liberia.
+
+```shell
+# El operador NOT se utiliza para excluir el cantón de Liberia. Se usa el formato GeoJSON debido a que GML presentó problemas.
+ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-guanacaste-excepto-liberia.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
+```
 
 <!-- #### Programas para datos raster -->
 
