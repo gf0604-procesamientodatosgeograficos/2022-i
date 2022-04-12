@@ -9,6 +9,9 @@ fig:md-enlace
 fig:md-imagen
 fig:md-lista-numerada
 fig:md-lista-no-numerada
+fig:git-push-pull
+fig:git-push-pull-commit
+fig:git-stage-commit-push
 pensamiento-computacional
 resumen
 diapositivas
@@ -63,3 +66,13 @@ listas-no-numeradas
 otros-elementos-de-sintaxis
 ejercicios-1
 recursos-de-interés-4
+git-sistema-de-control-de-versiones
+trabajo-previo-2
+tutoriales-2
+otros-1
+resumen-6
+descripción-general-2
+como-funciona-git
+ejemplos-de-uso-1
+clonación-de-un-repositorio-remoto-y-sincronización-de-los-cambios-efectuados-localmente
+recursos-de-interés-5
