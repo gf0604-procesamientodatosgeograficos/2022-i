@@ -104,8 +104,18 @@ Se definen con guiones (`-`) o asteriscos (`*`) antes de cada elemento.
 Para conocer otros elementos de la sintaxis de Markdown, se recomienda revisar en detalle la [Guía de referencia de Markdown](https://www.markdownguide.org/).
 
 ## Ejercicios
-1. Cree un documento Markdown en RStudio y escriba elementos de sintaxis Markdown como los descritos en la sección anterior.
-2. Cree un repositorio y un archivo Markdown en [GitHub](https://github.com/) y repita el ejercicio anterior.
+1. Cree un documento Markdown llamado `README.md`, en RStudio, y escriba en este un breve perfil académico (*curriculum* académico).
+    - Incluya información como: nombre, fotografía, datos de contacto, áreas de interés, carrera, cursos aprobados, publicaciones, etc.
+    - Puede usar información ficticia (**no incluya datos confidenciales o sensibles**).
+    - Especifique la fuente de las imágenes (y de cualquier otra información para la que sea necesario) y no utilice imágenes para las que no tiene autorización. Considere utilizar sitios con imágenes con licencias abiertas (ej. [Wikimedia Commons](https://commons.wikimedia.org/), [Unsplash](https://unsplash.com/), [FreeImages](https://www.freeimages.com/)).
+    - Asegúrese de utilizar los siguientes elementos de sintaxis Markdown:
+        - Varios niveles de encabezados.
+        - Negritas e itálicas.
+        - Listas.
+        - Enlaces a sitios web.
+        - Imágenes (al menos una local y una remota).
+2. Cree un repositorio en [GitHub](https://github.com/) llamado `perfil-academico` y suba a este el documento que creó en el paso 1.
+3. Cree un sitio web en [GitHub Pages](https://pages.github.com/) con el repositorio creado en el paso 2.
 
 ## Recursos de interés
 Carrera Arias, F. J. (2020). *How to Install R on Windows, Mac OS X, and Ubuntu Tutorial*. DataCamp Community. https://www.datacamp.com/community/tutorials/installing-R-windows-mac-ubuntu
