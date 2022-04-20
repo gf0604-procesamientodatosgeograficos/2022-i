@@ -207,7 +207,7 @@ ogr2ogr -where "area >= 2000 AND (provincia = 'Guanacaste' OR provincia = 'Punta
 6. De la capa de cantones de Costa Rica, extraiga en un archivo GeoPackage, los cantones de Guanacaste, con la excepción de Liberia.
 
 ```shell
-# El operador NOT se utiliza para excluir el cantón de Liberia. Se usa el formato GeoJSON debido a que GML presentó problemas.
+# El operador NOT se utiliza para excluir el cantón de Liberia.
 ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-guanacaste-excepto-liberia.gpkg WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
 ```
 
