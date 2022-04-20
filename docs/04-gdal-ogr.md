@@ -181,7 +181,7 @@ ogr2ogr -select "NAME_ES, POP_EST" -where "POP_EST >= 1000000000" paises-muy-pob
 2. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones de las provincia de Guanacaste, Puntarenas y Limón.
 
 ```shell
-ogr2ogr -where "provincia = 'Guanacaste'" cantones-guanacaste.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
+ogr2ogr -where "provincia = 'Guanacaste' OR provincia = 'Puntarenas' OR provincia = 'Limón'" cantones-guanacaste-puntarenas-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
 ```
 
 3. De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2.
@@ -204,11 +204,11 @@ ogr2ogr -where "area >= 2000 AND provincia = 'Limón'" cantones-grandes-limon.ge
 ogr2ogr -where "area >= 2000 AND (provincia = 'Guanacaste' OR provincia = 'Puntarenas' OR provincia = 'Limón')" cantones-grandes-guanacaste-puntarenas-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
 ```
 
-6. De la capa de cantones de Costa Rica, extraiga en un archivo GML, los cantones de Guanacaste, con la excepción de Liberia.
+6. De la capa de cantones de Costa Rica, extraiga en un archivo GeoPackage, los cantones de Guanacaste, con la excepción de Liberia.
 
 ```shell
 # El operador NOT se utiliza para excluir el cantón de Liberia. Se usa el formato GeoJSON debido a que GML presentó problemas.
-ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-guanacaste-excepto-liberia.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
+ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-guanacaste-excepto-liberia.gpkg WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"
 ```
 
 <!-- #### Programas para datos raster -->

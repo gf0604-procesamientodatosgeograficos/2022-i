@@ -281,7 +281,7 @@ ogr2ogr -select "NAME_ES, POP_EST" -where "POP_EST &gt;= 1000000000" paises-muy-
 <ol start="2" style="list-style-type: decimal">
 <li>De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones de las provincia de Guanacaste, Puntarenas y Limón.</li>
 </ol>
-<pre class="shell"><code>ogr2ogr -where "provincia = 'Guanacaste'" cantones-guanacaste.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
+<pre class="shell"><code>ogr2ogr -where "provincia = 'Guanacaste' OR provincia = 'Puntarenas' OR provincia = 'Limón'" cantones-guanacaste-puntarenas-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>De la capa de cantones de Costa Rica, extraiga en un archivo GeoJSON los cantones con área mayor o igual a 2000 km2.</li>
 </ol>
@@ -297,10 +297,10 @@ ogr2ogr -where "area &gt;= 2000 AND provincia = 'Limón'" cantones-grandes-limon
 <pre class="shell"><code># En este caso, deben utilizarse paréntesis para alterar el orden de precedencia de los operadores lógicos AND y OR
 ogr2ogr -where "area &gt;= 2000 AND (provincia = 'Guanacaste' OR provincia = 'Puntarenas' OR provincia = 'Limón')" cantones-grandes-guanacaste-puntarenas-limon.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>De la capa de cantones de Costa Rica, extraiga en un archivo GML, los cantones de Guanacaste, con la excepción de Liberia.</li>
+<li>De la capa de cantones de Costa Rica, extraiga en un archivo GeoPackage, los cantones de Guanacaste, con la excepción de Liberia.</li>
 </ol>
 <pre class="shell"><code># El operador NOT se utiliza para excluir el cantón de Liberia. Se usa el formato GeoJSON debido a que GML presentó problemas.
-ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-guanacaste-excepto-liberia.geojson WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
+ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-guanacaste-excepto-liberia.gpkg WFS:"http://geos.snitcr.go.cr/be/IGN_5/wfs" "IGN_5:limitecantonal_5k"</code></pre>
 <!-- #### Programas para datos raster -->
 <!-- ##### gdalinfo -->
 <!-- El programa [gdalinfo](https://gdal.org/programs/gdalinfo.html) despliega información acerca de una fuente de datos raster. -->
@@ -420,7 +420,7 @@ ogr2ogr -where "provincia = 'Guanacaste' AND NOT(canton = 'Liberia')" cantones-g
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-04-17.</p>
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-04-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
