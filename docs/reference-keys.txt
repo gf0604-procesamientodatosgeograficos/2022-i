@@ -113,7 +113,6 @@ data-frames
 definición-3
 indexación-2
 operaciones-3
-ejercicios-5
 otros-2
 fechas
 operaciones-4

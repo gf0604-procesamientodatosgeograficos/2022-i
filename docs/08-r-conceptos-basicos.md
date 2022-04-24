@@ -830,8 +830,8 @@ covid
 #> 7  NIC        181        5212      57      5450
 ```
 
-##### Ejercicios
-1. Descargue el archivo del ejemplo anterior (https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv) en su computadora y cárguelo en otro data frame mediante ```read.csv()```.
+Ejercicio:  
+1. Descargue el archivo del ejemplo anterior (https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv) en su computadora y cárguelo en otro data frame mediante ```read.csv()```.  
 
 La función [str()](https://rdrr.io/r/utils/str.html) despliega la estructura de un objeto R.
 
