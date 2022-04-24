@@ -1,4 +1,4 @@
-# R - conceptos básicos
+# R - Conceptos básicos
 
 ## Trabajo previo
 
@@ -700,3 +700,5 @@ Hay una lista de formatos de fechas en [Date Formats in R - R-bloggers](https://
 *Find Open Datasets and Machine Learning Projects | Kaggle*. (s. f.). Recuperado 24 de abril de 2022, de https://www.kaggle.com/datasets
 
 *Newest «r» Questions*. (s. f.). Stack Overflow. Recuperado 24 de abril de 2022, de https://stackoverflow.com/questions/tagged/r
+
+*R Language Definition*. (s. f.). Recuperado 24 de abril de 2022, de https://cran.r-project.org/doc/manuals/r-release/R-lang.html
