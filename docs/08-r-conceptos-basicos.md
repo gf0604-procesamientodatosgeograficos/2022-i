@@ -1,4 +1,4 @@
-# R - Conceptos básicos
+# R - conceptos básicos
 
 ## Trabajo previo
 
