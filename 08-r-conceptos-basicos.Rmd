@@ -1,4 +1,4 @@
-# R: conceptos básicos
+# R - Conceptos básicos
 
 ## Trabajo previo
 
@@ -238,7 +238,465 @@ legend(
 
 ### Ejercicios
 1. Muestre la distribución de pasajeros fallecidos y sobrevivientes por sexo en un gráfico de barras apiladas.  
-2. Muestre la distribución de pasajeros fallecidos y sobrevivientes por sexo en un gráfico de barras agrupadas.  
+2. Muestre la distribución de pasajeros fallecidos y sobrevivientes por sexo en un gráfico de barras agrupadas.
+
+## Tipos de datos
+R puede trabajar con varios [tipos de datos básicos](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Basic-types), entre los que están números, caracteres (i.e. textos) y lógicos. También puede trabajar con [tipos compuestos](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Special-compound-objects), como factores y _data frames_.
+
+R proporciona acceso a los datos a través de objetos. Un objeto es una entidad que tiene asociadas propiedades (i.e. datos) y métodos (i.e. funciones) para manipular esas propiedades. Un objeto puede ser, por ejemplo, un número, una hilera de texto, un vector o una matriz.
+
+Hay muchas formas de crear objetos en R. Una de las más sencillas es con los operadores de asignación. Estos son ```=``` y ```<-``` (o ```->```). Por ejemplo, las siguientes sentencias crean un número, un texto y un vector.
+
+```{r collapse=TRUE}
+# Número
+x <- 10
+x
+
+# Otro número
+20 -> y
+y
+
+# Hilera de caracteres
+nombre <- 'Manuel'
+nombre
+
+# Vector de hileras de caracteres
+dias <- c('Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado')
+dias
+```
+
+Tanto ```x```, como ```nombre``` como ```dias``` son variables. Una variable es una etiqueta que se le asigna a un objeto. Una variable debe comenzar con una letra.
+
+El tipo de una variable puede consultarse con la función [typeof()](https://rdrr.io/r/base/typeof.html). Por ejemplo:
+
+```{r collapse=TRUE}
+typeof(x)
+typeof(y)
+typeof(nombre)
+typeof(dias)
+```
+
+A continuación, se describen con más detalle algunos de los tipos de datos utilizados en el lenguaje R.
+
+### Tipos básicos
+R define [seis tipos de datos básicos](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Basic-types). En esta sección, se describen los más utilizados durante este curso.
+
+#### Números
+Pueden ser enteros (```integer```) o decimales (```double```). Se utilizan en diversos tipos de operaciones, incluyendo las aritméticas (ej. suma, resta, multiplicación, división).
+
+```{r collapse=TRUE}
+# Declaración de variables numéricas
+x <- 5
+y <- 0.5
+
+# Suma
+x + y
+
+# Tipos de datos numéricos
+typeof(x)
+typeof(y)
+typeof(x + y)
+```
+
+Para declarar números enteros puede usarse el sufijo ```L``` o la función [as.integer()](https://rdrr.io/r/base/integer.html).
+
+```{r collapse=TRUE}
+# Números enteros
+x <- 10L
+y <- as.integer(15)
+
+# Multiplicación
+x * y
+
+# Tipos de datos enteros
+typeof(x)
+typeof(y)
+typeof(x * y)
+```
+
+Nótese que al declararse una variable numérica, ya sea que tenga o no punto decimal, R la considera por defecto de tipo ```double```. Para que se considere de tipo ```integer```, debe utilizarse el sufijo  ```L ``` o la función  ```as.integer()```.
+
+#### Caracteres
+Se utilizan para representar textos. Deben estar encerrados entre comillas simples (```''```) o dobles (```""```).
+
+```{r collapse=TRUE}
+# Hileras de caracteres
+nombre <- "María"
+apellido <- "Pérez"
+
+# Concatenación mediante la función paste()
+paste(nombre, apellido)
+```
+
+#### Lógicos
+Los objetos lógicos (también llamados _booleanos_) tienen dos posibles valores: verdadero (```TRUE```) o falso (```FALSE```).
+
+```{r collapse=TRUE}
+# Variable lógica
+a <- 1 < 2
+a
+
+# Variable lógica
+b <- 1 > 2
+b
+```
+
+Las expresiones lógicas pueden combinarse con operadores como: 
+
+* ```&``` (Y, en inglés _AND_)
+* ```|``` (O, en inglés _OR_)
+* ```!``` (NO, en inglés _NOT_)
+
+```{r collapse=TRUE}
+# Operador lógico AND
+(1 < 2) & (3 < 4)
+
+# Operador lógico OR
+(2 + 2 == 5) | (20 <= 10)
+
+# Operador lógico NOT
+!(2 + 2 == 5)
+```
+
+#### Vectores
+Un [vector](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Vector-objects) es una estructura unidimensional que combina objetos del mismo tipo. 
+
+##### Definición
+Los vectores pueden definirse de varias formas como, por ejemplo, con la función [c()](https://rdrr.io/r/base/c.html) (del inglés _combine_):
+
+```{r collapse=TRUE}
+# Definición de un vector de números
+vector_numeros <- c(1, 7, 32, 45, 57)
+vector_numeros
+
+# Definición de un vector de hileras de caracteres
+vector_nombres <- c("Álvaro", "Ana", "Berta", "Bernardo")
+vector_nombres
+```
+
+Los vectores también pueden crearse con el operador ```:```, el cual especifica una secuencia:
+
+```{r collapse=TRUE}
+# Definición de un vector de números con la secuencia de 1 a 10
+vector_secuencia <- 1:10
+vector_secuencia
+
+# Definición de un vector de números con la secuencia de -5 a 5
+vector_secuencia <- -5:5
+vector_secuencia
+
+# Definición de un vector de números con la secuencia de -0.5 a 3.7
+vector_secuencia <- -0.5:3.7
+vector_secuencia
+```
+
+La función [seq()](https://rdrr.io/r/base/seq.html) también crea un vector con base en una secuencia y permite especificar argumentos como un valor de incremento y la longitud de la secuencia.
+
+```{r collapse=TRUE}
+# Definición de un vector de números con la secuencia de 1 a 10
+vector_secuencia <- seq(1, 10)
+vector_secuencia
+
+# Definición de un vector de números con la secuencia de 0.5 a 15.3, con incremento de 2
+vector_secuencia <- seq(from=0.5, to=15.3, by=2)
+vector_secuencia
+
+# Definición de un vector de números con la secuencia de 1.5 a 9.4, con longitud de 4
+vector_secuencia <- seq(from=1.5, to=9.4, length.out=4)
+vector_secuencia
+```
+
+##### Indexación
+Los elementos de un vector se acceden a través de sus [índices](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Indexing) (i.e. posiciones). La primera posición corresponde al índice 1, la segunda al índice 2 y así sucesivamente. Los índices se especifican entre paréntesis cuadrados (```[]```), ya sea para una posición específica o para un rango de posiciones. También es posible especificar los índices que se desea excluir.
+
+```{r collapse=TRUE}
+# Vector de nombres de países
+paises <- c("Argentina", "Francia", "China", "Australia", "México")
+paises
+
+# Elemento en el índice 3
+paises[3]
+```
+
+El operador ```:``` puede utilizarse para especificar un rango de índices:
+
+```{r collapse=TRUE}
+# Elementos entre los índices 2 y 4 (2, 3 y 4)
+paises[2:4]
+```
+
+Con la función ```c()```, es posible especificar un conjunto de índices particulares:
+
+```{r collapse=TRUE}
+# Elementos entre los índices 1, 4 y 5
+paises[c(1, 4, 5)]
+```
+
+Los números negativos pueden usarse para excluir índices:
+
+```{r collapse=TRUE}
+# Exclusión de los índices 3 y 4
+paises[c(-3, -4)]
+```
+
+Los valores lógicos ```TRUE``` y ```FALSE``` también pueden usarse para incluir y excluir índices de un vector:
+
+```{r collapse=TRUE}
+# Se incluyen los índices 1, 2 y 4; y se excluyen los índices 3 y 5
+paises[c(TRUE, TRUE, FALSE, TRUE, FALSE)]
+```
+
+##### Operaciones
+En los vectores pueden aplicarse operaciones aritméticas:
+
+```{r collapse=TRUE}
+a <- c(1, 3, 5, 7)
+b <- c(2, 4, 6, 8)
+
+# Suma de vectores
+a + b
+
+# Multiplicación de vectores
+a * b
+```
+
+Y también pueden realizarse operaciones relacionales:
+
+```{r collapse=TRUE}
+# Comparación con el operador <
+a < b
+```
+
+#### Matrices
+Una [matriz](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Vector-objects) es una estructura bidimensional de filas y columnas.
+
+##### Definición
+Las matrices se definen mediante la función [matrix()](https://rdrr.io/r/base/matrix.html).
+
+```{r collapse=TRUE}
+# Definición de una matriz de 3 x 3 con elementos de la secuencia 1:9 distribuidos en las columnas
+m <- matrix(1:9, nrow=3, ncol=3)
+m
+
+# Definición de una matriz de 3 x 3 con elementos de la secuencia 1:9 distribuidos en las filas
+m <- matrix(1:9, nrow=3, ncol=3, byrow=TRUE)
+m
+
+# Definición de una matriz de 3 x 2 con nombres para las filas y las columnas
+datos <- c(18, 500, 25, 1000, 30, 2000)
+filas <- c("Ana", "Mario", "Laura")
+columnas <- c("Edad", "Salario")
+
+m <- matrix(datos, nrow=3, ncol=2, byrow=TRUE, dimnames=list(filas, columnas))
+m
+```
+La función [list()](https://rdrr.io/r/base/list.html) se utiliza, en este caso, para combinar vectores. En general, se usa para combinar datos de cualquier tipo.
+
+##### Indexación
+La indexación de matrices es similar a la de vectores, pero deben especificarse índices tanto para filas como para columnas.
+
+```{r collapse=TRUE}
+# Elemento en la posición [2,2] (segunda fila, segunda columna)
+m[2, 2]
+
+# Elementos de la primera fila
+m[1,]
+
+# Elementos de la segunda columna
+m[, 2]
+
+# Elementos de las filas 1 y 2
+m[1:2, ]
+
+# Elementos de la fila "Mario"
+m["Mario", ]
+
+# Elementos de la columna "Salario"
+m[, "Salario"]
+```
+
+##### Operaciones
+De manera similar a los vectores, en las matrices pueden realizarse operaciones aritméticas y relacionales.
+
+```{r collapse=TRUE}
+a <- matrix(1:4, nrow=2, ncol=2)
+a
+
+b <- matrix(5:8, nrow=2, ncol=2)
+b
+
+# Suma de matrices
+a + b
+
+# Multiplicación de matrices
+a * b
+
+# Comparación de matrices con el operador >
+a > b
+```
+
+### Tipos compuestos
+
+#### Factores
+Los factores se utilizan para representar datos categóricos. Un factor corresponde a un conjunto de categorías correspondientes a un concepto (ej. ["Sí", "No"], ["Casado", "Soltero"], ["Alto", "Medio", "Bajo"]). 
+
+Internamente, los factores se representan en R como números enteros con etiquetas asociadas. A pesar de que los factores parecen (y pueden funcionar como) hileras de caracteres, en realidad son números y debe tenerse cuidado de no manejarlos como caracteres.
+
+Los elementos de un factor se denominan niveles (*levels*) y, por defecto, se almacenan en orden alfabético.
+
+##### Definición
+Un factor se crea con la función [factor()](https://rdrr.io/r/base/factor.html).
+
+```{r collapse=TRUE}
+# Factor de valores de sexo
+sexo <- factor(c("Masculino", "Femenino", "Femenino", "Masculino"))
+```
+
+##### Operaciones
+R proporciona una gran variedad de funciones para manejar factores. Seguidamente, se ejemplifican algunas de estas.
+
+```{r collapse=TRUE}
+# Etiquetas de los niveles
+levels(sexo)
+
+# Cantidad de niveles
+nlevels(sexo)
+
+# Conteo de elementos de cada uno de los niveles del factor
+table(sexo)
+```
+
+#### Data Frames
+Los _data frames_ son estructuras bidimensionales compuestas por varios vectores, de manera similar a una matriz. Por lo general, las filas de la matriz corresponden a *observaciones* (o _cases_) y las columnas a *variables*. La definición de un data frame puede incluir nombres para cada observación y para cada variable. Los data frames implementan un conjunto de funciones similares a las de una hoja electrónica o la tabla de una base de datos relacional. Son fundamentales para el manejo de datos en R.
+
+##### Definición
+La función [data.frame()](https://rdrr.io/r/base/data.frame.html) crea un data frame a partir de vectores que serán las columnas del data frame.
+
+```{r collapse=TRUE}
+# Vector de nombres de países
+paises <- c("PAN", "CRI", "NIC", "SLV", "HND", "GTM", "BLZ", "DOM")
+
+# Vector de cantidades de habitantes de cada país (en millones)
+poblaciones <- c(4.1, 5.0, 6.2, 6.4, 9.2, 16.9, 0.3, 10.6)
+
+# Creación de un data frame a partir de los dos vectores
+poblaciones_paises <- 
+  data.frame(
+    pais = paises, 
+    poblacion = poblaciones
+  )
+
+# Impresión del data frame
+poblaciones_paises
+```
+
+##### Indexación
+Los datos de un data frame pueden accederse principalmente de dos formas. La primera es mediante la misma sintaxis ```[fila, columna]``` que se utiliza en las matrices.
+
+```{r collapse=TRUE}
+# Fila 1
+poblaciones_paises[1, ]
+
+# Filas 1, 5 y 7
+poblaciones_paises[c(1, 5, 7), ]
+
+# Columna 2
+poblaciones_paises[, 2]
+
+# Fila 1, columna 2
+poblaciones_paises[1, 2]
+
+# Filas 1:4, columna 2
+poblaciones_paises[1:4, 2]
+```
+
+Además, mediante el operador ```$```, es posible acceder a las columnas (i.e. variables) del data frame.
+
+```{r collapse=TRUE}
+# Columna de nombres de países
+poblaciones_paises$pais
+
+# Modificación de los valores de toda una columna
+poblaciones_paises$poblacion = poblaciones_paises$poblacion*2
+poblaciones_paises
+```
+
+##### Operaciones
+R proporciona una gran variedad de funciones para manejar data frames. Las siguientes son algunas de las más utilizadas.
+
+La función [read.table()](https://rdrr.io/r/utils/read.table.html) lee los datos contenidos en un archivo de texto y los retorna en un data frame. [read.csv()](https://rdrr.io/r/utils/read.table.html) es una función derivada, con valores por defecto orientados a los archivos de valores separados por comas (CSV, _Comma Separated Values_). Como argumento principal, ```read.csv()``` recibe la ruta del archivo CSV, el cual puede encontrarse en un disco local, en la Web o en otra ubicación.
+
+```{r collapse=TRUE}
+# Lectura de archivo CSV ubicado en la Web
+covid <- 
+  read.csv("https://raw.githubusercontent.com/tpb728O-programaciongeoespacialr/2021ii/main/datos/cepredenac/covid/04_22_21_CSV_GENERAL_CENTROAMERICA.csv")
+
+covid
+```
+
+##### Ejercicios
+1. Descargue el archivo del ejemplo anterior (https://raw.githubusercontent.com/tpb728O-programaciongeoespacialr/2021ii/main/datos/cepredenac/covid/04_22_21_CSV_GENERAL_CENTROAMERICA.csv) en su computadora y cárguelo en otro data frame mediante ```read.csv()```.
+
+La función [str()](https://rdrr.io/r/utils/str.html) despliega la estructura de un objeto R.
+
+```{r collapse=TRUE}
+# Estructura del data frame
+str(poblaciones_paises)
+```
+
+La función [summary()](https://rdrr.io/r/base/summary.html) proporciona un resumen de los contenidos de un data frame:
+
+```{r collapse=TRUE}
+# Resumen de los contenidos del data frame
+summary(poblaciones_paises)
+```
+
+La función [View()](https://rdrr.io/r/utils/View.html) invoca un visor de datos que permite visualizar un objeto R en un formato de tabla en una hoja de cálculo. Ejecute en su computadora la siguiente línea de código para apreciar el funcionamiento de ```View()```.
+
+```{r eval=FALSE}
+# Vista de los casos de COVID-19
+View(covid, "Casos de COVID-19 en Centramérica")
+```
+
+### Otros
+#### Fechas
+Las fecha se manejan en R mediante un tipo especial que permite realizar operaciones como diferencias, agrupamientos y otras. Internamente, las fechas en R se almacenan como un número que representa la cantidad de días transcurridos desde el 1 de enero de 1970 (1970-01-01).
+
+##### Operaciones
+La función [Sys.Date()](https://rdrr.io/r/base/Sys.time.html) retorna la fecha actual.
+
+```{r collapse=TRUE}
+# Fecha actual
+fecha_actual <- Sys.Date()
+fecha_actual
+
+# Tipo de datos
+typeof(fecha_actual)
+
+# Clase
+class(fecha_actual)
+```
+
+La función [as.Date()](https://rdrr.io/r/base/as.Date.html) convierte datos entre los tipos fecha y carácter, de acuerdo con un formato.
+
+```{r collapse=TRUE}
+# Conversión de fecha en formato año-mes-día
+fecha_caracter_01 <- "2020-01-01"
+fecha_01 <- as.Date(fecha_caracter_01, format="%Y-%m-%d")
+fecha_01
+
+# Conversión de fecha en formato día/mes/año
+fecha_caracter_02 <- "31/01/2020"
+fecha_02 <- as.Date(fecha_caracter_02, format="%d/%m/%Y")
+fecha_02
+
+# Diferencia entre fechas
+fecha_02 - fecha_01
+```
+
+Hay una lista de formatos de fechas en [Date Formats in R - R-bloggers](https://www.r-bloggers.com/date-formats-in-r/).
 
 ## Recursos de interés
+*Find Open Datasets and Machine Learning Projects | Kaggle*. (s. f.). Recuperado 24 de abril de 2022, de https://www.kaggle.com/datasets
 
+*Newest «r» Questions*. (s. f.). Stack Overflow. Recuperado 24 de abril de 2022, de https://stackoverflow.com/questions/tagged/r
