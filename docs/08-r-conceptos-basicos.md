@@ -817,7 +817,7 @@ La función [read.table()](https://rdrr.io/r/utils/read.table.html) lee los dato
 ```r
 # Lectura de archivo CSV ubicado en la Web
 covid <- 
-  read.csv("https://raw.githubusercontent.com/tpb728O-programaciongeoespacialr/2021ii/main/datos/cepredenac/covid/04_22_21_CSV_GENERAL_CENTROAMERICA.csv")
+  read.csv("https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv")
 
 covid
 #>   pais fallecidos recuperados activos positivos
@@ -831,7 +831,7 @@ covid
 ```
 
 ##### Ejercicios
-1. Descargue el archivo del ejemplo anterior (https://raw.githubusercontent.com/tpb728O-programaciongeoespacialr/2021ii/main/datos/cepredenac/covid/04_22_21_CSV_GENERAL_CENTROAMERICA.csv) en su computadora y cárguelo en otro data frame mediante ```read.csv()```.
+1. Descargue el archivo del ejemplo anterior (https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv) en su computadora y cárguelo en otro data frame mediante ```read.csv()```.
 
 La función [str()](https://rdrr.io/r/utils/str.html) despliega la estructura de un objeto R.
 
