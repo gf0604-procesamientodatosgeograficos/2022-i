@@ -8,8 +8,10 @@ La siguiente es la lista de conjuntos de datos utilizados en el curso, ordenados
 
 ### Delimitación territorial administrativa {-}
 
-- [Provincias](https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/ign/delimitacion-territorial-administrativa/provincias.geojson)
-- [Cantones](https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/ign/delimitacion-territorial-administrativa/cantones.geojson)
-- [Distritos](https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/ign/delimitacion-territorial-administrativa/distritos.geojson)
+- [Provincias](datos/ign/delimitacion-territorial-administrativa/provincias.geojson)
+- [Cantones](datos/ign/delimitacion-territorial-administrativa/cantones.geojson)
+- [Distritos](datos/ign/delimitacion-territorial-administrativa/distritos.geojson)
 
+## Centro de Coordinación para la Prevención de los Desastres en Centroamérica y República Dominicana (Cepredenac) {-}
 
+- [Covid](datos/cepredenac/covid/)
