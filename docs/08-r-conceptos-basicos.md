@@ -1,0 +1,293 @@
+# R: conceptos básicos
+
+## Trabajo previo
+
+### Lecturas
+Grolemund, G., & Wickham, H. (2014). *Hands-On Programming with R: Write Your Own Functions And Simulations*. O’Reilly Media. https://rstudio-education.github.io/hopr/
+
+## Resumen
+En esta lección, se estudiarán los conceptos básicos del lenguaje de programación R, incluyendo:
+
+- Características generales de R.
+- El ambiente de desarrollo RStudio.
+- Funciones y paquetes.
+- Tipos de datos.
+
+## Características generales
+[R](https://www.r-project.org/) es un lenguaje de programación enfocado en análisis estadístico. Es ampliamente utilizado en diversas áreas de investigación, entre las que pueden mencionarse [aprendizaje automático (_machine learning_)](https://en.wikipedia.org/wiki/Machine_learning), [ciencia de datos (_data science_)](https://en.wikipedia.org/wiki/Data_science) y [_big data_](https://en.wikipedia.org/wiki/Big_data), con aplicaciones en campos como biomedicina, bioinformática y finanzas, entre muchos otros. Fue creado por Ross Ihaka y Robert Gentleman en la Universidad de Auckland, Nueva Zelanda, en 1993.
+
+Algunas de las principales características de este lenguaje son:
+
+* Es [interpretado](https://en.wikipedia.org/wiki/Interpreter_(computing)): las instrucciones se traducen una por una a [lenguaje máquina](https://en.wikipedia.org/wiki/Machine_code), a diferencia de los [lenguajes compilados](https://en.wikipedia.org/wiki/Compiler), que traducen de manera conjunta las instrucciones de una unidad completa (ej. un programa o una biblioteca). Los lenguajes interpretados tienden a ser más lentos que los compilados, pero también son más flexibles.
+* Es [multiplataforma](https://en.wikipedia.org/wiki/Cross-platform_software): puede ejecutarse en los sistemas operativos más populares (ej. Microsoft Windows, macOS, Linux).
+* Tiene un [sistema de tipos de datos dinámico](https://pythonconquerstheuniverse.wordpress.com/2009/10/03/static-vs-dynamic-typing-of-programming-languages/): las variables pueden tomar diferentes tipos de datos (ej. textuales, numéricos) durante la ejecución del programa, a diferencia del caso de un sistema de tipos de datos estático, en el que las variables solo pueden tener un tipo de datos.
+* Soporta varios [paradigmas de programación](https://en.wikipedia.org/wiki/Programming_paradigm): los paradigmas son estilos o enfoques teóricos de programación. R soporta los paradigmas de [programación funcional](https://en.wikipedia.org/wiki/Functional_programming), [programación orientada a objetos](https://en.wikipedia.org/wiki/Object-oriented_programming), [programación imperativa](https://en.wikipedia.org/wiki/Imperative_programming) y [programación procedimental](https://en.wikipedia.org/wiki/Procedural_programming).
+
+R es un proyecto de [software libre](https://en.wikipedia.org/wiki/Free_software) que se comparte mediante una licencia [GNU General Public Licence (GNU GPL)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html). Esta característica permite que la funcionalidad original de R pueda ser ampliada mediante bibliotecas o paquetes desarrollados por la comunidad de programadores.
+
+Para programar en R, puede utilizarse una interfaz de línea de comandos, editores de texto (ej. [Visual Studio Code](https://code.visualstudio.com/), [Vim](https://www.vim.org/)) y también ambientes de desarrollo integrados (IDE, _integrated development environment_) como [Jupyter](https://jupyter.org/) o [RStudio](https://rstudio.com/).
+
+## El ambiente de desarrollo RStudio
+[RStudio](https://www.rstudio.com/) es el IDE más popular para el lenguaje R. Está disponible en una versión de escritorio (RStudio Desktop) y en una versión para servidor (RStudio Server). Esta última permite la conexión de varios usuarios a través de un navegador web. RStudio se ofrece también como un servicio en la nube, a través de [RStudio Cloud](https://www.rstudio.com/products/cloud/). 
+
+La figura \@ref(fig:rstudio-interfaz) muestra la interfaz de RStudio.
+
+<div class="figure">
+<img src="img/rstudio.png" alt="Interfaz del ambiente integrado de desarrollo RStudio." width="926" />
+<p class="caption">(\#fig:rstudio-interfaz)Interfaz del ambiente integrado de desarrollo RStudio.</p>
+</div>
+
+Además de edición de código fuente en R (y otros lenguajes), RStudio contiene capacidades para depurar código y visualizar datos en formatos tabulares, gráficos y de mapas.
+
+## Conjuntos de datos para pruebas
+Para efectos de pruebas y ejemplos, la distribución base de R incorpora varios conjuntos de datos que pueden listarse con la función [data()](https://rdrr.io/r/utils/data.html). Para obtener información acerca de un conjunto de datos en particular, puede utilizarse el operador  ```? ```.
+
+
+```r
+# Información sobre todos los conjuntos de datos incorporados en la distribución base de R
+data()
+
+# Información sobre el cojunto de datos "cars"
+?cars
+
+# Información sobre el cojunto de datos "Iris"
+?iris
+```
+
+## Funciones
+R, al igual que otros lenguajes de programación, estructura su funcionalidad en unidades de [código fuente](https://en.wikipedia.org/wiki/Source_code) llamadas [funciones](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Functions). Cada función realiza una tarea específica como, por ejemplo, un cálculo matemático y, por lo general, retorna un valor como salida. Todas las funciones tienen un nombre y, opcionalmente, un conjunto de argumentos que especifican los datos de entrada que procesa la función. Los argumentos se escriben entre paréntesis redondos (```()```) y estos siempre deben incluirse, aún en el caso de que la función no tenga ningún argumento. Si la función tiene varios argumentos, deben separarse mediante comas (```,```).
+
+### Ejemplos
+La función [print()](https://rdrr.io/r/base/print.html) recibe como argumento un valor (ej. un texto o un número) para imprimirlo en la pantalla. En el siguiente fragmento de código en R, se utiliza ```print()``` para imprimir la hilera ["Hola mundo"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program). Nótese el uso del símbolo ```#``` para comentarios (i.e. texto que no es código ejecutable).
+
+
+```r
+# Impresión de una hilera de caracteres
+print("Hola mundo")
+#> [1] "Hola mundo"
+```
+
+La función  [mean()](https://rdrr.io/r/base/mean.html) retorna la media aritmética del argumento de entrada. En el siguiente ejemplo, se calcula la media de los números de un vector creado a su vez con la función [c()](https://rdrr.io/r/base/c.html).
+
+
+```r
+# Media aritmética
+mean(c(2, 4, 5, 9))
+#> [1] 5
+```
+
+La función [getwd()](https://rdrr.io/r/base/getwd.html) (_get working directory_) retorna la ruta del directorio de trabajo de la sesión actual de R. Este es el directorio en el cual R espera encontrar, por ejemplo, archivos de datos.
+
+
+```r
+# Impresión del directorio de trabajo
+getwd()
+#> [1] "/home/mfvargas/gf0604-procesamientodatosgeograficos/2022-i/github/2022-i"
+```
+
+La función [setwd()](https://rdrr.io/r/base/getwd.html) (_set working directory_) establece la ruta del directorio de trabajo de la sesión actual de R. Como argumento, recibe una hilera de texto con la ruta.
+
+**Note las barras utilizadas para separar los subdirectorios: / (no \\)**
+
+
+```r
+# Definición del directorio de trabajo (la ruta debe existir)
+setwd("C:/Users/mfvargas")
+
+# Directorio con espacios, tildes y eñes
+setwd("C:/Users/mfvargas/mi directorio con espacios y tildes áéíóúñ")
+```
+
+### Ejercicios
+1. Obtenga la ruta de su directorio de trabajo con la función ```getwd()```.  
+2. Si lo desea, cambie la ruta de su directorio de trabajo con la función ```setwd()```. Verifique el cambio con ```getwd()```.  
+
+### Argumentos
+Los argumentos de las funciones tienen nombres que pueden especificarse, en caso de ser necesario. En algunos casos, el orden y el tipo de datos de los argumentos permiten que el interpretador de R conozca cuál es cada uno.
+
+En el siguiente ejemplo, se utilizan los argumentos ```x```, ```xlab``` y ```ylab``` de la función [plot()](https://rdrr.io/r/graphics/plot.default.html) para especificar la fuente de datos y las etiquetas de los ejes x e y de un gráfico de dispersión.
+
+
+```r
+# Gráfico de dispersón del conjunto de datos "cars" con etiquetas en los ejes x e y
+plot(
+  x=cars, 
+  xlab="Velocidad (mph)", 
+  ylab="Distancia requerida para frenar (pies)"
+)
+```
+
+<img src="08-r-conceptos-basicos_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
+#### Ejercicios
+3. Estudie la documentación de la función ```plot()``` y agregue al gráfico anterior:  
+    a. Un título.  
+    b. Un subtítulo.  
+
+### Ayuda
+Para obtener ayuda de una función desde la línea de comandos de R, puede utilizarse un signo de pregunta (```?```) seguido del nombre de la función o bien la función [help()](https://rdrr.io/r/utils/help.html). Por ejemplo:
+
+
+```r
+# Ayuda de la función setwd()
+?setwd
+help(setwd)
+```
+
+Adicionalmente, puede utilizarse la función [apropos()](https://rdrr.io/r/utils/apropos.html) para buscar funciones por palabras clave.
+
+
+```r
+# Búsqueda, por palabras clave, de funciones relacionadas con "mean" (media aritmética). Note las comillas ("").
+apropos("mean")
+#>  [1] ".colMeans"     ".rowMeans"     "colMeans"     
+#>  [4] "kmeans"        "mean"          "mean.Date"    
+#>  [7] "mean.default"  "mean.difftime" "mean.POSIXct" 
+#> [10] "mean.POSIXlt"  "rowMeans"      "weighted.mean"
+```
+
+La función [example()](https://rdrr.io/r/utils/example.html) presenta ejemplos sobre el uso de una función.
+
+
+```r
+# Ejemplos de uso de la función mean()
+example("mean")
+#> 
+#> mean> x <- c(0:10, 50)
+#> 
+#> mean> xm <- mean(x)
+#> 
+#> mean> c(xm, mean(x, trim = 0.10))
+#> [1] 8.75 5.50
+```
+
+Por otra parte, el sitio [All R Documentation](https://rdrr.io/r/) reúne documentación de funciones de una gran cantidad de paquetes de R. También puede obtenerse ayuda sobre una función en los buscadores de Internet (ej. Google), además de ejemplos, tutoriales y otros materiales de apoyo. 
+
+## Paquetes
+Las funciones de R se distribuyen mediante paquetes. Cada paquete contiene un conjunto de funciones y estructuras de datos relacionadas entre sí. Para utilizar un paquete, primero debe cargarse (en la memoria del computador) con la función [library()](https://rdrr.io/r/base/library.html).
+
+
+```r
+# Carga del paquete stats
+library(stats)
+```
+
+Algunos paquetes están contenidos en la distribución base de R y otros deben instalarse de manera separada con la función [install.packages()](https://rdrr.io/r/utils/install.packages.html).
+
+En el siguiente ejemplo, se instala el paquete [PASWR2](https://cran.r-project.org/package=PASWR2), el cual contiene el conjunto de datos [TITANIC3](https://rdrr.io/cran/PASWR2/man/TITANIC3.html).
+
+
+```r
+# Instalación del paquete PASWR2 (note las comillas)
+install.packages("PASWR2")
+```
+
+El paquete PASWR2 se carga con ```library()```. 
+
+
+```r
+# Carga de PASWR2
+library(PASWR2)
+#> Loading required package: lattice
+#> Loading required package: ggplot2
+```
+
+El conjunto de datos  ```TITANIC3 ``` puede visualizarse con la función [View()](https://rdrr.io/r/utils/View.html).
+
+
+```r
+# Visualización del conjunto de datos TITANIC3
+View(TITANIC3)
+```
+
+Para visualizar gráficamente el conjunto de datos, el siguiente gráfico de barras muestra la distribución de pasajeros por clase.
+
+
+```r
+# Cantidades de pasajeros por clase
+table(TITANIC3$pclass)
+#> 
+#> 1st 2nd 3rd 
+#> 323 277 709
+
+# Gráfico de barras por clase de pasajero
+barplot(
+  height=table(TITANIC3$pclass),
+  main="Distribución de pasajeros del Titanic por clase",
+  xlab = "Clase",
+  ylab = "Cantidad de pasajeros"  
+)
+```
+
+<img src="08-r-conceptos-basicos_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+
+La distribución por cada clase puede dividirse en fallecidos y sobrevivientes.
+
+
+```r
+# Cantidades de pasajeros fallecidos y sobrevivientes por clase
+# (0 corresponde a fallecidos y 1 a sobrevivientes)
+table(TITANIC3$survived, TITANIC3$pclass)
+#>    
+#>     1st 2nd 3rd
+#>   0 123 158 528
+#>   1 200 119 181
+```
+
+El siguiente gráfico muestra en un gráfico de barras apiladas la distribución de pasajeros sobrevivientes y fallecidos en cada clase.
+
+
+```r
+# Gráfico de barras apiladas
+barplot(
+  height = table(TITANIC3$survived, TITANIC3$pclass),
+  main = "Distribución de pasajeros fallecidos y sobrevivientes por clase",
+  xlab = "Clase",
+  ylab = "Cantidad de pasajeros",
+  col = topo.colors(2)
+)
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  legend = c("Fallecidos", "Sobrevivientes"),
+  fill = topo.colors(2),
+  horiz = TRUE
+)
+```
+
+<img src="08-r-conceptos-basicos_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+
+La misma información se muestra seguidamente en un gráfico de barras agrupadas.
+
+
+```r
+# Gráfico de barras agrupadas
+barplot(
+  height = table(TITANIC3$survived, TITANIC3$pclass),
+  main = "Distribución de pasajeros fallecidos y sobrevivientes por clase",
+  xlab = "Clase",
+  ylab = "Cantidad de pasajeros",  
+  col = topo.colors(2),
+  beside = TRUE
+)
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  legend = c("Fallecidos", "Sobrevivientes"),
+  fill = topo.colors(2),
+  horiz = TRUE
+)
+```
+
+<img src="08-r-conceptos-basicos_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+
+### Ejercicios
+1. Muestre la distribución de pasajeros fallecidos y sobrevivientes por sexo en un gráfico de barras apiladas.  
+2. Muestre la distribución de pasajeros fallecidos y sobrevivientes por sexo en un gráfico de barras agrupadas.  
+
+## Recursos de interés
+

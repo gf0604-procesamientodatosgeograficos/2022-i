@@ -12,6 +12,7 @@ fig:md-lista-no-numerada
 fig:git-push-pull
 fig:git-push-pull-commit
 fig:git-stage-commit-push
+fig:rstudio-interfaz
 pensamiento-computacional
 resumen
 diapositivas
@@ -76,3 +77,19 @@ como-funciona-git
 ejemplos-de-uso-1
 clonación-de-un-repositorio-remoto-y-sincronización-de-los-cambios-efectuados-localmente
 recursos-de-interés-5
+r-conceptos-básicos
+trabajo-previo-3
+lecturas-1
+resumen-7
+características-generales
+el-ambiente-de-desarrollo-rstudio
+conjuntos-de-datos-para-pruebas
+funciones
+ejemplos
+ejercicios-2
+argumentos
+ejercicios-3
+ayuda
+paquetes
+ejercicios-4
+recursos-de-interés-6
