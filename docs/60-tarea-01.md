@@ -1,8 +1,8 @@
 # Tarea 1 {-}
 
 ## Fecha y hora límite de entrega {-}
-- Grupo 001: Lunes 9 de mayo de 2022. 8:00 a.m.
-- Grupo 002: Martes 10 de mayo de 2022. 11:00 a.m.
+- Grupo 001: Lunes 9 de mayo de 2022. 07:59 a.m.
+- Grupo 002: Martes 10 de mayo de 2022. 10:59 a.m.
 
 ## Entregables {-}
 1. Dirección de un repositorio en GitHub llamado `notas-investigacion-reproducible` con un documento escrito en Markdown llamado `README.md` (ej. https://github.com/mfvargas/notas-investigacion-reproducible), con el contenido especificado en la sección Desarrollo.
