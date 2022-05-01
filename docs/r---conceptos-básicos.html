@@ -223,7 +223,7 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <h4>
 <span class="header-section-number">8.6.3.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-3"><i class="fas fa-link"></i></a>
 </h4>
-<ol start="3" style="list-style-type: decimal">
+<ol style="list-style-type: decimal">
 <li>Estudie la documentación de la función <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> y agregue al gráfico anterior:
 <ol style="list-style-type: lower-alpha">
 <li>Un título.<br>
@@ -872,8 +872,13 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co">#&gt; 5  SLV       2089       64208    1864     68161</span>
 <span class="co">#&gt; 6  BLZ        318       12164     114     12596</span>
 <span class="co">#&gt; 7  NIC        181        5212      57      5450</span></code></pre></div>
-<p>Ejercicio:<br>
-Descargue el archivo del ejemplo anterior (<a href="https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv" class="uri">https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv</a>) en su computadora y cárguelo en otro data frame mediante <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>.</p>
+<div id="ejercicios-5" class="section level6" number="8.8.2.2.3.1">
+<h6>
+<span class="header-section-number">8.8.2.2.3.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-5"><i class="fas fa-link"></i></a>
+</h6>
+<ol style="list-style-type: decimal">
+<li>Descargue el archivo del ejemplo anterior (<a href="https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv" class="uri">https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv</a>) en su computadora y cárguelo en otro data frame mediante <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>.</li>
+</ol>
 <p>La función <a href="https://rdrr.io/r/utils/str.html">str()</a> despliega la estructura de un objeto R.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Estructura del data frame</span>
@@ -896,6 +901,7 @@ Descargue el archivo del ejemplo anterior (<a href="https://raw.githubuserconten
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Vista de los casos de COVID-19</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">covid</span>, <span class="st">"Casos de COVID-19 en Centramérica"</span><span class="op">)</span></code></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1006,9 +1012,9 @@ Descargue el archivo del ejemplo anterior (<a href="https://raw.githubuserconten
 <span class="co"># Se llama la función usando la posición del primer argumento y el nombre del segundo</span>
 <span class="fu">nota_final</span><span class="op">(</span><span class="fl">100</span>, promedio_proyectos <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
 <span class="co">#&gt; [1] 70</span></code></pre></div>
-<div id="ejercicios-5" class="section level3" number="8.9.1">
+<div id="ejercicios-6" class="section level3" number="8.9.1">
 <h3>
-<span class="header-section-number">8.9.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-6"><i class="fas fa-link"></i></a>
 </h3>
 <ol style="list-style-type: decimal">
 <li>Defina una función con nombre <code>celsius_a_fahrenheit()</code> que reciba como argumento una cantidad en grados Celsius y retorne el equivalente en grados Fahrenheit.<br>
@@ -1019,9 +1025,429 @@ Descargue el archivo del ejemplo anterior (<a href="https://raw.githubuserconten
 </ol>
 </div>
 </div>
-<div id="recursos-de-interés-6" class="section level2" number="8.10">
+<div id="condicionales" class="section level2" number="8.10">
 <h2>
-<span class="header-section-number">8.10</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.10</span> Condicionales<a class="anchor" aria-label="anchor" href="#condicionales"><i class="fas fa-link"></i></a>
+</h2>
+<p>Las sentencias condicionales evalúan una expresión lógica (i.e. condición) y ejecutan, o no, un bloque de intrucciones dependiendo de si la expresión es verdadera (<code>TRUE</code>) o falsa (<code>FALSE</code>). Permiten que los programas “tomen decisiones” y varíen su curso de acción.</p>
+<p><a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#if">Los condicionales en R</a> se implementa mediante la sentencia <code>if</code> y sus cláusulas <code>else</code> y <code>else if</code>.</p>
+<div id="la-sentencia-if" class="section level3" number="8.10.1">
+<h3>
+<span class="header-section-number">8.10.1</span> La sentencia <code>if</code><a class="anchor" aria-label="anchor" href="#la-sentencia-if"><i class="fas fa-link"></i></a>
+</h3>
+<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#if">if</a> evalúa una condición (i.e. una expresión lógica) y ejecuta un bloque de instrucciones, si es verdadera. El bloque se delimita con los caracteres de “llaves”: <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>.</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">condicion</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># bloque de instrucciones a ejecutar si la condicion es verdadera</span>
+<span class="op">}</span></code></pre></div>
+<p>Por ejemplo:</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">edad</span> <span class="op">&lt;-</span> <span class="fl">25</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">edad</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Adulto"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] "Adulto"</span></code></pre></div>
+<p>Ya sea que se ejecute o no el bloque del <code>if</code>, el programa continúa con las instrucciones que siguen al bloque, si las hay.</p>
+</div>
+<div id="la-claúsula-else" class="section level3" number="8.10.2">
+<h3>
+<span class="header-section-number">8.10.2</span> La claúsula <code>else</code><a class="anchor" aria-label="anchor" href="#la-cla%C3%BAsula-else"><i class="fas fa-link"></i></a>
+</h3>
+<p>Una sentencia <code>if</code> puede ir seguida de una cláusula <code>else</code>, la cual define un bloque que se ejecuta si la condición es falsa.
+Por ejemplo:</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">edad</span> <span class="op">&lt;-</span> <span class="fl">15</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">edad</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Adulto"</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Menor"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] "Menor"</span></code></pre></div>
+</div>
+<div id="la-cláusula-else-if" class="section level3" number="8.10.3">
+<h3>
+<span class="header-section-number">8.10.3</span> La cláusula <code>else if</code><a class="anchor" aria-label="anchor" href="#la-cl%C3%A1usula-else-if"><i class="fas fa-link"></i></a>
+</h3>
+<p>Una sentencia <code>if</code> también puede ir seguida de una o varias cláusulas <code>else if</code>, las cuales evalúan condiciones adicionales.</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">edad</span> <span class="op">&lt;-</span> <span class="fl">70</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">edad</span> <span class="op">&lt;</span> <span class="fl">18</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Menor"</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">edad</span> <span class="op">&lt;</span> <span class="fl">65</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Adulto"</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Adulto mayor"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] "Adulto mayor"</span></code></pre></div>
+<p>Las cláusulas <code>else if</code> deben escribirse antes de la cláusula <code>else</code>, la cual es siempre la última, si es que está presente. Tanto las cláusulas <code>else if</code> como la cláusula <code>else</code> son opcionales.</p>
+</div>
+<div id="ejercicios-7" class="section level3" number="8.10.4">
+<h3>
+<span class="header-section-number">8.10.4</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-7"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Defina una función con nombre <code>interpretacion_imc()</code> que reciba como argumento un número correspondiente al índice de masa corporal (IMC) de una persona. Debe retornar una hilera de caracteres correspondiente a la interpretación del IMC (“Bajo peso”, “Normal”, “Sobrepeso”, “Obesidad”), de acuerdo con la tabla disponible en <a href="https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal#Interpretaci%C3%B3n">Índice de mapas corporal - Wikipedia</a>.</li>
+</ol>
+</div>
+</div>
+<div id="ciclos" class="section level2" number="8.11">
+<h2>
+<span class="header-section-number">8.11</span> Ciclos<a class="anchor" aria-label="anchor" href="#ciclos"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los ciclos permiten ejecutar tareas de manera repetitiva en un programa. Algunos ciclos se ejecutan una cantidad definida de veces, mientras que otros lo hacen mientras se cumple una condición lógica. Pueden usarse en combinación con cláusulas que terminan anticipadamente el ciclo o que omiten algunas de sus iteraciones.</p>
+<p><a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#Looping">Los ciclos en R</a> se implementan mediante las sentencias <code>for</code>, <code>while</code> y <code>repeat</code>, en combinación con las sentencias <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> y <code><a href="https://rdrr.io/r/base/Control.html">next</a></code>.</p>
+<p>R provee varias funciones que implementan ciclos de manera implícita, tales como <a href="https://rdrr.io/r/base/apply.html">apply()</a>, <a href="https://rdrr.io/r/base/tapply.html">tapply()</a> y <a href="https://rdrr.io/r/base/lapply.html">lapply()</a>. Adicionalmente, hay muchas operaciones (ej. las aritméticas) que están “vectorizadas”, por lo que no es necesario utilizarlas en ciclos. El uso de código vectorizado es muy recomendado en R, por ser muy eficiente.</p>
+<div id="sentencias-básicas-para-manejo-de-ciclos" class="section level3" number="8.11.1">
+<h3>
+<span class="header-section-number">8.11.1</span> Sentencias básicas para manejo de ciclos<a class="anchor" aria-label="anchor" href="#sentencias-b%C3%A1sicas-para-manejo-de-ciclos"><i class="fas fa-link"></i></a>
+</h3>
+<div id="la-sentencia-for" class="section level4" number="8.11.1.1">
+<h4>
+<span class="header-section-number">8.11.1.1</span> La sentencia <code>for</code><a class="anchor" aria-label="anchor" href="#la-sentencia-for"><i class="fas fa-link"></i></a>
+</h4>
+<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#for">for</a> repite las instrucciones contenidas en un bloque para cada uno de los elementos de un vector o lista. En cada iteración, el valor del elemento que está siendo procesado se almacena en una variable.</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">variable</span> <span class="kw">in</span> <span class="va">vector</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># bloque de instrucciones</span>
+<span class="op">}</span></code></pre></div>
+<p>Por ejemplo, el siguiente fragmento de código utiliza un ciclo de tipo <code>for</code> para recorrer un vector de nombres e imprimir un saludo para cada uno.</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vector_nombres</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Andrés"</span>, <span class="st">"Beatriz"</span>, <span class="st">"Carlos"</span>, <span class="st">"Marta"</span>, <span class="st">"Pedro"</span>, <span class="st">"Sara"</span><span class="op">)</span>
+
+<span class="kw">for</span> <span class="op">(</span><span class="va">nombre</span> <span class="kw">in</span> <span class="va">vector_nombres</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Hola"</span>, <span class="va">nombre</span>, <span class="st">"\n"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; Hola Andrés </span>
+<span class="co">#&gt; Hola Beatriz </span>
+<span class="co">#&gt; Hola Carlos </span>
+<span class="co">#&gt; Hola Marta </span>
+<span class="co">#&gt; Hola Pedro </span>
+<span class="co">#&gt; Hola Sara</span></code></pre></div>
+<p>En el siguiente ejemplo, se utiliza otro ciclo <code>for</code> para recorrer un vector de números y sumar sus elementos.</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">29.6</span>, <span class="op">-</span><span class="fl">36.81</span>, <span class="fl">31.85</span>, <span class="fl">25.71</span>, <span class="fl">90.2</span>, <span class="fl">0.4</span><span class="op">)</span>
+
+<span class="va">suma</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+<span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">vector_numeros</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">suma</span> <span class="op">&lt;-</span> <span class="va">suma</span> <span class="op">+</span> <span class="va">x</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Suma:"</span>, <span class="va">suma</span><span class="op">)</span>
+<span class="co">#&gt; Suma: 140.95</span></code></pre></div>
+<div id="ejercicios-8" class="section level5" number="8.11.1.1.1">
+<h5>
+<span class="header-section-number">8.11.1.1.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-8"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>Utilice un ciclo <code>for</code> para recorrer el vector del ejemplo anterior y calcular el promedio de sus elementos.</li>
+</ol>
+<p>Seguidamente, se utiliza dos <code>for</code> “anidados” para sumar los elementos de cada una de las columnas de una matriz.</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">m</span>
+<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
+<span class="co">#&gt; [1,]    1    4    7   10</span>
+<span class="co">#&gt; [2,]    2    5    8   11</span>
+<span class="co">#&gt; [3,]    3    6    9   12</span>
+
+<span class="co"># Ciclo externo para recorrer las columnas de la matriz</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">suma_columna</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+  <span class="co"># Ciclo interno para recorrer las elementos de cada columna</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">suma_columna</span> <span class="op">&lt;-</span> <span class="va">suma_columna</span> <span class="op">+</span> <span class="va">m</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>
+  <span class="op">}</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">suma_columna</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] 6</span>
+<span class="co">#&gt; [1] 15</span>
+<span class="co">#&gt; [1] 24</span>
+<span class="co">#&gt; [1] 33</span></code></pre></div>
+</div>
+<div id="ejercicios-9" class="section level5" number="8.11.1.1.2">
+<h5>
+<span class="header-section-number">8.11.1.1.2</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-9"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>Utilice dos ciclos <code>for</code> anidados para recorrer la matriz del ejemplo anterior y calcular el promedio de cada una de sus columnas.</li>
+</ol>
+</div>
+</div>
+<div id="la-sentencia-while" class="section level4" number="8.11.1.2">
+<h4>
+<span class="header-section-number">8.11.1.2</span> La sentencia <code>while</code><a class="anchor" aria-label="anchor" href="#la-sentencia-while"><i class="fas fa-link"></i></a>
+</h4>
+<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#while">while</a> evalúa una condición (i.e. una expresión lógica) en cada iteración del ciclo y ejecuta las intrucciones del bloque mientras la condición sea verdadera. Generalmente, en algún momento la condición se vuelve falsa y así finaliza el ciclo.</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">while</span> <span class="op">(</span><span class="va">condicion</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># bloque de instrucciones </span>
+<span class="op">}</span></code></pre></div>
+<p>En el siguiente ejemplo, se utiliza un ciclo <code>while</code> para preguntarle al usuario cuál es la <a href="https://en.wikipedia.org/wiki/42_(number)#The_Hitchhiker's_Guide_to_the_Galaxy">respuesta definitiva al sentido de la vida, el universo y todo lo demás</a> y se continúa haciendo la pregunta hasta que responda correctamente:</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Función para leer una respuesta desde la pantalla</span>
+<span class="va">leer_respuesta</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/readline.html">readline</a></span><span class="op">(</span>prompt<span class="op">=</span><span class="st">"¿Cual es la respuesta definitiva al sentido de la vida, el universo y todo lo demás? "</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co"># Si la respuesta es incorrecta, se repite la pregunta hasta que el usuario conteste correctamente</span>
+<span class="kw">while</span> <span class="op">(</span><span class="fu">leer_respuesta</span><span class="op">(</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"42"</span><span class="op">)</span> <span class="op">{</span>   
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"¡Su respuesta es incorrecta!"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<div id="ejercicios-10" class="section level5" number="8.11.1.2.1">
+<h5>
+<span class="header-section-number">8.11.1.2.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-10"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>Utilice un ciclo <code>while</code> para implementar el cálculo del promedio de los elementos de un vector. Sugerencia: utilice la función <a href="https://rdrr.io/r/base/length.html">length()</a> para obtener la longitud del vector y así saber cuando terminar de recorrerlo.</li>
+</ol>
+</div>
+</div>
+<div id="la-sentencia-repeat" class="section level4" number="8.11.1.3">
+<h4>
+<span class="header-section-number">8.11.1.3</span> La sentencia <code>repeat</code><a class="anchor" aria-label="anchor" href="#la-sentencia-repeat"><i class="fas fa-link"></i></a>
+</h4>
+<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#repeat">repeat</a> implementa un ciclo que se repite indefinidamente. Puede interrumpirse con una sentencia <code><a href="https://rdrr.io/r/base/Control.html">break</a></code>.</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">repeat</span> <span class="op">{</span>
+  <span class="co"># bloque de instrucciones </span>
+<span class="op">}</span></code></pre></div>
+<p>Los ciclos <code>repeat</code> tienen una estructura más sencilla que los <code>while</code>. Algo que los diferencia es que los bloques de los ciclos <code>repeat</code> entran a ejecutarse al menos una vez.</p>
+<p>En el siguiente ejemplo, se utiliza un ciclo <code>repeat</code> para implementar la pregunta y lectura de la respuesta que anteriormente se implementó con un ciclo <code>while</code>.</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Función para leer una respuesta desde la pantalla</span>
+<span class="va">leer_respuesta</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/readline.html">readline</a></span><span class="op">(</span>prompt<span class="op">=</span><span class="st">"¿Cual es la respuesta definitiva al sentido de la vida, el universo y todo lo demás? "</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co"># Ciclo para imprimir la pregunta y leer la respuesta hasta que esta sea correcta</span>
+<span class="kw">repeat</span> <span class="op">{</span>
+  <span class="va">respuesta</span> <span class="op">&lt;-</span> <span class="fu">leer_respuesta</span><span class="op">(</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">respuesta</span> <span class="op">!=</span> <span class="st">"42"</span><span class="op">)</span> <span class="op">{</span>
+    <span class="co"># Respuesta incorrecta</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"¡Su respuesta es incorrecta!"</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="co"># Respuesta correcta. Se interrumpe el ciclo.</span>
+    <span class="kw">break</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+</div>
+<div id="las-sentencias-break-y-next" class="section level4" number="8.11.1.4">
+<h4>
+<span class="header-section-number">8.11.1.4</span> Las sentencias <code>break</code> y <code>next</code><a class="anchor" aria-label="anchor" href="#las-sentencias-break-y-next"><i class="fas fa-link"></i></a>
+</h4>
+<p>La sentencia <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> interrumpe un ciclo. La ejecución del programa continúa con la instrucción siguiente al bloque del ciclo.</p>
+<p>En el siguiente ciclo <code>for</code>, se suman uno a uno los números de un vector, pero se usa un <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> para interrumpir el ciclo cuando el acumulado es mayor que 100.</p>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">17</span>, <span class="fl">23</span>, <span class="fl">37</span>, <span class="fl">41</span>, <span class="fl">52</span>, <span class="fl">64</span>, <span class="fl">75</span><span class="op">)</span>
+
+<span class="va">acumulado</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+<span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">vector_numeros</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">acumulado</span> <span class="op">&lt;-</span> <span class="va">acumulado</span> <span class="op">+</span> <span class="va">x</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Acumulado:"</span>, <span class="va">acumulado</span>, <span class="st">"\n"</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">acumulado</span> <span class="op">&gt;=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Se superó el límite de 100 en el acumulado"</span><span class="op">)</span>
+    <span class="kw">break</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+<span class="co">#&gt; Acumulado: 17 </span>
+<span class="co">#&gt; Acumulado: 40 </span>
+<span class="co">#&gt; Acumulado: 77 </span>
+<span class="co">#&gt; Acumulado: 118 </span>
+<span class="co">#&gt; Se superó el límite de 100 en el acumulado</span></code></pre></div>
+<p>Por su parte, la sentencia <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> retorna el control al principio del bloque. Las instrucciones que hay después del <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> no se ejecutan. La siguiente iteración del ciclo (si la hay), se inicia entonces.</p>
+<p>El siguiente ciclo recorre un vector de números. Se utiliza la sentencia <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> para “saltar” los números impares y sumar solo los pares.</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">17</span>, <span class="fl">23</span>, <span class="fl">37</span>, <span class="fl">41</span>, <span class="fl">52</span>, <span class="fl">64</span>, <span class="fl">75</span><span class="op">)</span>
+
+<span class="va">suma_pares</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+<span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">vector_numeros</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="co"># Número par: se suma</span>
+    <span class="va">suma_pares</span> <span class="op">&lt;-</span> <span class="va">suma_pares</span> <span class="op">+</span> <span class="va">x</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="co"># Número impar: se "salta" al siguiente número</span>
+    <span class="kw">next</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Suma de los números pares:"</span>, <span class="va">suma_pares</span><span class="op">)</span>
+<span class="co">#&gt; Suma de los números pares: 116</span></code></pre></div>
+</div>
+</div>
+<div id="las-funciones-apply" class="section level3" number="8.11.2">
+<h3>
+<span class="header-section-number">8.11.2</span> Las funciones <code>apply()</code><a class="anchor" aria-label="anchor" href="#las-funciones-apply"><i class="fas fa-link"></i></a>
+</h3>
+<p>Esta es una familia de funciones que manipulan subconjuntos de datos obtenidos a partir de matrices, listas y data frames, los cuales son recorridos de una forma repetitiva. Pueden funcionar como una alternativa a los ciclos y aplicar funciones en los subconjuntos de datos como, por ejemplo, funciones estadísticas en las columnas de una matriz o de un data frame. Su uso es muy recomendado por su eficiencia, flexibilidad y simplicidad.</p>
+<p>Entre estas funciones, pueden mencionarse <a href="https://rdrr.io/r/base/apply.html">apply()</a>, <a href="https://rdrr.io/r/base/lapply.html">lapply()</a>, <a href="https://rdrr.io/cran/functools/man/Sapply.html">sapply()</a>, <a href="https://rdrr.io/cran/functools/man/Vapply.html">vapply()</a>, <a href="https://rdrr.io/r/base/mapply.html">mapply()</a>, <a href="https://rdrr.io/r/base/rapply.html">rapply()</a> y <a href="https://rdrr.io/r/base/tapply.html">tapply()</a>.</p>
+<div id="apply" class="section level4" number="8.11.2.1">
+<h4>
+<span class="header-section-number">8.11.2.1</span> <code>apply()</code><a class="anchor" aria-label="anchor" href="#apply"><i class="fas fa-link"></i></a>
+</h4>
+<p>La función <a href="https://rdrr.io/r/base/apply.html">apply()</a> toma como entrada un arreglo o una matriz y aplica alguna función sobre sus filas o columnas.</p>
+<p>La sintaxis de la función es:</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">MARGIN</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<p>En donde:<br>
+- <code>X</code>: es un arreglo o matriz.<br>
+- <code>MARGIN</code>: <code>MARGIN = 1</code> significa que la función actúa en las filas, <code>MARGIN = 2</code> significa que la función actúa en las columnas y <code>MARGIN = c(1, 2)</code> significa que la función actúa en las filas y en las columnas.<br>
+- <code>FUN</code>: es la función que se aplicará a cada uno de los elementos de <code>X</code>.</p>
+<p>En el siguiente ejemplo, se utiliza la función <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> para sumar los elementos de las columnas de una matriz.</p>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">m</span>
+<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
+<span class="co">#&gt; [1,]    1    4    7   10</span>
+<span class="co">#&gt; [2,]    2    5    8   11</span>
+<span class="co">#&gt; [3,]    3    6    9   12</span>
+
+<span class="co"># Suma de las columnas</span>
+<span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">2</span>, <span class="va">sum</span><span class="op">)</span>
+<span class="co">#&gt; [1]  6 15 24 33</span></code></pre></div>
+<div id="ejercicios-11" class="section level5" number="8.11.2.1.1">
+<h5>
+<span class="header-section-number">8.11.2.1.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-11"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>Utilice la función <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> para obtener el promedio de los elementos de cada columna de la matriz del ejemplo anterior.</li>
+</ol>
+</div>
+</div>
+<div id="lapply" class="section level4" number="8.11.2.2">
+<h4>
+<span class="header-section-number">8.11.2.2</span> <code>lapply()</code><a class="anchor" aria-label="anchor" href="#lapply"><i class="fas fa-link"></i></a>
+</h4>
+<p>La función <a href="https://rdrr.io/r/base/lapply.html">lapply()</a> toma como entrada un vector o lista y retorna una lista de la misma longitud en la que cada uno de sus elementos es el resultado de aplicar una función al vector o lista de entrada.</p>
+<p>La sintaxis de la función es:</p>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<p>En donde:<br>
+- <code>X</code>: es un vector o lista.<br>
+- <code>FUN</code>: es la función que se aplicará a cada elemento de X. Algunas funciones predefinidas que pueden utilizarse incluyen <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> y <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>. También pueden usarse funciones definidas por el usuario.</p>
+<p>En los siguientes ejemplos, se utiliza <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> para aplicar diferentes funciones a un vector de nombres de personas.</p>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nombres</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Andrés"</span>, <span class="st">"Beatriz"</span>, <span class="st">"Carlos"</span>, <span class="st">"Marta"</span>, <span class="st">"Pedro"</span>, <span class="st">"Sara"</span><span class="op">)</span>
+
+<span class="co"># Los nombres de la lista se transforman a minúscula</span>
+<span class="va">nombres_en_minuscula</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">nombres</span>, <span class="va">tolower</span><span class="op">)</span>
+<span class="va">nombres_en_minuscula</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] "andrés"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; [1] "beatriz"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; [1] "carlos"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt; [1] "marta"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[5]]</span>
+<span class="co">#&gt; [1] "pedro"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[6]]</span>
+<span class="co">#&gt; [1] "sara"</span>
+
+<span class="co"># Se genera un saludo para cada nombre</span>
+<span class="va">nombres_con_saludo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">nombres</span>, <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span>, arg1<span class="op">=</span><span class="st">"Hola"</span><span class="op">)</span>
+<span class="va">nombres_con_saludo</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] "Hola Andrés"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; [1] "Hola Beatriz"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; [1] "Hola Carlos"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt; [1] "Hola Marta"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[5]]</span>
+<span class="co">#&gt; [1] "Hola Pedro"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[6]]</span>
+<span class="co">#&gt; [1] "Hola Sara"</span></code></pre></div>
+</div>
+<div id="tapply" class="section level4" number="8.11.2.3">
+<h4>
+<span class="header-section-number">8.11.2.3</span> <code>tapply()</code><a class="anchor" aria-label="anchor" href="#tapply"><i class="fas fa-link"></i></a>
+</h4>
+<p>La función <a href="https://rdrr.io/r/base/tapply.html">tapply()</a> aplica una función a cada nivel de un factor.</p>
+<p>La sintaxis de la función es:</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">INDEX</span>, <span class="va">FUN</span><span class="op">)</span></code></pre></div>
+<p>En donde:<br>
+- <code>X</code>: es un objeto, tipicamente un vector.<br>
+- <code>INDEX</code>: es una lista que contiene un factor.<br>
+- <code>FUN</code>: es la función que se aplicará a cada elemento de <code>X</code>.</p>
+<p>En el siguiente ejemplo, se utiliza <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> para calcular la mediana del ancho del sépalo para cada especie del conjunto de datos <code>iris</code>.</p>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Species</span>, <span class="va">median</span><span class="op">)</span>
+<span class="co">#&gt;     setosa versicolor  virginica </span>
+<span class="co">#&gt;        3.4        2.8        3.0</span></code></pre></div>
+<div id="ejercicios-12" class="section level5" number="8.11.2.3.1">
+<h5>
+<span class="header-section-number">8.11.2.3.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-12"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>Utilice la función <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> para obtener el promedio de las longitudes de los pétalos para cada especie del conjunto de datos <code>iris</code>.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="vectorización" class="section level3" number="8.11.3">
+<h3>
+<span class="header-section-number">8.11.3</span> Vectorización<a class="anchor" aria-label="anchor" href="#vectorizaci%C3%B3n"><i class="fas fa-link"></i></a>
+</h3>
+<p>En R, muchas operaciones y funciones pueden ser vectorizadas, lo que significa que pueden aplicarse a los elementos de un vector sin necesidad de iterar uno por uno en estos.</p>
+<p>Por ejemplo, considérese el siguiente fragmento de código no vectorizado, que utiliza un ciclo para convertir los números de un vector a sus valores absolutos:</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="op">-</span><span class="fl">17</span>, <span class="fl">34</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">12</span>, <span class="fl">55</span><span class="op">)</span>
+
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vector_numeros</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">vector_numeros</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">vector_numeros</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="va">vector_numeros</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="va">vector_numeros</span>
+<span class="co">#&gt; [1] 23 17 34  0 12 55</span></code></pre></div>
+<p>El siguiente fragmento de código realiza la misma tarea, pero de forma vectorizada:</p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="op">-</span><span class="fl">17</span>, <span class="fl">34</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">12</span>, <span class="fl">55</span><span class="op">)</span>
+
+<span class="co"># Se usa una expresión lógica para seleccionar los elementos del vector &lt; 0</span>
+<span class="va">negativos</span> <span class="op">&lt;-</span> <span class="va">vector_numeros</span> <span class="op">&lt;</span> <span class="fl">0</span>
+<span class="va">negativos</span>
+<span class="co">#&gt; [1] FALSE  TRUE FALSE FALSE  TRUE FALSE</span>
+
+<span class="co"># Se cambian los elementos seleccionados en el paso anterior sin utilizar el for</span>
+<span class="va">vector_numeros</span><span class="op">[</span><span class="va">negativos</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">vector_numeros</span><span class="op">[</span><span class="va">negativos</span><span class="op">]</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1</span>
+
+<span class="va">vector_numeros</span>
+<span class="co">#&gt; [1] 23 17 34  0 12 55</span></code></pre></div>
+<div id="ejercicios-13" class="section level4" number="8.11.3.1">
+<h4>
+<span class="header-section-number">8.11.3.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-13"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Utilice código vectorizado para implementar una función que reciba como argumento un vector de números y retorne el mismo vector con los elementos impares (solo los impares) elevados al cuadrado.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="recursos-de-interés-6" class="section level2" number="8.12">
+<h2>
+<span class="header-section-number">8.12</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-6"><i class="fas fa-link"></i></a>
 </h2>
 <p><em>Find Open Datasets and Machine Learning Projects | Kaggle</em>. (s. f.). Recuperado 24 de abril de 2022, de <a href="https://www.kaggle.com/datasets" class="uri">https://www.kaggle.com/datasets</a></p>
 <p><em>Newest «r» Questions</em>. (s. f.). Stack Overflow. Recuperado 24 de abril de 2022, de <a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a></p>
@@ -1065,9 +1491,24 @@ Descargue el archivo del ejemplo anterior (<a href="https://raw.githubuserconten
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#definici%C3%B3n-de-funciones"><span class="header-section-number">8.9</span> Definición de funciones</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#ejercicios-5"><span class="header-section-number">8.9.1</span> Ejercicios</a></li></ul>
+<a class="nav-link" href="#definici%C3%B3n-de-funciones"><span class="header-section-number">8.9</span> Definición de funciones</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#ejercicios-6"><span class="header-section-number">8.9.1</span> Ejercicios</a></li></ul>
 </li>
-<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-6"><span class="header-section-number">8.10</span> Recursos de interés</a></li>
+<li>
+<a class="nav-link" href="#condicionales"><span class="header-section-number">8.10</span> Condicionales</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#la-sentencia-if"><span class="header-section-number">8.10.1</span> La sentencia if</a></li>
+<li><a class="nav-link" href="#la-cla%C3%BAsula-else"><span class="header-section-number">8.10.2</span> La claúsula else</a></li>
+<li><a class="nav-link" href="#la-cl%C3%A1usula-else-if"><span class="header-section-number">8.10.3</span> La cláusula else if</a></li>
+<li><a class="nav-link" href="#ejercicios-7"><span class="header-section-number">8.10.4</span> Ejercicios</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ciclos"><span class="header-section-number">8.11</span> Ciclos</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sentencias-b%C3%A1sicas-para-manejo-de-ciclos"><span class="header-section-number">8.11.1</span> Sentencias básicas para manejo de ciclos</a></li>
+<li><a class="nav-link" href="#las-funciones-apply"><span class="header-section-number">8.11.2</span> Las funciones apply()</a></li>
+<li><a class="nav-link" href="#vectorizaci%C3%B3n"><span class="header-section-number">8.11.3</span> Vectorización</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-6"><span class="header-section-number">8.12</span> Recursos de interés</a></li>
 </ul>
 
       <div class="book-extra">

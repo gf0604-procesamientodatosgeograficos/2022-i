@@ -123,7 +123,7 @@ plot(
 <img src="08-r-conceptos-basicos_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 #### Ejercicios
-3. Estudie la documentación de la función ```plot()``` y agregue al gráfico anterior:  
+1. Estudie la documentación de la función ```plot()``` y agregue al gráfico anterior:  
     a. Un título.  
     b. Un subtítulo.  
 
@@ -833,8 +833,8 @@ covid
 #> 7  NIC        181        5212      57      5450
 ```
 
-Ejercicio:  
-Descargue el archivo del ejemplo anterior (https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv) en su computadora y cárguelo en otro data frame mediante ```read.csv()```.  
+###### Ejercicios
+1. Descargue el archivo del ejemplo anterior (https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/cepredenac/covid/covid-centroamericard-20210422.csv) en su computadora y cárguelo en otro data frame mediante ```read.csv()```.  
 
 La función [str()](https://rdrr.io/r/utils/str.html) despliega la estructura de un objeto R.
 
@@ -994,6 +994,440 @@ nota_final(100, promedio_proyectos = 50)
 1. Defina una función con nombre ```celsius_a_fahrenheit()``` que reciba como argumento una cantidad en grados Celsius y retorne el equivalente en grados Fahrenheit.  
 2. Defina una función con nombre ```fahrenheit_a_celsius()``` que reciba como argumento una cantidad en grados Fahrenheit y retorne el equivalente en grados Celsius.  
 3. Defina una función con nombre ```imc()``` para calcular el [índice de masa corporal (IMC)](https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal) de una persona con base en su peso (en kilogramos) y su estatura (en metros).
+
+## Condicionales
+Las sentencias condicionales evalúan una expresión lógica (i.e. condición) y ejecutan, o no, un bloque de intrucciones dependiendo de si la expresión es verdadera (```TRUE```) o falsa (```FALSE```). Permiten que los programas "tomen decisiones" y varíen su curso de acción.
+
+[Los condicionales en R](https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#if) se implementa mediante la sentencia ```if``` y sus cláusulas ```else``` y ```else if```.
+
+### La sentencia ```if```
+La sentencia [if](https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#if) evalúa una condición (i.e. una expresión lógica) y ejecuta un bloque de instrucciones, si es verdadera. El bloque se delimita con los caracteres de "llaves": ```{}```. 
+
+
+```r
+if (condicion) {
+  # bloque de instrucciones a ejecutar si la condicion es verdadera
+}
+```
+
+Por ejemplo:
+
+
+```r
+edad <- 25
+
+if (edad >= 18) {
+  print("Adulto")
+}
+#> [1] "Adulto"
+```
+
+Ya sea que se ejecute o no el bloque del ```if```, el programa continúa con las instrucciones que siguen al bloque, si las hay.
+
+### La claúsula ```else```
+Una sentencia ```if``` puede ir seguida de una cláusula ```else```, la cual define un bloque que se ejecuta si la condición es falsa.
+Por ejemplo:
+
+
+```r
+edad <- 15
+
+if (edad >= 18) {
+  print("Adulto")
+} else {
+  print("Menor")
+}
+#> [1] "Menor"
+```
+
+### La cláusula ```else if```
+Una sentencia ```if``` también puede ir seguida de una o varias cláusulas ```else if```, las cuales evalúan condiciones adicionales.
+
+
+```r
+edad <- 70
+
+if (edad < 18) {
+  print("Menor")
+} else if (edad < 65) {
+  print("Adulto")
+} else {
+  print("Adulto mayor")
+}
+#> [1] "Adulto mayor"
+```
+
+Las cláusulas ```else if``` deben escribirse antes de la cláusula ```else```, la cual es siempre la última, si es que está presente. Tanto las cláusulas ```else if``` como la cláusula ```else``` son opcionales.
+
+### Ejercicios
+1. Defina una función con nombre ```interpretacion_imc()``` que reciba como argumento un número correspondiente al índice de masa corporal (IMC) de una persona.  Debe retornar una hilera de caracteres correspondiente a la interpretación del IMC ("Bajo peso", "Normal", "Sobrepeso", "Obesidad"), de acuerdo con la tabla disponible en [Índice de mapas corporal - Wikipedia](https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal#Interpretaci%C3%B3n).
+
+## Ciclos
+Los ciclos permiten ejecutar tareas de manera repetitiva en un programa. Algunos ciclos se ejecutan una cantidad definida de veces, mientras que otros lo hacen mientras se cumple una condición lógica. Pueden usarse en combinación con cláusulas que terminan anticipadamente el ciclo o que omiten algunas de sus iteraciones.
+
+[Los ciclos en R](https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#Looping) se implementan mediante las sentencias ```for```, ```while``` y ```repeat```, en combinación con las sentencias ```break``` y ```next```.
+
+R provee varias funciones que implementan ciclos de manera implícita, tales como [apply()](https://rdrr.io/r/base/apply.html), [tapply()](https://rdrr.io/r/base/tapply.html) y [lapply()](https://rdrr.io/r/base/lapply.html). Adicionalmente, hay muchas operaciones (ej. las aritméticas) que están "vectorizadas", por lo que no es necesario utilizarlas en ciclos. El uso de código vectorizado es muy recomendado en R, por ser muy eficiente.
+
+### Sentencias básicas para manejo de ciclos
+
+#### La sentencia ```for```
+La sentencia [for](https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#for) repite las instrucciones contenidas en un bloque para cada uno de los elementos de un vector o lista. En cada iteración, el valor del elemento que está siendo procesado se almacena en una variable.
+
+
+```r
+for (variable in vector) {
+  # bloque de instrucciones
+}
+```
+
+Por ejemplo, el siguiente fragmento de código utiliza un ciclo de tipo ```for``` para recorrer un vector de nombres e imprimir un saludo para cada uno.
+
+
+```r
+vector_nombres <- c("Andrés", "Beatriz", "Carlos", "Marta", "Pedro", "Sara")
+
+for (nombre in vector_nombres) {
+  cat("Hola", nombre, "\n")
+}
+#> Hola Andrés 
+#> Hola Beatriz 
+#> Hola Carlos 
+#> Hola Marta 
+#> Hola Pedro 
+#> Hola Sara
+```
+
+En el siguiente ejemplo, se utiliza otro ciclo ```for``` para recorrer un vector de números y sumar sus elementos.
+
+
+```r
+vector_numeros <- c(29.6, -36.81, 31.85, 25.71, 90.2, 0.4)
+
+suma <- 0
+
+for (x in vector_numeros) {
+  suma <- suma + x
+}
+
+cat("Suma:", suma)
+#> Suma: 140.95
+```
+
+##### Ejercicios
+1. Utilice un ciclo ```for``` para recorrer el vector del ejemplo anterior y calcular el promedio de sus elementos.
+
+Seguidamente, se utiliza dos ```for``` "anidados" para sumar los elementos de cada una de las columnas de una matriz.
+
+
+```r
+m <- matrix(1:12, nrow=3, ncol=4)
+m
+#>      [,1] [,2] [,3] [,4]
+#> [1,]    1    4    7   10
+#> [2,]    2    5    8   11
+#> [3,]    3    6    9   12
+
+# Ciclo externo para recorrer las columnas de la matriz
+for (j in 1:ncol(m)) {
+  suma_columna <- 0
+  # Ciclo interno para recorrer las elementos de cada columna
+  for (i in 1:nrow(m)) {
+    suma_columna <- suma_columna + m[i, j]
+  }
+  print(suma_columna)
+}
+#> [1] 6
+#> [1] 15
+#> [1] 24
+#> [1] 33
+```
+
+
+##### Ejercicios
+1. Utilice dos ciclos ```for``` anidados para recorrer la matriz del ejemplo anterior y calcular el promedio de cada una de sus columnas.
+
+#### La sentencia ```while```
+La sentencia [while](https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#while) evalúa una condición (i.e. una expresión lógica) en cada iteración del ciclo y ejecuta las intrucciones del bloque mientras la condición sea verdadera. Generalmente, en algún momento la condición se vuelve falsa y así finaliza el ciclo.
+
+
+```r
+while (condicion) {
+  # bloque de instrucciones 
+}
+```
+
+En el siguiente ejemplo, se utiliza un ciclo ```while``` para preguntarle al usuario cuál es la [respuesta definitiva al sentido de la vida, el universo y todo lo demás](https://en.wikipedia.org/wiki/42_(number)#The_Hitchhiker's_Guide_to_the_Galaxy) y se continúa haciendo la pregunta hasta que responda correctamente:
+
+
+```r
+# Función para leer una respuesta desde la pantalla
+leer_respuesta <- function() {
+  readline(prompt="¿Cual es la respuesta definitiva al sentido de la vida, el universo y todo lo demás? ")
+}
+
+# Si la respuesta es incorrecta, se repite la pregunta hasta que el usuario conteste correctamente
+while (leer_respuesta() != "42") {   
+  print("¡Su respuesta es incorrecta!")
+}
+```
+
+##### Ejercicios
+1. Utilice un ciclo ```while``` para implementar el cálculo del promedio de los elementos de un vector. Sugerencia: utilice la función [length()](https://rdrr.io/r/base/length.html) para obtener la longitud del vector y así saber cuando terminar de recorrerlo.
+
+#### La sentencia ```repeat```
+La sentencia [repeat](https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#repeat) implementa un ciclo que se repite indefinidamente. Puede interrumpirse con una sentencia  ```break ```.
+
+
+```r
+repeat {
+  # bloque de instrucciones 
+}
+```
+
+Los ciclos ```repeat``` tienen una estructura más sencilla que los ```while```. Algo que los diferencia es que los bloques de los ciclos ```repeat``` entran a ejecutarse al menos una vez.
+
+En el siguiente ejemplo, se utiliza un ciclo ```repeat``` para implementar la pregunta y lectura de la respuesta que anteriormente se implementó con un ciclo ```while```.
+
+
+```r
+# Función para leer una respuesta desde la pantalla
+leer_respuesta <- function() {
+  readline(prompt="¿Cual es la respuesta definitiva al sentido de la vida, el universo y todo lo demás? ")
+}
+
+# Ciclo para imprimir la pregunta y leer la respuesta hasta que esta sea correcta
+repeat {
+  respuesta <- leer_respuesta()
+  if (respuesta != "42") {
+    # Respuesta incorrecta
+    print("¡Su respuesta es incorrecta!")
+  } else {
+    # Respuesta correcta. Se interrumpe el ciclo.
+    break
+  }
+}
+```
+
+#### Las sentencias ```break``` y ```next```
+La sentencia ```break``` interrumpe un ciclo. La ejecución del programa continúa con la instrucción siguiente al bloque del ciclo.
+
+En el siguiente ciclo ```for```, se suman uno a uno los números de un vector, pero se usa un ```break``` para interrumpir el ciclo cuando el acumulado es mayor que 100.
+
+
+```r
+vector_numeros <- c(17, 23, 37, 41, 52, 64, 75)
+
+acumulado <- 0
+
+for (x in vector_numeros) {
+  acumulado <- acumulado + x
+  cat("Acumulado:", acumulado, "\n")
+  if (acumulado >= 100) {
+    cat("Se superó el límite de 100 en el acumulado")
+    break
+  }
+}
+#> Acumulado: 17 
+#> Acumulado: 40 
+#> Acumulado: 77 
+#> Acumulado: 118 
+#> Se superó el límite de 100 en el acumulado
+```
+
+Por su parte, la sentencia ```next``` retorna el control al principio del bloque.  Las instrucciones que hay después del ```next``` no se ejecutan. La siguiente iteración del ciclo (si la hay), se inicia entonces.
+
+El siguiente ciclo recorre un vector de números. Se utiliza la sentencia ```next``` para "saltar" los números impares y sumar solo los pares.
+
+
+```r
+vector_numeros <- c(17, 23, 37, 41, 52, 64, 75)
+
+suma_pares <- 0
+
+for (x in vector_numeros) {
+  if (x %% 2 == 0) {
+    # Número par: se suma
+    suma_pares <- suma_pares + x
+  } else {
+    # Número impar: se "salta" al siguiente número
+    next
+  }
+}
+
+cat("Suma de los números pares:", suma_pares)
+#> Suma de los números pares: 116
+```
+
+### Las funciones ```apply()```
+Esta es una familia de funciones que manipulan subconjuntos de datos obtenidos a partir de matrices, listas y data frames, los cuales son recorridos de una forma repetitiva. Pueden funcionar como una alternativa a los ciclos y aplicar funciones en los subconjuntos de datos como, por ejemplo, funciones estadísticas en las columnas de una matriz o de un data frame. Su uso es muy recomendado por su eficiencia, flexibilidad y simplicidad.
+
+Entre estas funciones, pueden mencionarse [apply()](https://rdrr.io/r/base/apply.html), [lapply()](https://rdrr.io/r/base/lapply.html), [sapply()](https://rdrr.io/cran/functools/man/Sapply.html), [vapply()](https://rdrr.io/cran/functools/man/Vapply.html), [mapply()](https://rdrr.io/r/base/mapply.html), [rapply()](https://rdrr.io/r/base/rapply.html) y [tapply()](https://rdrr.io/r/base/tapply.html).
+
+#### ```apply()```
+La función [apply()](https://rdrr.io/r/base/apply.html) toma como entrada un arreglo o una matriz y aplica alguna función sobre sus filas o columnas.
+
+La sintaxis de la función es:
+
+
+```r
+apply(X, MARGIN, FUN, ...)
+```
+
+En donde:  
+- ```X```: es un arreglo o matriz.  
+- ```MARGIN```: ```MARGIN = 1``` significa que la función actúa en las filas, ```MARGIN = 2``` significa que la función actúa en las columnas y ```MARGIN = c(1, 2)``` significa que la función actúa en las filas y en las columnas.  
+- ```FUN```: es la función que se aplicará a cada uno de los elementos de ```X```.
+
+En el siguiente ejemplo, se utiliza la función ```apply()``` para sumar los elementos de las columnas de una matriz.
+
+
+```r
+m <- matrix(1:12, nrow=3, ncol=4)
+m
+#>      [,1] [,2] [,3] [,4]
+#> [1,]    1    4    7   10
+#> [2,]    2    5    8   11
+#> [3,]    3    6    9   12
+
+# Suma de las columnas
+apply(m, 2, sum)
+#> [1]  6 15 24 33
+```
+
+##### Ejercicios
+1. Utilice la función ```apply()``` para obtener el promedio de los elementos de cada columna de la matriz del ejemplo anterior.
+
+#### ```lapply()```
+La función [lapply()](https://rdrr.io/r/base/lapply.html) toma como entrada un vector o lista y retorna una lista de la misma longitud en la que cada uno de sus elementos es el resultado de aplicar una función al vector o lista de entrada.
+
+La sintaxis de la función es:
+
+
+```r
+lapply(X, FUN, ...)
+```
+
+En donde:  
+- ```X```: es un vector o lista.  
+- ```FUN```: es la función que se aplicará a cada elemento de X. Algunas funciones predefinidas que pueden utilizarse incluyen ```mean()```, ```median()```, ```sum()```, ```min()``` y ```max()```. También pueden usarse funciones definidas por el usuario.
+
+En los siguientes ejemplos, se utiliza ```lapply()``` para aplicar diferentes funciones a un vector de nombres de personas.
+
+
+```r
+nombres <- c("Andrés", "Beatriz", "Carlos", "Marta", "Pedro", "Sara")
+
+# Los nombres de la lista se transforman a minúscula
+nombres_en_minuscula <- lapply(nombres, tolower)
+nombres_en_minuscula
+#> [[1]]
+#> [1] "andrés"
+#> 
+#> [[2]]
+#> [1] "beatriz"
+#> 
+#> [[3]]
+#> [1] "carlos"
+#> 
+#> [[4]]
+#> [1] "marta"
+#> 
+#> [[5]]
+#> [1] "pedro"
+#> 
+#> [[6]]
+#> [1] "sara"
+
+# Se genera un saludo para cada nombre
+nombres_con_saludo <- lapply(nombres, function(arg1, arg2) paste(arg1, arg2), arg1="Hola")
+nombres_con_saludo
+#> [[1]]
+#> [1] "Hola Andrés"
+#> 
+#> [[2]]
+#> [1] "Hola Beatriz"
+#> 
+#> [[3]]
+#> [1] "Hola Carlos"
+#> 
+#> [[4]]
+#> [1] "Hola Marta"
+#> 
+#> [[5]]
+#> [1] "Hola Pedro"
+#> 
+#> [[6]]
+#> [1] "Hola Sara"
+```
+
+#### ```tapply()```
+La función [tapply()](https://rdrr.io/r/base/tapply.html) aplica una función a cada nivel de un factor.
+
+La sintaxis de la función es:
+
+
+```r
+tapply(X, INDEX, FUN)
+```
+
+En donde:  
+- ```X```: es un objeto, tipicamente un vector.  
+- ```INDEX```: es una lista que contiene un factor.  
+- ```FUN```: es la función que se aplicará a cada elemento de ```X```.
+
+En el siguiente ejemplo, se utiliza ```tapply()``` para calcular la mediana del ancho del sépalo para cada especie del conjunto de datos ```iris```.
+
+
+```r
+data(iris)
+tapply(iris$Sepal.Width, iris$Species, median)
+#>     setosa versicolor  virginica 
+#>        3.4        2.8        3.0
+```
+
+##### Ejercicios
+1. Utilice la función ```tapply()``` para obtener el promedio de las longitudes de los pétalos para cada especie del conjunto de datos ```iris```.
+
+### Vectorización
+En R, muchas operaciones y funciones pueden ser vectorizadas, lo que significa que pueden aplicarse a los elementos de un vector sin necesidad de iterar uno por uno en estos. 
+
+Por ejemplo, considérese el siguiente fragmento de código no vectorizado, que utiliza un ciclo para convertir los números de un vector a sus valores absolutos:
+
+
+```r
+vector_numeros <- c(23, -17, 34, 0, -12, 55)
+
+for (i in 1:length(vector_numeros)) {
+  if (vector_numeros[i] < 0) {
+    vector_numeros[i] <- -vector_numeros[i]
+  }
+}
+
+vector_numeros
+#> [1] 23 17 34  0 12 55
+```
+
+El siguiente fragmento de código realiza la misma tarea, pero de forma vectorizada:
+
+
+```r
+vector_numeros <- c(23, -17, 34, 0, -12, 55)
+
+# Se usa una expresión lógica para seleccionar los elementos del vector < 0
+negativos <- vector_numeros < 0
+negativos
+#> [1] FALSE  TRUE FALSE FALSE  TRUE FALSE
+
+# Se cambian los elementos seleccionados en el paso anterior sin utilizar el for
+vector_numeros[negativos] <- vector_numeros[negativos] * -1
+
+vector_numeros
+#> [1] 23 17 34  0 12 55
+```
+
+#### Ejercicios
+1. Utilice código vectorizado para implementar una función que reciba como argumento un vector de números y retorne el mismo vector con los elementos impares (solo los impares) elevados al cuadrado.
 
 ## Recursos de interés
 *Find Open Datasets and Machine Learning Projects | Kaggle*. (s. f.). Recuperado 24 de abril de 2022, de https://www.kaggle.com/datasets
