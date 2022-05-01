@@ -1,15 +1,12 @@
 # (PART) Evaluaciones {-}
 
-# Exámenes cortos {-}
+# Examen corto 1 {-}
 
-## Examen corto 1 {-}
-
-**Fecha**  
+## Fecha {-}
 - Grupo 001: Miércoles 20 de abril de 2022  
 - Grupo 002: Jueves 21 de abril de 2022
 
-**Temas a evaluar**  
-
+## Temas a evaluar {-}
 - [Pensamiento computacional](https://gf0604-procesamientodatosgeograficos.github.io/2022-i/pensamiento-computacional.html)
 - [Arquitectura de computadoras y lenguajes de programación](https://gf0604-procesamientodatosgeograficos.github.io/2022-i/arquitectura-de-computadoras-y-lenguajes-de-programaci%C3%B3n.html)  
 - [Interacción humano-computador](https://gf0604-procesamientodatosgeograficos.github.io/2022-i/interacci%C3%B3n-humano-computadora.html)  
