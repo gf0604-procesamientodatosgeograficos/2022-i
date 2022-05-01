@@ -12,6 +12,9 @@ En esta lección, se estudiarán los conceptos básicos del lenguaje de programa
 - El ambiente de desarrollo RStudio.
 - Funciones y paquetes.
 - Tipos de datos.
+- Definición de funciones.
+- Condicionales.
+- Ciclos.
 
 ## Características generales
 [R](https://www.r-project.org/) es un lenguaje de programación enfocado en análisis estadístico. Es ampliamente utilizado en diversas áreas de investigación, entre las que pueden mencionarse [aprendizaje automático (_machine learning_)](https://en.wikipedia.org/wiki/Machine_learning), [ciencia de datos (_data science_)](https://en.wikipedia.org/wiki/Data_science) y [_big data_](https://en.wikipedia.org/wiki/Big_data), con aplicaciones en campos como biomedicina, bioinformática y finanzas, entre muchos otros. Fue creado por Ross Ihaka y Robert Gentleman en la Universidad de Auckland, Nueva Zelanda, en 1993.
@@ -912,6 +915,85 @@ fecha_02 - fecha_01
 ```
 
 Hay una lista de formatos de fechas en [Date Formats in R - R-bloggers](https://www.r-bloggers.com/date-formats-in-r/).
+
+## Definición de funciones
+Además de todas las funciones disponibles en la distribución base de R y en sus diferentes paquetes, R permite que los programadores definan sus propias funciones.
+
+Toda función tiene tres partes esenciales:
+
+* Un nombre.
+* Un conjunto de argumentos.
+* Un conjunto de líneas de código, también llamado *el cuerpo* de la función.
+
+Para programar una función, debe definirse cada una de esas partes por medio de la palabra función [function()](https://rdrr.io/r/base/function.html).
+
+
+```r
+mi_funcion <- function(argumento_1, argumento_2, argumento_n) {
+  # Cuerpo de la función
+}
+```
+
+Por ejemplo, la siguiente función calcula la nota final de un curso con base en los promedios de exámenes, proyectos y tareas.
+
+
+```r
+nota_final <- function(promedio_examenes,
+                       promedio_proyectos,
+                       promedio_tareas) {
+  factor_examenes <- promedio_examenes * 0.5
+  factor_proyectos <- promedio_proyectos * 0.4
+  factor_tareas <- promedio_tareas * 0.1
+  
+  return(factor_examenes + factor_proyectos + factor_tareas)
+}
+```
+
+La función [return()](https://rdrr.io/r/base/function.html) es la que define el valor de retorno de la función. Si no se incluye, la función retorna la última expresión evaluada.
+
+Ahora que está definida, la función ```nota_final()``` puede ser invocada, con diferentes argumentos:
+
+
+```r
+# Si ni se incluyen los nombres de los argumentos, la función asume que se ingresan en el mismo orden en el que fueron definidos
+nota_final(100, 50, 0)
+#> [1] 70
+
+# El uso de los nombres de argumentos permite modificar su orden
+nota_final(promedio_examenes =  100, promedio_tareas =  0, promedio_proyectos = 50)
+#> [1] 70
+```
+
+Si se desea darle al usuario la opción de omitir algunos argumentos, se les puede asignar un valor por defecto.
+
+Seguidamente, la función ```nota_final()``` se redefine asignando valores por defecto a algunos de los argumentos:
+
+
+```r
+nota_final <- function(promedio_examenes,
+                       promedio_proyectos = 0,
+                       promedio_tareas = 0) {
+  factor_examenes <- promedio_examenes * 0.5
+  factor_proyectos <- promedio_proyectos * 0.4
+  factor_tareas <- promedio_tareas * 0.1
+  
+  # Al no llamarse a la función return(), se retorna la última expresión:
+  factor_examenes + factor_proyectos + factor_tareas
+}
+
+# Se utiliza el valor por defecto (0) para el argumento promedio_tareas
+nota_final(promedio_examenes = 100, promedio_proyectos = 50)
+#> [1] 70
+
+# Se llama la función usando la posición del primer argumento y el nombre del segundo
+nota_final(100, promedio_proyectos = 50)
+#> [1] 70
+```
+
+### Ejercicios
+1. Defina una función con nombre ```celsius_a_fahrenheit()``` que reciba como argumento una cantidad en grados Celsius y retorne el equivalente en grados Fahrenheit.  
+2. Defina una función con nombre ```fahrenheit_a_celsius()``` que reciba como argumento una cantidad en grados Fahrenheit y retorne el equivalente en grados Celsius.  
+3. Defina una función con nombre ```imc()``` para calcular el [índice de masa corporal (IMC)](https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal) de una persona con base en su peso (en kilogramos) y su estatura (en metros).
 
 ## Recursos de interés
 *Find Open Datasets and Machine Learning Projects | Kaggle*. (s. f.). Recuperado 24 de abril de 2022, de https://www.kaggle.com/datasets

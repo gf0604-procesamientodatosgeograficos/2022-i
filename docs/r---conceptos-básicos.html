@@ -113,6 +113,9 @@
 <li>El ambiente de desarrollo RStudio.</li>
 <li>Funciones y paquetes.</li>
 <li>Tipos de datos.</li>
+<li>Definición de funciones.</li>
+<li>Condicionales.</li>
+<li>Ciclos.</li>
 </ul>
 </div>
 <div id="características-generales" class="section level2" number="8.3">
@@ -945,9 +948,80 @@ Descargue el archivo del ejemplo anterior (<a href="https://raw.githubuserconten
 </div>
 </div>
 </div>
-<div id="recursos-de-interés-6" class="section level2" number="8.9">
+<div id="definición-de-funciones" class="section level2" number="8.9">
 <h2>
-<span class="header-section-number">8.9</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9</span> Definición de funciones<a class="anchor" aria-label="anchor" href="#definici%C3%B3n-de-funciones"><i class="fas fa-link"></i></a>
+</h2>
+<p>Además de todas las funciones disponibles en la distribución base de R y en sus diferentes paquetes, R permite que los programadores definan sus propias funciones.</p>
+<p>Toda función tiene tres partes esenciales:</p>
+<ul>
+<li>Un nombre.</li>
+<li>Un conjunto de argumentos.</li>
+<li>Un conjunto de líneas de código, también llamado <em>el cuerpo</em> de la función.</li>
+</ul>
+<p>Para programar una función, debe definirse cada una de esas partes por medio de la palabra función <a href="https://rdrr.io/r/base/function.html">function()</a>.</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mi_funcion</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">argumento_1</span>, <span class="va">argumento_2</span>, <span class="va">argumento_n</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># Cuerpo de la función</span>
+<span class="op">}</span></code></pre></div>
+<p>Por ejemplo, la siguiente función calcula la nota final de un curso con base en los promedios de exámenes, proyectos y tareas.</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nota_final</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">promedio_examenes</span>,
+                       <span class="va">promedio_proyectos</span>,
+                       <span class="va">promedio_tareas</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">factor_examenes</span> <span class="op">&lt;-</span> <span class="va">promedio_examenes</span> <span class="op">*</span> <span class="fl">0.5</span>
+  <span class="va">factor_proyectos</span> <span class="op">&lt;-</span> <span class="va">promedio_proyectos</span> <span class="op">*</span> <span class="fl">0.4</span>
+  <span class="va">factor_tareas</span> <span class="op">&lt;-</span> <span class="va">promedio_tareas</span> <span class="op">*</span> <span class="fl">0.1</span>
+  
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">factor_examenes</span> <span class="op">+</span> <span class="va">factor_proyectos</span> <span class="op">+</span> <span class="va">factor_tareas</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>La función <a href="https://rdrr.io/r/base/function.html">return()</a> es la que define el valor de retorno de la función. Si no se incluye, la función retorna la última expresión evaluada.</p>
+<p>Ahora que está definida, la función <code>nota_final()</code> puede ser invocada, con diferentes argumentos:</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Si ni se incluyen los nombres de los argumentos, la función asume que se ingresan en el mismo orden en el que fueron definidos</span>
+<span class="fu">nota_final</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">50</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="co">#&gt; [1] 70</span>
+
+<span class="co"># El uso de los nombres de argumentos permite modificar su orden</span>
+<span class="fu">nota_final</span><span class="op">(</span>promedio_examenes <span class="op">=</span>  <span class="fl">100</span>, promedio_tareas <span class="op">=</span>  <span class="fl">0</span>, promedio_proyectos <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
+<span class="co">#&gt; [1] 70</span></code></pre></div>
+<p>Si se desea darle al usuario la opción de omitir algunos argumentos, se les puede asignar un valor por defecto.</p>
+<p>Seguidamente, la función <code>nota_final()</code> se redefine asignando valores por defecto a algunos de los argumentos:</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nota_final</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">promedio_examenes</span>,
+                       <span class="va">promedio_proyectos</span> <span class="op">=</span> <span class="fl">0</span>,
+                       <span class="va">promedio_tareas</span> <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">factor_examenes</span> <span class="op">&lt;-</span> <span class="va">promedio_examenes</span> <span class="op">*</span> <span class="fl">0.5</span>
+  <span class="va">factor_proyectos</span> <span class="op">&lt;-</span> <span class="va">promedio_proyectos</span> <span class="op">*</span> <span class="fl">0.4</span>
+  <span class="va">factor_tareas</span> <span class="op">&lt;-</span> <span class="va">promedio_tareas</span> <span class="op">*</span> <span class="fl">0.1</span>
+  
+  <span class="co"># Al no llamarse a la función return(), se retorna la última expresión:</span>
+  <span class="va">factor_examenes</span> <span class="op">+</span> <span class="va">factor_proyectos</span> <span class="op">+</span> <span class="va">factor_tareas</span>
+<span class="op">}</span>
+
+<span class="co"># Se utiliza el valor por defecto (0) para el argumento promedio_tareas</span>
+<span class="fu">nota_final</span><span class="op">(</span>promedio_examenes <span class="op">=</span> <span class="fl">100</span>, promedio_proyectos <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
+<span class="co">#&gt; [1] 70</span>
+
+<span class="co"># Se llama la función usando la posición del primer argumento y el nombre del segundo</span>
+<span class="fu">nota_final</span><span class="op">(</span><span class="fl">100</span>, promedio_proyectos <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
+<span class="co">#&gt; [1] 70</span></code></pre></div>
+<div id="ejercicios-5" class="section level3" number="8.9.1">
+<h3>
+<span class="header-section-number">8.9.1</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-5"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Defina una función con nombre <code>celsius_a_fahrenheit()</code> que reciba como argumento una cantidad en grados Celsius y retorne el equivalente en grados Fahrenheit.<br>
+</li>
+<li>Defina una función con nombre <code>fahrenheit_a_celsius()</code> que reciba como argumento una cantidad en grados Fahrenheit y retorne el equivalente en grados Celsius.<br>
+</li>
+<li>Defina una función con nombre <code>imc()</code> para calcular el <a href="https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal">índice de masa corporal (IMC)</a> de una persona con base en su peso (en kilogramos) y su estatura (en metros).</li>
+</ol>
+</div>
+</div>
+<div id="recursos-de-interés-6" class="section level2" number="8.10">
+<h2>
+<span class="header-section-number">8.10</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-6"><i class="fas fa-link"></i></a>
 </h2>
 <p><em>Find Open Datasets and Machine Learning Projects | Kaggle</em>. (s. f.). Recuperado 24 de abril de 2022, de <a href="https://www.kaggle.com/datasets" class="uri">https://www.kaggle.com/datasets</a></p>
 <p><em>Newest «r» Questions</em>. (s. f.). Stack Overflow. Recuperado 24 de abril de 2022, de <a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a></p>
@@ -990,7 +1064,10 @@ Descargue el archivo del ejemplo anterior (<a href="https://raw.githubuserconten
 <li><a class="nav-link" href="#otros-2"><span class="header-section-number">8.8.3</span> Otros</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-6"><span class="header-section-number">8.9</span> Recursos de interés</a></li>
+<li>
+<a class="nav-link" href="#definici%C3%B3n-de-funciones"><span class="header-section-number">8.9</span> Definición de funciones</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#ejercicios-5"><span class="header-section-number">8.9.1</span> Ejercicios</a></li></ul>
+</li>
+<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-6"><span class="header-section-number">8.10</span> Recursos de interés</a></li>
 </ul>
 
       <div class="book-extra">

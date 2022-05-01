@@ -116,4 +116,6 @@ operaciones-3
 otros-2
 fechas
 operaciones-4
+definición-de-funciones
+ejercicios-5
 recursos-de-interés-6
