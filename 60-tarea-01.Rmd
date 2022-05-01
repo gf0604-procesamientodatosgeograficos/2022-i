@@ -37,12 +37,12 @@ Los textos están disponibles en [este enlace](otros/tarea-01-texto.txt).
 Entre paréntesis, se muestra el porcentaje correspondiente a cada aspecto que se calificará:
 
 Revisión de las direcciones entregadas en Mediación Virtual:  
-- (5%) Dirección del repositorio en GitHub.
-- (5%) Dirección del sitio web publicado en GitHub Pages.
+- (5%) Dirección del repositorio en GitHub.  
+- (5%) Dirección del sitio web publicado en GitHub Pages.  
 
 Revisión de los elementos del documento escrito en Markdown:  
-- (10%) Encabezados.
-- (20%) Negritas e itálicas.
-- (20%) Citas textuales.
-- (20%) Imagen de la figura 1 (el archivo está en [ZiemannEtAlFig1.png](img/ZiemannEtAlFig1.png).
-- (20%) Hipervínculos (además de los dos de la bibliografía, incluya uno al sitio web de la FDA en https://www.fda.gov/, en donde se mencionan las siglas).
+- (10%) Encabezados.  
+- (20%) Negritas e itálicas.  
+- (20%) Citas textuales.  
+- (20%) Imagen de la figura 1 (el archivo está en [ZiemannEtAlFig1.png](img/ZiemannEtAlFig1.png).  
+- (20%) Hipervínculos (además de los dos de la bibliografía, incluya uno al sitio web de la FDA en https://www.fda.gov/, en donde se mencionan las siglas).  
