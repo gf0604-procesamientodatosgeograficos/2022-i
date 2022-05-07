@@ -13,6 +13,7 @@ fig:git-push-pull
 fig:git-push-pull-commit
 fig:git-stage-commit-push
 fig:rstudio-interfaz
+fig:r-markdown-knitr-pandoc
 pensamiento-computacional
 resumen
 diapositivas
@@ -142,3 +143,13 @@ ejercicios-12
 vectorización
 ejercicios-13
 recursos-de-interés-6
+r-markdown
+trabajo-previo-4
+lecturas-2
+resumen-8
+características-generales-1
+anatomía-de-un-documento-r-markdown
+metadatos-en-yaml
+narrativa-en-markdown
+fragmentos-de-código-en-r
+recursos-de-interés-7
