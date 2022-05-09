@@ -1060,7 +1060,7 @@ if (edad < 18) {
 Las cláusulas ```else if``` deben escribirse antes de la cláusula ```else```, la cual es siempre la última, si es que está presente. Tanto las cláusulas ```else if``` como la cláusula ```else``` son opcionales.
 
 ### Ejercicios
-1. Defina una función con nombre ```interpretacion_imc()``` que reciba como argumento un número correspondiente al índice de masa corporal (IMC) de una persona.  Debe retornar una hilera de caracteres correspondiente a la interpretación del IMC ("Bajo peso", "Normal", "Sobrepeso", "Obesidad"), de acuerdo con la tabla disponible en [Índice de mapas corporal - Wikipedia](https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal#Interpretaci%C3%B3n).
+1. Defina una función con nombre ```interpretacion_imc()``` que reciba como argumento un número correspondiente al índice de masa corporal (IMC) de una persona.  Debe retornar una hilera de caracteres correspondiente a la interpretación del IMC ("Bajo peso", "Normal", "Sobrepeso", "Obesidad"), de acuerdo con la tabla disponible en [Índice de masa corporal - Wikipedia](https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal#Interpretaci%C3%B3n).
 
 ## Ciclos
 Los ciclos permiten ejecutar tareas de manera repetitiva en un programa. Algunos ciclos se ejecutan una cantidad definida de veces, mientras que otros lo hacen mientras se cumple una condición lógica. Pueden usarse en combinación con cláusulas que terminan anticipadamente el ciclo o que omiten algunas de sus iteraciones.
