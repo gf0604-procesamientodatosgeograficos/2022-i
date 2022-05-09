@@ -62,11 +62,33 @@ output:
 ---
 ```
 
-Las [viñetas del paquete ymlthis](https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html) presentan una lista de los campos YAML disponibles para el encabezado de un documento R Markdown.
+Las [viñetas del paquete ymlthis](https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html) presentan una lista de los campos YAML disponibles para el encabezado de un documento R Markdown. Los campos también pueden consultarse en la ayuda en línea, por ejemplo con `?rmarkdown::html_document`.
 
 ### Narrativa en Markdown
+La narrativa proporciona estructura y contenido al documento en la forma de encabezados, párrafos, enlaces y otros elementos de la sintaxis de [Markdown](https://daringfireball.net/projects/markdown/).
 
 ### Fragmentos de código en R
+Cada fragmento (*chunk*) de código consiste de:
+
+- La especificación del lenguaje (*engine*). Usualmente es R, pero hay otras opciones (ej. Python, SQL, C, Bash).
+- Una etiqueta (opcional, pero recomedable).
+- Opciones.
+- Código fuente.
+
+Por ejemplo:
+
+````md
+```{r cars, echo=FALSE}
+plot(cars)
+```
+````
+
+El fragmento anterior de código R tiene asignada la etiqueta `cars` y la opción `echo=FALSE`, la cual indica que no debe desplegarse el código fuente de este fragmento en el documento. Sí se desplegará la salida generada por el código `plot(cars)`.
+
+Hay más de 50 opciones para fragmentos de código que pueden consultarse en [https://yihui.org/knitr/options/](https://yihui.org/knitr/options/).
+
+## Ejemplo de documento R Markdown
+Un ejemplo de documento R Markdown con gráficos de COVID-19 en Costa Rica, generados con el paquete base de R, está disponible en [https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/) y su código fuente en [https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico).
 
 ## Recursos de interés
 Alzahawi, S. (s. f.). *Reproducible Reports with R Markdown*. Recuperado 21 de marzo de 2022, de https://rmarkdown-shilaan.netlify.app/
@@ -76,6 +98,8 @@ Bartomeus Lab. (2016). *A reproducible workflow*. https://www.youtube.com/watch?
 *Basic YAML*. (s. f.). Recuperado 6 de mayo de 2022, de https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html
 
 Higgins, M. (s. f.). *Reproducible Templates for Analysis and Dissemination*. Coursera. Recuperado 11 de abril de 2022, de https://www.coursera.org/learn/reproducible-templates-analysis
+
+*Options—Yihui Xie | 谢益辉*. (s. f.). Recuperado 6 de mayo de 2022, de https://yihui.org/knitr/options/
 
 RStudio. (s. f.). rmarkdown::CHEAT SHEET. Recuperado 6 de mayo de 2022, de https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf
 

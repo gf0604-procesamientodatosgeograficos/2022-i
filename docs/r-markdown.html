@@ -158,27 +158,48 @@ output:
     toc: true
     toc_float: true
 ---</code></pre>
-<p>Las <a href="https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html">viñetas del paquete ymlthis</a> presentan una lista de los campos YAML disponibles para el encabezado de un documento R Markdown.</p>
+<p>Las <a href="https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html">viñetas del paquete ymlthis</a> presentan una lista de los campos YAML disponibles para el encabezado de un documento R Markdown. Los campos también pueden consultarse en la ayuda en línea, por ejemplo con <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html">?rmarkdown::html_document</a></code>.</p>
 </div>
 <div id="narrativa-en-markdown" class="section level3" number="9.4.2">
 <h3>
 <span class="header-section-number">9.4.2</span> Narrativa en Markdown<a class="anchor" aria-label="anchor" href="#narrativa-en-markdown"><i class="fas fa-link"></i></a>
 </h3>
+<p>La narrativa proporciona estructura y contenido al documento en la forma de encabezados, párrafos, enlaces y otros elementos de la sintaxis de <a href="https://daringfireball.net/projects/markdown/">Markdown</a>.</p>
 </div>
 <div id="fragmentos-de-código-en-r" class="section level3" number="9.4.3">
 <h3>
 <span class="header-section-number">9.4.3</span> Fragmentos de código en R<a class="anchor" aria-label="anchor" href="#fragmentos-de-c%C3%B3digo-en-r"><i class="fas fa-link"></i></a>
 </h3>
+<p>Cada fragmento (<em>chunk</em>) de código consiste de:</p>
+<ul>
+<li>La especificación del lenguaje (<em>engine</em>). Usualmente es R, pero hay otras opciones (ej. Python, SQL, C, Bash).</li>
+<li>Una etiqueta (opcional, pero recomedable).</li>
+<li>Opciones.</li>
+<li>Código fuente.</li>
+</ul>
+<p>Por ejemplo:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb97-1"><a href="r-markdown.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cars, echo=FALSE}</span></span>
+<span id="cb97-2"><a href="r-markdown.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="in">plot(cars)</span></span>
+<span id="cb97-3"><a href="r-markdown.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p>El fragmento anterior de código R tiene asignada la etiqueta <code>cars</code> y la opción <code>echo=FALSE</code>, la cual indica que no debe desplegarse el código fuente de este fragmento en el documento. Sí se desplegará la salida generada por el código <code>plot(cars)</code>.</p>
+<p>Hay más de 50 opciones para fragmentos de código que pueden consultarse en <a href="https://yihui.org/knitr/options/">https://yihui.org/knitr/options/</a>.</p>
 </div>
 </div>
-<div id="recursos-de-interés-7" class="section level2" number="9.5">
+<div id="ejemplo-de-documento-r-markdown" class="section level2" number="9.5">
 <h2>
-<span class="header-section-number">9.5</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">9.5</span> Ejemplo de documento R Markdown<a class="anchor" aria-label="anchor" href="#ejemplo-de-documento-r-markdown"><i class="fas fa-link"></i></a>
+</h2>
+<p>Un ejemplo de documento R Markdown con gráficos de COVID-19 en Costa Rica, generados con el paquete base de R, está disponible en <a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/">https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/</a> y su código fuente en <a href="https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico">https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico</a>.</p>
+</div>
+<div id="recursos-de-interés-7" class="section level2" number="9.6">
+<h2>
+<span class="header-section-number">9.6</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-7"><i class="fas fa-link"></i></a>
 </h2>
 <p>Alzahawi, S. (s. f.). <em>Reproducible Reports with R Markdown</em>. Recuperado 21 de marzo de 2022, de <a href="https://rmarkdown-shilaan.netlify.app/" class="uri">https://rmarkdown-shilaan.netlify.app/</a></p>
 <p>Bartomeus Lab. (2016). <em>A reproducible workflow</em>. <a href="https://www.youtube.com/watch?v=s3JldKoA0zw" class="uri">https://www.youtube.com/watch?v=s3JldKoA0zw</a></p>
 <p><em>Basic YAML</em>. (s. f.). Recuperado 6 de mayo de 2022, de <a href="https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html" class="uri">https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html</a></p>
 <p>Higgins, M. (s. f.). <em>Reproducible Templates for Analysis and Dissemination</em>. Coursera. Recuperado 11 de abril de 2022, de <a href="https://www.coursera.org/learn/reproducible-templates-analysis" class="uri">https://www.coursera.org/learn/reproducible-templates-analysis</a></p>
+<p><em>Options—Yihui Xie | 谢益辉</em>. (s. f.). Recuperado 6 de mayo de 2022, de <a href="https://yihui.org/knitr/options/" class="uri">https://yihui.org/knitr/options/</a></p>
 <p>RStudio. (s. f.). rmarkdown::CHEAT SHEET. Recuperado 6 de mayo de 2022, de <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf" class="uri">https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf</a></p>
 <p><em>Quarto</em>. (s. f.). Recuperado 6 de mayo de 2022, de <a href="https://quarto.org/" class="uri">https://quarto.org/</a></p>
 
@@ -206,7 +227,8 @@ output:
 <li><a class="nav-link" href="#fragmentos-de-c%C3%B3digo-en-r"><span class="header-section-number">9.4.3</span> Fragmentos de código en R</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-7"><span class="header-section-number">9.5</span> Recursos de interés</a></li>
+<li><a class="nav-link" href="#ejemplo-de-documento-r-markdown"><span class="header-section-number">9.5</span> Ejemplo de documento R Markdown</a></li>
+<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-7"><span class="header-section-number">9.6</span> Recursos de interés</a></li>
 </ul>
 
       <div class="book-extra">
@@ -224,7 +246,7 @@ output:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-05-06.</p>
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-05-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

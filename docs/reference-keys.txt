@@ -152,4 +152,5 @@ anatomía-de-un-documento-r-markdown
 metadatos-en-yaml
 narrativa-en-markdown
 fragmentos-de-código-en-r
+ejemplo-de-documento-r-markdown
 recursos-de-interés-7
