@@ -8,6 +8,7 @@ Xie, Y., Allaire, J. J., & Grolemund, G. (2018). *R Markdown: The definitive gui
 Xie, Y., Dervieux, C., & Riederer, E. (2020). *R Markdown Cookbook*. CRC Press. https://bookdown.org/yihui/rmarkdown-cookbook/
 
 ## Resumen
+En este capítulo, se estudia R Markdown, un formato que permite insertar código R, y sus salidas, en documentos escritos en Markdown. Se describe la anatomía de un documento R Markdown y se presenta un ejemplo.
 
 ## Características generales
 [R Markdown](https://rmarkdown.rstudio.com/) es un formato que permite insertar código R, y sus salidas, en documentos escritos en Markdown. Fue introducido por Yihui Xie en 2012, junto con el paquete [knitr](https://yihui.org/knitr/), cuyo propósito es facilitar la investigación reproducible en R a través de la [programación literaria (*literate programming*)](https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria), un paradigma de programación propuesto por Donald Knuth en 1984. 
@@ -88,7 +89,10 @@ El fragmento anterior de código R tiene asignada la etiqueta `cars` y la opció
 Hay más de 50 opciones para fragmentos de código que pueden consultarse en [https://yihui.org/knitr/options/](https://yihui.org/knitr/options/).
 
 ## Ejemplo de documento R Markdown
-Un ejemplo de documento R Markdown con gráficos de COVID-19 en Costa Rica, generados con el paquete base de R, está disponible en [https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/) y su código fuente en [https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico).
+Un ejemplo de documento R Markdown con gráficos de COVID-19 en Costa Rica, generados con funciones del paquete base de R, está disponible en:
+
+- Sitio en GitHub Pages: [https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/)
+- Código fuente: [https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-analisis-covid-basico)
 
 ## Recursos de interés
 Alzahawi, S. (s. f.). *Reproducible Reports with R Markdown*. Recuperado 21 de marzo de 2022, de https://rmarkdown-shilaan.netlify.app/
