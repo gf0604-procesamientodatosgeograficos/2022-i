@@ -14,6 +14,8 @@ fig:git-push-pull-commit
 fig:git-stage-commit-push
 fig:rstudio-interfaz
 fig:r-markdown-knitr-pandoc
+fig:modelo-ciencia-datos
+fig:datos-tidy
 pensamiento-computacional
 resumen
 diapositivas
@@ -154,3 +156,16 @@ narrativa-en-markdown
 fragmentos-de-código-en-r
 ejemplo-de-documento-r-markdown
 recursos-de-interés-7
+tidyverse-colección-de-paquetes-para-ciencia-de-datos
+trabajo-previo-5
+lecturas-3
+resumen-9
+características-generales-2
+modelo-de-ciencia-de-datos
+paquetes-1
+instalación-y-carga
+el-conjunto-de-datos-palmerpenguins
+datos-tidy
+tibbles
+pipes
+recursos-de-interés-8
