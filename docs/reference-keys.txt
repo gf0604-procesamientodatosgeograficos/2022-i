@@ -165,6 +165,10 @@ modelo-de-ciencia-de-datos
 paquetes-1
 instalación-y-carga
 el-conjunto-de-datos-palmerpenguins
+ejemplos-de-visualizaciones
+gráficos-de-dispersión
+histogramas
+diagramas-de-caja
 datos-tidy
 tibbles
 pipes
@@ -186,8 +190,3 @@ otras
 count
 ejercicios-14
 recursos-de-interés-9
-url-your-book-url-like-httpsbookdown.orgyihuibookdown
-ejemplos-de-visualizaciones
-gráficos-de-dispersión
-histogramas
-diagramas-de-caja
