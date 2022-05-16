@@ -581,6 +581,8 @@ penguins %>%
 #> 1            4202.   344
 ```
 
+Sumarización con agrupamiento:
+
 
 ```r
 # Creación de un data frame con las columnas sumarizadas 'body_mass_g_mean' (promedio de masa) 

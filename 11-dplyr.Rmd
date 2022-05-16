@@ -262,6 +262,8 @@ penguins %>%
             n = n())
 ```
 
+Sumarización con agrupamiento:
+
 ```{r summarise-ejemplo-02}
 # Creación de un data frame con las columnas sumarizadas 'body_mass_g_mean' (promedio de masa) 
 # y 'n' (cantidad de individuos) para cada especie
