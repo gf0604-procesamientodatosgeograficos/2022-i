@@ -616,20 +616,47 @@
 <span class="co">#&gt;   body_mass_g_mean     n</span>
 <span class="co">#&gt;              &lt;dbl&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1            4202.   344</span></code></pre></div>
+<p>La función <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> cuenta la cantidad de filas en un grupo.</p>
 <p>Sumarización con agrupamiento:</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Creación de un data frame con las columnas sumarizadas 'body_mass_g_mean' (promedio de masa) </span>
-<span class="co"># y 'n' (cantidad de individuos) para cada especie</span>
+<code class="sourceCode R"><span class="co"># Creación de un data frame con las columnas sumarizadas de mínimo, máximo y promedio de masa,</span>
+<span class="co"># y cantidad de individuos para cada especie</span>
 <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>body_mass_g_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-            n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 3</span>
-<span class="co">#&gt;   species   body_mass_g_mean     n</span>
-<span class="co">#&gt;   &lt;fct&gt;                &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 Adelie               3701.   152</span>
-<span class="co">#&gt; 2 Chinstrap            3733.    68</span>
-<span class="co">#&gt; 3 Gentoo               5076.   124</span></code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    body_mass_g_min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    body_mass_g_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    body_mass_g_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 × 5</span>
+<span class="co">#&gt;   species   body_mass_g_min body_mass_g_max body_mass_g_mean</span>
+<span class="co">#&gt;   &lt;fct&gt;               &lt;int&gt;           &lt;int&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Adelie               2850            4775            3701.</span>
+<span class="co">#&gt; 2 Chinstrap            2700            4800            3733.</span>
+<span class="co">#&gt; 3 Gentoo               3950            6300            5076.</span>
+<span class="co">#&gt; # … with 1 more variable: n &lt;int&gt;</span></code></pre></div>
+</div>
+<div id="otras" class="section level3" number="11.6.6">
+<h3>
+<span class="header-section-number">11.6.6</span> Otras<a class="anchor" aria-label="anchor" href="#otras"><i class="fas fa-link"></i></a>
+</h3>
+<div id="count" class="section level4" number="11.6.6.1">
+<h4>
+<span class="header-section-number">11.6.6.1</span> count()<a class="anchor" aria-label="anchor" href="#count"><i class="fas fa-link"></i></a>
+</h4>
+<p>Una forma alternativa (a <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>) de realizar un conteo es con la función <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>:</p>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Creación de un data frame con el conteo de individuos por especie</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt;   species       n</span>
+<span class="co">#&gt;   &lt;fct&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 Adelie      152</span>
+<span class="co">#&gt; 2 Chinstrap    68</span>
+<span class="co">#&gt; 3 Gentoo      124</span></code></pre></div>
+</div>
 </div>
 </div>
 <div id="ejercicios-14" class="section level2" number="11.7">
@@ -681,6 +708,7 @@
 <li><a class="nav-link" href="#arrange"><span class="header-section-number">11.6.3</span> arrange()</a></li>
 <li><a class="nav-link" href="#mutate"><span class="header-section-number">11.6.4</span> mutate()</a></li>
 <li><a class="nav-link" href="#summarise"><span class="header-section-number">11.6.5</span> summarise()</a></li>
+<li><a class="nav-link" href="#otras"><span class="header-section-number">11.6.6</span> Otras</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#ejercicios-14"><span class="header-section-number">11.7</span> Ejercicios</a></li>

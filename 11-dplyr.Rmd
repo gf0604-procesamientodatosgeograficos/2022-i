@@ -262,15 +262,32 @@ penguins %>%
             n = n())
 ```
 
+La función `n()` cuenta la cantidad de filas en un grupo.
+
 Sumarización con agrupamiento:
 
 ```{r summarise-ejemplo-02}
-# Creación de un data frame con las columnas sumarizadas 'body_mass_g_mean' (promedio de masa) 
-# y 'n' (cantidad de individuos) para cada especie
+# Creación de un data frame con las columnas sumarizadas de mínimo, máximo y promedio de masa,
+# y cantidad de individuos para cada especie
 penguins %>%
   group_by(species) %>%
-  summarise(body_mass_g_mean = mean(body_mass_g, na.rm = TRUE),
-            n = n())
+  summarise(
+    body_mass_g_min = min(body_mass_g, na.rm = TRUE),
+    body_mass_g_max = max(body_mass_g, na.rm = TRUE),
+    body_mass_g_mean = mean(body_mass_g, na.rm = TRUE),
+    n = n()
+  )
+```
+
+### Otras
+
+#### count()
+Una forma alternativa (a `summarise()`) de realizar un conteo es con la función `count()`:
+
+```{r otras-ejemplo-01}
+# Creación de un data frame con el conteo de individuos por especie
+penguins %>%
+  count(species)
 ```
 
 ## Ejercicios

@@ -581,22 +581,47 @@ penguins %>%
 #> 1            4202.   344
 ```
 
+La función `n()` cuenta la cantidad de filas en un grupo.
+
 Sumarización con agrupamiento:
 
 
 ```r
-# Creación de un data frame con las columnas sumarizadas 'body_mass_g_mean' (promedio de masa) 
-# y 'n' (cantidad de individuos) para cada especie
+# Creación de un data frame con las columnas sumarizadas de mínimo, máximo y promedio de masa,
+# y cantidad de individuos para cada especie
 penguins %>%
   group_by(species) %>%
-  summarise(body_mass_g_mean = mean(body_mass_g, na.rm = TRUE),
-            n = n())
-#> # A tibble: 3 × 3
-#>   species   body_mass_g_mean     n
-#>   <fct>                <dbl> <int>
-#> 1 Adelie               3701.   152
-#> 2 Chinstrap            3733.    68
-#> 3 Gentoo               5076.   124
+  summarise(
+    body_mass_g_min = min(body_mass_g, na.rm = TRUE),
+    body_mass_g_max = max(body_mass_g, na.rm = TRUE),
+    body_mass_g_mean = mean(body_mass_g, na.rm = TRUE),
+    n = n()
+  )
+#> # A tibble: 3 × 5
+#>   species   body_mass_g_min body_mass_g_max body_mass_g_mean
+#>   <fct>               <int>           <int>            <dbl>
+#> 1 Adelie               2850            4775            3701.
+#> 2 Chinstrap            2700            4800            3733.
+#> 3 Gentoo               3950            6300            5076.
+#> # … with 1 more variable: n <int>
+```
+
+### Otras
+
+#### count()
+Una forma alternativa (a `summarise()`) de realizar un conteo es con la función `count()`:
+
+
+```r
+# Creación de un data frame con el conteo de individuos por especie
+penguins %>%
+  count(species)
+#> # A tibble: 3 × 2
+#>   species       n
+#>   <fct>     <int>
+#> 1 Adelie      152
+#> 2 Chinstrap    68
+#> 3 Gentoo      124
 ```
 
 ## Ejercicios
