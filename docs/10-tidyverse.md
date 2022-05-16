@@ -84,9 +84,9 @@ dplyr::glimpse(iris)
 ```
 
 ## El conjunto de datos `palmerpenguins`
-[palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) es un [paquete de datos de R](https://cloud.r-project.org/web/packages/palmerpenguins/) ampliamente utilizado para ejemplificar funciones de exploración y visualización. Es muy popular en ciencia de datos en general y también está disponible para otros lenguajes de programación (ej. Python, Julia). 
+[palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) es un [paquete de datos de R](https://cloud.r-project.org/web/packages/palmerpenguins/) ampliamente utilizado para ejemplificar funciones de exploración y visualización. Es muy popular en ciencia de datos en general y también está disponible para otros lenguajes de programación (ej. Python, Julia). Se utiliza como una alternativa a otros conjuntos de datos como, por ejemplo, [iris](https://rdrr.io/r/datasets/iris.html).
 
-Los datos fueron recolectados entre 2007 y 2009 por la Dr. Kristen Gorman y el [Programa de Investigación Ecológica de Largo Plazo (LTER) de la Estación Palmer](https://pallter.marine.rutgers.edu/). Consisten de 344 observaciones de pingüinos de tres especies, las cuales habitan en tres islas del archipiélago Palmer, en la Antártida.
+Los datos de `palmerpenguins` fueron recolectados entre 2007 y 2009 por la Dr. Kristen Gorman y el [Programa de Investigación Ecológica de Largo Plazo (LTER) de la Estación Palmer](https://pallter.marine.rutgers.edu/). Consisten de 344 observaciones de pingüinos de tres especies, las cuales habitan en tres islas del archipiélago Palmer, en la Antártida. Para cada individuo se registraron variables como especie, sexo, masa (peso), longitud de la aleta (*flipper*), longitud del pico (*bill*) y profundidad del pico, entre otras.
 
 En R, el paquete puede instalarse con la función `install.packages()`:
 
@@ -105,13 +105,106 @@ library(palmerpenguins)
 
 El paquete contiene dos conjuntos de datos:
 
-- [penguins](https://allisonhorst.github.io/palmerpenguins/reference/penguins.html): subconjunto curado de los datos sin procesar.
 - [penguins_raw](https://allisonhorst.github.io/palmerpenguins/reference/penguins_raw.html): datos sin procesar.
+- [penguins](https://allisonhorst.github.io/palmerpenguins/reference/penguins.html): subconjunto curado de los datos sin procesar.
 
-`palmerpinguins` se utilizará en este capítulo para ejemplificar varias de las funcionalidades de Tidyverse.
+`palmerpinguins` se utilizará en este capítulo, y en los siguientes, para ejemplificar varias de las funcionalidades de Tidyverse.
+
+### Ejemplos de visualizaciones
+Se muestran varios tipos de gráficos estadísticos generados con la función 'ggplot()'.
+
+#### Gráficos de dispersión
+Este tipo de gráficos muestra relaciones entre variables.
+
+
+```r
+# Gráfico de dispersión de longitud del pico vs masa (peso)
+ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle("Longitud del pico vs. masa") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
+#> `geom_smooth()` using formula 'y ~ x'
+```
+
+<img src="10-tidyverse_files/figure-html/ejemplo-palmerpenguins-01-1.png" width="672" />
+
+
+```r
+# Gráfico de dispersión de longitud del pico vs masa (peso) por especie
+ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  geom_smooth(method = "lm", se = FALSE, aes(color = species)) +
+  scale_color_manual(values = c("darkorange", "darkorchid", "cyan4")) +
+  ggtitle("Longitud del pico vs. masa por especie") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
+#> `geom_smooth()` using formula 'y ~ x'
+```
+
+<img src="10-tidyverse_files/figure-html/ejemplo-palmerpenguins-02-1.png" width="672" />
+
+#### Histogramas
+Este tipo de gráficos muestra distribuciones de variables.
+
+
+```r
+# Distribución de la variable de masa (peso)
+ggplot(data = penguins, aes(x = body_mass_g)) +
+  geom_histogram() +
+  ggtitle("Distribución de la variable masa (peso)") +
+  xlab("Masa (g)") +
+  ylab("n")
+```
+
+<img src="10-tidyverse_files/figure-html/ejemplo-palmerpenguins-03-1.png" width="672" />
+
+
+```r
+# Distribución de la variable de masa (peso) por especie
+ggplot(data = penguins, aes(x = body_mass_g)) +
+  geom_histogram(aes(fill = species), alpha = 0.5, position = "identity") +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggtitle("Distribución de la variable masa (peso) por especie") +
+  xlab("Masa (g)") +
+  ylab("n") +
+  labs(fill = "Especie")
+```
+
+<img src="10-tidyverse_files/figure-html/ejemplo-palmerpenguins-04-1.png" width="672" />
+
+#### Diagramas de caja
+Este tipo de gráficos muestra datos a través de sus cuartiles.
+
+
+```r
+# Diagrama de caja de la variable masa (peso)
+ggplot(data = penguins, aes(y = body_mass_g)) +
+  geom_boxplot() +
+  ylab("Masa (g)")
+```
+
+<img src="10-tidyverse_files/figure-html/ejemplo-palmerpenguins-05-1.png" width="672" />
+
+
+```r
+# Diagrama de caja de la variable masa (peso) por especie
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot(aes(color = species), width = 0.3, show.legend = FALSE) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  xlab("Especie") +
+  ylab("Masa (g)")
+```
+
+<img src="10-tidyverse_files/figure-html/ejemplo-palmerpenguins-06-1.png" width="672" />
 
 ## Datos *tidy*
-Los paquetes de Tidyverse trabajan con [datos *tidy*](https://www.jstatsoft.org/article/view/v059i10) (i.e. ordenados, organizados), un concepto también introducido por Hadley Wickham y que se está relacionado con la organización de los datos en estructuras rectangulares de filas y columnas, similares a las tablas o matrices.
+Los paquetes de Tidyverse trabajan con [datos *tidy*](https://www.jstatsoft.org/article/view/v059i10) (i.e. ordenados, organizados), un concepto también introducido por Hadley Wickham y que está relacionado con la organización de los datos en estructuras rectangulares de filas y columnas, similares a las tablas o matrices.
 
 Según Wickham, los datos *tidy* deben cumplir con tres características:
 
@@ -126,7 +219,7 @@ Estas características se ilustran en la figura \@ref(fig:datos-tidy).
 <p class="caption">(\#fig:datos-tidy)Datos *tidy*. Imagen de [Hadley Wickham](https://r4ds.had.co.nz/tidy-data.html).</p>
 </div>
 
-El empleo de este modelo de datos uniforme en todos los paquetes de Tidyverse posibilita aprender y usar sus funciones con mayor facilidad. Además, permite invertir menos esfuerzo en lidiar con diferentes modelos de datos y así dedicar más tiempo y esfuerzo en los problemas de análisis a resolver.
+El empleo de este modelo de datos es común en todos los paquetes de Tidyverse, lo que posibilita aprender y usar sus funciones con mayor facilidad. Además, permite invertir menos esfuerzo en lidiar con diferentes modelos de datos y así dedicar más tiempo y esfuerzo en los problemas de análisis a resolver.
 
 #### Tibbles
 Los datos *tidy* pueden almacenarse en los tradicionales data frames (tipo `data.frame`) de R. Adicionalmente, Tidyverse implementa el tipo de datos [tibble](https://r4ds.had.co.nz/tibbles.html) o `tbl`. Un `tbl` también es un `data.frame`, pero más "liviano" y fácil de usar.
@@ -213,7 +306,7 @@ El siguiente ejemplo implementa un *pipeline* de funciones de Tidyverse:
 # Cadena de "pipes" entre funciones de Tidyverse
 penguins %>%
   dplyr::filter(species == "Gentoo") %>% # subconjunto de observaciones
-  select(species, bill_length_mm, flipper_length_mm) # subconjunto de variables
+  select(species, bill_length_mm, flipper_length_mm) # subconjunto de columnas
 #> # A tibble: 124 × 3
 #>    species bill_length_mm flipper_length_mm
 #>    <fct>            <dbl>             <int>
@@ -253,6 +346,12 @@ select(filter(penguins, species == "Gentoo"),
 #> 10           46.8               215
 #> # … with 114 more rows
 ```
+
+El uso de *pipes* permite un funcionamiento homogéneo de las funciones de Tidyverse:
+
+1. El primer argumento es un data frame. Puede omitirse si la función recibe el data frame a través del operador *pipe*.
+2. Los argumentos siguientes describen que hacer con el data frame, utilizando los nombres de las columnas (sin comillas).  
+3. El resultado es un nuevo data frame.
 
 ## Recursos de interés
 Canelón, S. (2020). *An Antarctic Tour of the Tidyverse*. https://spcanelon.github.io/tour-of-the-tidyverse/

@@ -186,3 +186,8 @@ otras
 count
 ejercicios-14
 recursos-de-interés-9
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
+ejemplos-de-visualizaciones
+gráficos-de-dispersión
+histogramas
+diagramas-de-caja
