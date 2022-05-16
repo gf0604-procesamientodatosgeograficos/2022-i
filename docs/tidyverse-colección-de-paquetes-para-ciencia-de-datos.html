@@ -129,11 +129,11 @@
 Figure 10.1: Modelo de ciencia de datos. Imagen de <a href="https://r4ds.had.co.nz/introduction.html">Hadley Wickham</a>.
 </p>
 </div>
-<p><strong>Importar</strong> los datos, típicamente implica leerlos de un archivo, una base de datos o una interfaz de programación de aplicaciones (API) y cargarlos en un <em>data frame</em>. <strong>Organizar</strong> (<em>to tidy</em>) los datos significa colocarlos en estructuras rectangulares, similares a tablas, de manera que cada fila sea una observación y cada columna una variable.</p>
+<p><strong>Importar</strong> los datos, típicamente implica leerlos de un archivo, una base de datos o una interfaz de programación de aplicaciones (API) y cargarlos en un data frame. <strong>Organizar</strong> (<em>to tidy</em>) los datos significa colocarlos en estructuras rectangulares, similares a tablas, de manera que cada fila sea una observación y cada columna una variable.</p>
 <p>Una vez que los datos han sido importados y organizados, suele ser necesario realizar en estos algún tipo de transformación. <strong>Transformar</strong> los datos puede implicar la generación de algún subconjunto de filas y columnas, la creación de nuevas variables o el cálculo de estadísticas (ej. conteos, promedios).</p>
-<p>Una vez que los datos han sido organizados con las variables necesarias, pueden aplicarse dos fuentes de generación de conocimiento: la visualización y el modelado. Al <strong>visualizar</strong> los datos (en tablas, gráficos, mapas, etc.), pueden encontrarse patrones inesperados o pueden surgir nuevas preguntas. Por su parte, los <strong>modelos</strong> son herramientas matemáticas o computacionales que facilitan la descripción o predicción de un problema.</p>
-<p>El último paso es la <strong>comunicación</strong>, una actividad crítica de cualquier proyecto de análisis de datos o de ciencia en general. Todos estos procesos se articulan mediante <strong>programación</strong>.</p>
-<p>Los paquetes de Tidyverse <em>“comparten filosofía de diseño, gramática y estructuras de datos”</em><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;span&gt;“Tidyverse,”&lt;/span&gt; accessed May 14, 2022, &lt;a href="https://www.tidyverse.org/" role="doc-biblioref"&gt;https://www.tidyverse.org/&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a></span> para apoyar los procesos del modelo de ciencia de datos. El concepto de Tidyverse fue introducido por Hadley Wickham, quien también ha programado varios de sus paquetes.</p>
+<p>Cuando los datos han sido organizados con las variables necesarias, pueden aplicarse dos fuentes de generación de conocimiento: la visualización y el modelado. Al <strong>visualizar</strong> los datos (en tablas, gráficos, mapas, etc.), pueden encontrarse patrones inesperados o pueden surgir nuevas preguntas. Por su parte, los <strong>modelos</strong> son herramientas matemáticas o computacionales que facilitan la descripción o predicción de un problema.</p>
+<p>El último paso es la <strong>comunicación</strong>, una actividad crítica de cualquier proyecto de análisis de datos o de ciencia en general. Todos estos procesos se articulan mediante <strong>programación</strong> de computadoras.</p>
+<p>Los paquetes de Tidyverse <em>“comparten filosofía de diseño, gramática y estructuras de datos”</em><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;span&gt;“Tidyverse,”&lt;/span&gt; accessed May 14, 2022, &lt;a href="https://www.tidyverse.org/" role="doc-biblioref"&gt;https://www.tidyverse.org/&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a></span> para apoyar estos procesos del modelo de ciencia de datos. El concepto de Tidyverse fue introducido por Hadley Wickham, quien también ha programado varios de sus paquetes.</p>
 </div>
 <div id="paquetes-1" class="section level3" number="10.3.2">
 <h3>
@@ -146,19 +146,19 @@ Figure 10.1: Modelo de ciencia de datos. Imagen de <a href="https://r4ds.had.co.
 <li>
 <a href="https://dplyr.tidyverse.org/">dplyr</a>: gramática para la manipulación de datos que proporciona un conjunto consistente de “verbos” que resulven los retos más comunes de manipulación de datos.</li>
 <li>
-<a href="https://tidyr.tidyverse.org/">tidyr</a>: conjunto de funciones para ordenar (<em>to tidy</em>) datos, organizando las observaciones, variables y valores en filas, columnas y celdas de estructuras rectangulares.</li>
+<a href="https://tidyr.tidyverse.org/">tidyr</a>: conjunto de funciones para organizar (<em>to tidy</em>) datos, colocando las observaciones, variables y valores en filas, columnas y celdas de estructuras rectangulares.</li>
 <li>
 <a href="https://readr.tidyverse.org/">readr</a>: conjunto de funciones para cargar datos de estructuras rectangulares (ej. archivos CSV) en memoria.</li>
 <li>
 <a href="https://purrr.tidyverse.org/">purr</a>: conjunto de herramientas de <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_funcional">programación funcional</a> para trabajar con funciones y vectores.</li>
 <li>
-<a href="https://tibble.tidyverse.org/">tibble</a>: un <em>tibble</em> es una redefinición del concepto de <em>data frame</em>, para hacerlos más eficientes y fáciles de usar.</li>
+<a href="https://tibble.tidyverse.org/">tibble</a>: un <em>tibble</em> es una redefinición del concepto de data frame, para hacerlos más eficientes y fáciles de usar.</li>
 <li>
 <a href="https://stringr.tidyverse.org/">stringr</a>: colección de funciones para facilitar el trabajo con hileras de caracteres.</li>
 <li>
 <a href="https://forcats.tidyverse.org/">forcats</a>: colección de funciones para facilitar el trabajo con factores.</li>
 </ul>
-<p>Hay <a href="https://www.tidyverse.org/packages/">otros paquetes</a> para tareas más especifícas relacionadas con importación, limpieza y modelado de datos, entre otras áreas. Los paquetes de Tidyverse son de los <a href="https://www.r-pkg.org/downloaded">más descargados</a>, entre la totalidad de paquetes del lenguaje de programación R.</p>
+<p>Hay <a href="https://www.tidyverse.org/packages/">otros paquetes</a> para tareas más especifícas relacionadas con importación, limpieza y modelado de datos, entre otras. Los paquetes de Tidyverse son de los <a href="https://www.r-pkg.org/downloaded">más descargados</a>, entre la totalidad de paquetes del lenguaje de programación R.</p>
 </div>
 </div>
 <div id="instalación-y-carga" class="section level2" number="10.4">

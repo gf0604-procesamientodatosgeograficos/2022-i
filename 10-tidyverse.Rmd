@@ -18,29 +18,29 @@ La figura \@ref(fig:modelo-ciencia-datos) ilustra el modelo de un proyecto típi
 knitr::include_graphics(rep("img/modelo-ciencia-datos.png"))
 ```
 
-**Importar** los datos, típicamente implica leerlos de un archivo, una base de datos o una interfaz de programación de aplicaciones (API) y cargarlos en un *data frame*. **Organizar** (*to tidy*) los datos significa colocarlos en estructuras rectangulares, similares a tablas, de manera que cada fila sea una observación y cada columna una variable.
+**Importar** los datos, típicamente implica leerlos de un archivo, una base de datos o una interfaz de programación de aplicaciones (API) y cargarlos en un data frame. **Organizar** (*to tidy*) los datos significa colocarlos en estructuras rectangulares, similares a tablas, de manera que cada fila sea una observación y cada columna una variable.
 
 Una vez que los datos han sido importados y organizados, suele ser necesario realizar en estos algún tipo de transformación. **Transformar** los datos puede implicar la generación de algún subconjunto de filas y columnas, la creación de nuevas variables o el cálculo de estadísticas (ej. conteos, promedios). 
 
-Una vez que los datos han sido organizados con las variables necesarias, pueden aplicarse dos fuentes de generación de conocimiento: la visualización y el modelado. Al **visualizar** los datos (en tablas, gráficos, mapas, etc.), pueden encontrarse patrones inesperados o pueden surgir nuevas preguntas. Por su parte, los **modelos** son herramientas matemáticas o computacionales que facilitan la descripción o predicción de un problema.
+Cuando los datos han sido organizados con las variables necesarias, pueden aplicarse dos fuentes de generación de conocimiento: la visualización y el modelado. Al **visualizar** los datos (en tablas, gráficos, mapas, etc.), pueden encontrarse patrones inesperados o pueden surgir nuevas preguntas. Por su parte, los **modelos** son herramientas matemáticas o computacionales que facilitan la descripción o predicción de un problema.
 
-El último paso es la **comunicación**, una actividad crítica de cualquier proyecto de análisis de datos o de ciencia en general. Todos estos procesos se articulan mediante **programación**.
+El último paso es la **comunicación**, una actividad crítica de cualquier proyecto de análisis de datos o de ciencia en general. Todos estos procesos se articulan mediante **programación** de computadoras.
 
-Los paquetes de Tidyverse *"comparten filosofía de diseño, gramática y estructuras de datos"* [@noauthor_tidyverse_nodate] para apoyar los procesos del modelo de ciencia de datos. El concepto de Tidyverse fue introducido por Hadley Wickham, quien también ha programado varios de sus paquetes.
+Los paquetes de Tidyverse *"comparten filosofía de diseño, gramática y estructuras de datos"* [@noauthor_tidyverse_nodate] para apoyar estos procesos del modelo de ciencia de datos. El concepto de Tidyverse fue introducido por Hadley Wickham, quien también ha programado varios de sus paquetes.
 
 ### Paquetes
 El núcleo de Tidyverse está compuesto por [ocho paquetes base](https://www.tidyverse.org/packages/#core-tidyverse), los cuales proveen las funcionalidades utilizadas más frecuentemente en análisis de datos:
 
 - [ggplot2](https://ggplot2.tidyverse.org/): sistema para la creación declarativa de gráficos, basado en el libro [*The Grammar of Graphics*, de Wilkinson et al.](https://www.springer.com/gp/book/9780387245447).
 - [dplyr](https://dplyr.tidyverse.org/): gramática para la manipulación de datos que proporciona un conjunto consistente de "verbos" que resulven los retos más comunes de manipulación de datos.
-- [tidyr](https://tidyr.tidyverse.org/): conjunto de funciones para ordenar (*to tidy*) datos, organizando las observaciones, variables y valores en filas, columnas y celdas de estructuras rectangulares.
+- [tidyr](https://tidyr.tidyverse.org/): conjunto de funciones para organizar (*to tidy*) datos, colocando las observaciones, variables y valores en filas, columnas y celdas de estructuras rectangulares.
 - [readr](https://readr.tidyverse.org/): conjunto de funciones para cargar datos de estructuras rectangulares (ej. archivos CSV) en memoria.
 - [purr](https://purrr.tidyverse.org/): conjunto de herramientas de [programación funcional](https://es.wikipedia.org/wiki/Programaci%C3%B3n_funcional) para trabajar con funciones y vectores.
-- [tibble](https://tibble.tidyverse.org/): un *tibble* es una redefinición del concepto de *data frame*, para hacerlos más eficientes y fáciles de usar.
+- [tibble](https://tibble.tidyverse.org/): un *tibble* es una redefinición del concepto de data frame, para hacerlos más eficientes y fáciles de usar.
 - [stringr](https://stringr.tidyverse.org/): colección de funciones para facilitar el trabajo con hileras de caracteres.
 - [forcats](https://forcats.tidyverse.org/): colección de funciones para facilitar el trabajo con factores.
 
-Hay [otros paquetes](https://www.tidyverse.org/packages/) para tareas más especifícas relacionadas con importación, limpieza y modelado de datos, entre otras áreas. Los paquetes de Tidyverse son de los [más descargados](https://www.r-pkg.org/downloaded), entre la totalidad de paquetes del lenguaje de programación R.
+Hay [otros paquetes](https://www.tidyverse.org/packages/) para tareas más especifícas relacionadas con importación, limpieza y modelado de datos, entre otras. Los paquetes de Tidyverse son de los [más descargados](https://www.r-pkg.org/downloaded), entre la totalidad de paquetes del lenguaje de programación R.
 
 ## Instalación y carga
 Los paquetes de Tidyverse pueden instalarse de manera conjunta o individualmente con la función `install.packages()`:
