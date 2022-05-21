@@ -1,0 +1,102 @@
+# (PART) III. Graficación estadística en R {-}
+
+# Paquetes de R para graficación estadística
+
+## Resumen
+R proporciona una gran cantidad de funciones para la elaboración de gráficos estadísticos. En este capítulo, se describen algunos de los paquetes que contienen estas funciones.
+
+## Paquetes
+Se presentan ejemplos de los paquetes `graphics`, `ggplot2` y `plotly`. 
+
+- [graphics](http://search.r-project.org/R/library/graphics/html/graphics-package.html): forma parte de la instalación base de R. Es muy versátil y permite construir una gran cantidad de tipos de gráficos. Sin embargo, estos graficos son estáticos y no ofrecen posibilidades de interacción con el usuario.
+- [ggplot2](https://ggplot2.tidyverse.org/): es un sistema para la creación declarativa de gráficos, basado en el libro [*The Grammar of Graphics*, de Wilkinson et al.](https://www.springer.com/gp/book/9780387245447). El programador proporciona los datos, indica cuales variables mapear a las propiedades visuales (estéticas o *aesthetics*) de las geometrías y `ggplot2` trata de encargarse del resto de los detalles.
+- [plotly R](https://plotly.com/r/): es una biblioteca para gráficos interactivos que forma parte de la familia de [Plotly](https://plotly.com/), la cual incluye bibliotecas para otros lenguajes como JavaScript, Python, Julia, F# y MATLAB. Es adecuada, por ejemplo, cuando los gráficos van a utilizarse en la Web. Incluye una función llamada `ggplotly()` que permite convertir gráficos de `ggplot2` a `plotly`.
+
+### Instalación y carga
+Seguidamente, se muestran las instrucciones para instalar y cargar estos paquetes. El paquete `graphics` forma parte de la instalación base de R, por lo que no necesita ser instalado ni cargado explícitamente.
+
+```{r instalacion-paquetes-graficacion, eval=FALSE}
+# Instalación de paquetes de graficación
+install.packages("ggplot2")
+install.packages("plotly")
+```
+
+```{r carga-paquetes-graficacion, message=FALSE}
+# Carga de paquetes de graficación
+library(ggplot2)
+library(plotly)
+```
+
+Existen muchos otros paquetes de R para graficación, entre los que pueden mencionarse:
+
+- [lattice](http://lattice.r-forge.r-project.org/): es especialmente utilizado para datos multivariados.
+- [ggvis](https://ggvis.rstudio.com/): agrega interactividad a los gráficos de `ggplot2`.
+- [rgl](https://github.com/dmurdoch/rgl): para gráficos en 3D.
+
+## Conjuntos de datos para ejemplos
+Para ejemplificar el uso de estos paquetes de graficación, se utilizarán varios conjuntos de datos. En esta sección, el contenido de estos conjuntos se muestra con el paquete [DT](https://rstudio.github.io/DT/), el cual despliega data frames como tablas en HTML con capacidades de filtrado, paginación, ordenamiento y otras.
+
+```{r instalacion-dt, eval=FALSE}
+# Instalación del paquete DT
+install.packages("DT")
+```
+
+```{r carga-dt, message=FALSE}
+# Carga del paquete DT
+library(DT)
+```
+
+### mtcars
+[mtcars: *Motor Trend Car Road Tests*](https://rdrr.io/r/datasets/mtcars.html) contiene datos de aspectos de diseño y consumo de combustible para 32 modelos de automóviles.
+
+```{r tabla-datos}
+mtcars %>%
+  datatable(options = list(
+    pageLength = 5,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+## Ejemplos
+### Gráficos de dispersión
+Un [gráfico de dispersión o *scatterplot*](https://es.wikipedia.org/wiki/Diagrama_de_dispersi%C3%B3n) despliega los valores de dos variables numéricas de un conjunto de datos, como puntos en un sistema de coordenadas. El valor de una variable se despliega en el eje X y el de la otra variable en el eje Y. Variables adicionales pueden ser mostradas mediante atributos de los puntos, tales como tamaño, color y forma.
+
+#### graphics
+
+```{r graphics-dispersion}
+plot(
+  x = mtcars$wt,
+  y = mtcars$mpg,
+  main = "Peso vs. rendimiento de automóbiles",
+  xlab = "Peso (miles de libras)",
+  ylab = "Rendimiento (millas por galón)"
+)
+```
+
+#### ggplot2
+
+```{r ggplot2-dispersion}
+mtcars %>%
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point() +
+  ggtitle("Peso vs. rendimiento de automóbiles") +
+  xlab("Peso (miles de libras)") +
+  ylab("Rendimiento (millas por galón)")
+```
+
+#### plotly
+
+```{r plotly-dispersion, message=FALSE}
+mtcars %>%
+  plot_ly(x = ~ wt,
+          y = ~ mpg) %>% layout(
+            title = "Peso vs. rendimiento de automóbiles",
+            xaxis = list(title = "Peso (miles de libras)"),
+            yaxis = list(title = "Rendimiento (millas por galón)")
+          ) %>% config(locale = 'es')
+```
+
+## Recursos de interés
+*DT: An R interface to the DataTables library*. (s. f.). Recuperado 21 de mayo de 2022, de https://rstudio.github.io/DT/
+
+Healy, Y. H. and C. (s. f.). *From data to Viz | Find the graphic you need*. Recuperado 20 de marzo de 2022, de https://www.data-to-viz.com/

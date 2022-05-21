@@ -190,3 +190,15 @@ otras
 count
 ejercicios-14
 recursos-de-interés-9
+paquetes-de-r-para-graficación-estadística
+resumen-11
+paquetes-2
+instalación-y-carga-2
+conjuntos-de-datos-para-ejemplos
+mtcars
+ejemplos-1
+gráficos-de-dispersión-1
+graphics
+ggplot2
+plotly
+recursos-de-interés-10
