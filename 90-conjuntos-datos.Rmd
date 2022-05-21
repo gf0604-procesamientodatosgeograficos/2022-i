@@ -6,14 +6,12 @@ La siguiente es la lista de conjuntos de datos utilizados en el curso, ordenados
 
 ## Centro de Coordinación para la Prevención de los Desastres en Centroamérica y República Dominicana (Cepredenac) {-}
 
-### Covid {-}
-
-- [Covid 2021-04-22](datos/cepredenac/covid/covid-centroamericard-20210422.csv)
+- [COVID](https://github.com/gf0604-procesamientodatosgeograficos/2022-i/tree/main/datos/cepredenac/covid/)
 
 ## Instituto Geográfico Nacional (IGN) {-}
 
-### Delimitación territorial administrativa {-}
+- [Delimitación territorial administrativa](https://github.com/gf0604-procesamientodatosgeograficos/2022-i/tree/main/datos/ign/delimitacion-territorial-administrativa)
 
-- [Provincias](datos/ign/delimitacion-territorial-administrativa/provincias.geojson)
-- [Cantones](datos/ign/delimitacion-territorial-administrativa/cantones.geojson)
-- [Distritos](datos/ign/delimitacion-territorial-administrativa/distritos.geojson)
+## Ministerio de Salud {-}
+
+- [COVID](https://github.com/gf0604-procesamientodatosgeograficos/2022-i/tree/main/datos/ministerio-salud/covid/)
