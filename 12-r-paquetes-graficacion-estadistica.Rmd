@@ -2,6 +2,11 @@
 
 # Paquetes de R para graficación estadística
 
+## Trabajo previo
+
+### Lecturas
+Chang, W. (2018). *R graphics cookbook: Practical recipes for visualizing data*. O’Reilly. https://r-graphics.org/
+
 ## Resumen
 R proporciona una gran cantidad de funciones para la elaboración de gráficos estadísticos. En este capítulo, se describen algunos de los paquetes que contienen estas funciones.
 
@@ -15,16 +20,24 @@ Se presentan ejemplos de los paquetes `graphics`, `ggplot2` y `plotly`.
 ### Instalación y carga
 Seguidamente, se muestran las instrucciones para instalar y cargar estos paquetes. El paquete `graphics` forma parte de la instalación base de R, por lo que no necesita ser instalado ni cargado explícitamente.
 
-```{r instalacion-paquetes-graficacion, eval=FALSE}
+```{r paquetes-graficacion-instalacion, eval=FALSE}
 # Instalación de paquetes de graficación
 install.packages("ggplot2")
 install.packages("plotly")
 ```
 
-```{r carga-paquetes-graficacion, message=FALSE}
+```{r paquetes-graficacion-carga, message=FALSE}
 # Carga de paquetes de graficación
 library(ggplot2)
 library(plotly)
+```
+
+Adicionalmente, se cargan otros paquetes para importación y transformación de datos.
+
+```{r paquetes-otros-carga, message=FALSE}
+# Carga de otros paquetes
+library(readr) # paquete para transformación de datos
+library(dplyr) # paquete para transformación de datos
 ```
 
 Existen muchos otros paquetes de R para graficación, entre los que pueden mencionarse:
@@ -36,65 +49,173 @@ Existen muchos otros paquetes de R para graficación, entre los que pueden menci
 ## Conjuntos de datos para ejemplos
 Para ejemplificar el uso de estos paquetes de graficación, se utilizarán varios conjuntos de datos. En esta sección, el contenido de estos conjuntos se muestra con el paquete [DT](https://rstudio.github.io/DT/), el cual despliega data frames como tablas en HTML con capacidades de filtrado, paginación, ordenamiento y otras.
 
-```{r instalacion-dt, eval=FALSE}
+```{r dt-instalacion, eval=FALSE}
 # Instalación del paquete DT
 install.packages("DT")
 ```
 
-```{r carga-dt, message=FALSE}
+```{r dt-carga, message=FALSE}
 # Carga del paquete DT
 library(DT)
 ```
 
-### mtcars
-[mtcars: *Motor Trend Car Road Tests*](https://rdrr.io/r/datasets/mtcars.html) contiene datos de aspectos de diseño y consumo de combustible para 32 modelos de automóviles.
+Para cada conjunto de datos, se muestran los siguientes procesos del modelo de ciencia de datos: importación, transformación y visualización (en tablas).
 
-```{r tabla-datos}
+### mtcars
+[mtcars: *Motor Trend Car Road Tests*](https://rdrr.io/r/datasets/mtcars.html) contiene datos de aspectos de diseño y consumo de combustible para 32 modelos de automóviles. Es uno de los conjuntos de datos contenidos en la instalación base de R, por lo que no es necesario importarlo desde una fuente externa.
+
+Transformación:
+
+```{r mtcars-transformacion}
+# Transformación de datos de mtcars
+mtcars <-
+  mtcars %>%
+  select(mpg, cyl, disp, hp, wt)
+```
+
+Visualización en formato tabular:
+
+```{r mtcars-tabla}
+# Visualización de datos de mtcars en formato tabular
 mtcars %>%
-  select(mpg, cyl, disp, hp, wt) %>%
   datatable(options = list(
     pageLength = 5,
     language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
   ))
 ```
 
-## Ejemplos
+### Covid-19
+Estos son datos publicados por el Ministerio de Salud de Costa Rica sobre la [situación nacional de covid-19](https://geovision.uned.ac.cr/oges/). Se distribuyen en archivos CSV, algunos correspondientes al nivel nacional y otros al nivel cantonal.
+
+#### Datos nacionales
+Este conjunto de datos contiene una observación por fecha y variables correspondientes a, entre otras, las cantidades de casos positivos, fallecidos, recuperados y activos a nivel nacional.
+
+Importación:
+
+```{r covid-nacionales-importacion, message=FALSE}
+# Importación de datos nacionales de covid-19
+covid_nacional <-
+  read_delim(
+    file = "datos/ministerio-salud/covid/05_17_22_CSV_GENERAL.csv",
+    delim = ";",
+    col_select = c("FECHA", "positivos", "fallecidos", "RECUPERADOS", "activos")
+  )
+```
+
+Transformación:
+
+```{r covid-nacionales-transformacion}
+# Transformación de datos nacionales de covid-19
+covid_nacional <-
+  covid_nacional %>%
+  select(fecha = FECHA,
+         positivos,
+         fallecidos,
+         recuperados = RECUPERADOS,
+         activos) %>%
+  mutate(fecha = as.Date(fecha, format = "%d/%m/%Y"))
+```
+
+Visualización en formato tabular:
+
+```{r covid-nacionales-tabla}
+# Visualización de datos nacionales de covid-19 en formato tabular
+covid_nacional %>%
+  datatable(options = list(
+    pageLength = 5,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+#### Casos positivos por cantón
+Este conjunto de datos contiene una observación por cantón y variables correspondientes a la cantidad de casos positivos para cada fecha. En los ejemplos siguientes, se utiliza solamente la variable correspondiente a la fecha máxima.
+
+Importación:
+
+```{r covid-cantones-positivos-importacion, message=FALSE}
+# Importación de casos positivos de covid-19 por cantón
+covid_cantonal_positivos <-
+  read_delim(
+    file = "datos/ministerio-salud/covid/05_17_22_CSV_POSITIVOS.csv",
+    delim = ";",
+    locale = locale(encoding = "WINDOWS-1252"), # esto es para resolver el problema con las tildes
+    col_select = c("canton", "17/02/2022")
+  )
+```
+
+Transformación:
+
+```{r covid-cantones-positivos-transformacion}
+# Transformación de casos positivos de covid-19 por cantón
+covid_cantonal_positivos <-
+  covid_cantonal_positivos %>%
+  rename(positivos = '17/02/2022')
+```
+
+Visualización en formato tabular:
+
+```{r covid-cantones-positivos-tabla}
+# Visualización de casos positivos de covid-19 por cantón en formato tabular
+covid_cantonal_positivos %>%
+  datatable(options = list(
+    pageLength = 5,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+## Ejemplos de gráficos
+
 ### Gráficos de dispersión
 Un [gráfico de dispersión o *scatterplot*](https://es.wikipedia.org/wiki/Diagrama_de_dispersi%C3%B3n) despliega los valores de dos variables numéricas de un conjunto de datos, como puntos en un sistema de coordenadas. El valor de una variable se despliega en el eje X y el de la otra variable en el eje Y. Variables adicionales pueden ser mostradas mediante atributos de los puntos, tales como tamaño, color y forma.
 
 #### graphics
 
 ```{r graphics-dispersion}
+# graphics - gráfico de dispersión
 plot(
   x = mtcars$wt,
   y = mtcars$mpg,
   main = "Peso vs. rendimiento de automóbiles",
   xlab = "Peso (miles de libras)",
-  ylab = "Rendimiento (millas por galón)"
+  ylab = "Rendimiento (millas por galón de combustible)",
+  col = mtcars$cyl
 )
 ```
 
 #### ggplot2
 
 ```{r ggplot2-dispersion}
-mtcars %>%
+# ggplot2 - gráfico de dispersión
+ggplot2_mtcars_dispersion <-
+  mtcars %>%
   ggplot(aes(x = wt, y = mpg)) +
-  geom_point() +
+  geom_point(aes(color = factor(cyl))) +
   ggtitle("Peso vs. rendimiento de automóbiles") +
   xlab("Peso (miles de libras)") +
-  ylab("Rendimiento (millas por galón)")
+  ylab("Rendimiento (millas por galón de combustible)") +
+  labs(color = "Cilindros")
+
+ggplot2_mtcars_dispersion
 ```
 
 #### plotly
 
 ```{r plotly-dispersion, message=FALSE}
+# plotly - gráfico de dispersión
 mtcars %>%
   plot_ly(x = ~ wt,
-          y = ~ mpg) %>% layout(
+          y = ~ mpg,
+          color = ~ factor(cyl)) %>% layout(
             title = "Peso vs. rendimiento de automóbiles",
             xaxis = list(title = "Peso (miles de libras)"),
-            yaxis = list(title = "Rendimiento (millas por galón)")
-          ) %>% config(locale = 'es')
+            yaxis = list(title = "Rendimiento (millas por galón de combustible)")
+          ) %>% layout(legend = list(title = list(text = "Cilindros"))) %>% config(locale = 'es')
+```
+
+#### ggplotly
+```{r ggplotly-dispersion, message=FALSE}
+# ggplotly - gráfico de dispersión
+ggplotly(ggplot2_mtcars_dispersion) %>% config(locale = 'es')
 ```
 
 ## Recursos de interés
