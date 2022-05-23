@@ -357,7 +357,7 @@ covid_nacional %>%
 
 ```{r ggplotly-linea, message=FALSE}
 # ggplotly - gráfico de línea
-ggplotly(ggplot2_covid_nacional_linea) %>% config(locale = 'es')
+ggplotly(ggplot2_covid_nacional_linea) %>% layout(legend = list(x = 0.1, y = 0.9)) %>% config(locale = 'es')
 ```
 
 ## Recursos de interés
