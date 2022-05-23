@@ -17,6 +17,15 @@ Se presentan ejemplos de los paquetes `graphics`, `ggplot2` y `plotly`.
 - [ggplot2](https://ggplot2.tidyverse.org/): es un sistema para la creación declarativa de gráficos, basado en el libro [*The Grammar of Graphics*, de Wilkinson et al.](https://www.springer.com/gp/book/9780387245447). El programador proporciona los datos, indica cuales variables mapear a las propiedades visuales (estéticas o *aesthetics*) de las geometrías y `ggplot2` trata de encargarse del resto de los detalles.
 - [plotly R](https://plotly.com/r/): es una biblioteca para gráficos interactivos que forma parte de la familia de [Plotly](https://plotly.com/), la cual incluye bibliotecas para otros lenguajes como JavaScript, Python, Julia, F# y MATLAB. Es adecuada, por ejemplo, cuando los gráficos van a utilizarse en la Web. Incluye una función llamada `ggplotly()` que permite convertir gráficos de `ggplot2` a `plotly`.
 
+## Opciones generales
+Se configuran opciones generales de la sesión R.
+
+```{r opciones-generales}
+# Configuración de la notación científica
+options(scipen = 7)
+```
+
+
 ### Instalación y carga
 Seguidamente, se muestran las instrucciones para instalar y cargar estos paquetes. El paquete `graphics` forma parte de la instalación base de R, por lo que no necesita ser instalado ni cargado explícitamente.
 
@@ -92,7 +101,7 @@ Este conjunto de datos contiene una observación por fecha y variables correspon
 
 Importación:
 
-```{r covid-nacionales-importacion, message=FALSE}
+```{r covid-nacional-importacion, message=FALSE}
 # Importación de datos nacionales de covid-19
 covid_nacional <-
   read_delim(
@@ -104,7 +113,7 @@ covid_nacional <-
 
 Transformación:
 
-```{r covid-nacionales-transformacion}
+```{r covid-nacional-transformacion}
 # Transformación de datos nacionales de covid-19
 covid_nacional <-
   covid_nacional %>%
@@ -118,7 +127,7 @@ covid_nacional <-
 
 Visualización en formato tabular:
 
-```{r covid-nacionales-tabla}
+```{r covid-nacional-tabla}
 # Visualización de datos nacionales de covid-19 en formato tabular
 covid_nacional %>%
   datatable(options = list(
@@ -168,6 +177,8 @@ covid_cantonal_positivos %>%
 ### Gráficos de dispersión
 Un [gráfico de dispersión o *scatterplot*](https://es.wikipedia.org/wiki/Diagrama_de_dispersi%C3%B3n) despliega los valores de dos variables numéricas de un conjunto de datos, como puntos en un sistema de coordenadas. El valor de una variable se despliega en el eje X y el de la otra variable en el eje Y. Variables adicionales pueden ser mostradas mediante atributos de los puntos, tales como tamaño, color y forma.
 
+Los siguientes gráficos de dispersión presentan la relación entre las variables `wt` (peso en miles de libras) y `mpg` (rendimiento en millas por galón de combustible) del conjunto de datos `mtcars`.
+
 #### graphics
 
 ```{r graphics-dispersion}
@@ -175,7 +186,7 @@ Un [gráfico de dispersión o *scatterplot*](https://es.wikipedia.org/wiki/Diagr
 plot(
   x = mtcars$wt,
   y = mtcars$mpg,
-  main = "Peso vs. rendimiento de automóbiles",
+  main = "Peso vs. rendimiento de automóviles",
   xlab = "Peso (miles de libras)",
   ylab = "Rendimiento (millas por galón de combustible)",
   col = mtcars$cyl
@@ -190,7 +201,7 @@ ggplot2_mtcars_dispersion <-
   mtcars %>%
   ggplot(aes(x = wt, y = mpg)) +
   geom_point(aes(color = factor(cyl))) +
-  ggtitle("Peso vs. rendimiento de automóbiles") +
+  ggtitle("Peso vs. rendimiento de automóviles") +
   xlab("Peso (miles de libras)") +
   ylab("Rendimiento (millas por galón de combustible)") +
   labs(color = "Cilindros")
@@ -206,16 +217,147 @@ mtcars %>%
   plot_ly(x = ~ wt,
           y = ~ mpg,
           color = ~ factor(cyl)) %>% layout(
-            title = "Peso vs. rendimiento de automóbiles",
+            title = "Peso vs. rendimiento de automóviles",
             xaxis = list(title = "Peso (miles de libras)"),
             yaxis = list(title = "Rendimiento (millas por galón de combustible)")
           ) %>% layout(legend = list(title = list(text = "Cilindros"))) %>% config(locale = 'es')
 ```
 
 #### ggplotly
+
 ```{r ggplotly-dispersion, message=FALSE}
 # ggplotly - gráfico de dispersión
 ggplotly(ggplot2_mtcars_dispersion) %>% config(locale = 'es')
+```
+
+### Gráficos de línea
+Un [gráfico de línea](https://en.wikipedia.org/wiki/Line_chart) muestra información en la forma de puntos de datos, llamados marcadores (*markers*), conectados por segmentos de líneas rectas. Es similar a un gráfico de dispersión pero, además de los segmentos de línea, tiene la particularidad de que los datos están ordenados, usualmente con respecto al eje X. Los gráficos de línea son usados frecuentemente para mostrar tendencias a través del tiempo.
+
+Los siguientes gráficos de línea muestran la evolución en el tiempo de los casos positivos, fallecidos, recuperados y activos de covid-19 en Costa Rica.
+
+#### graphics
+
+```{r graphics-linea}
+# graphics - gráfico de línea
+plot(
+  covid_nacional$fecha,
+  covid_nacional$positivos,
+  type = "l",
+  xaxt = "n",
+  yaxt = "n",
+  main = "Casos acumulados de covid-19 en Costa Rica",
+  xlab = "Fecha",
+  ylab = "Casos",
+  col = "blue"
+)
+
+# Casos recuperados
+lines(covid_nacional$fecha, covid_nacional$recuperados, col="green")
+
+# Casos activos
+lines(covid_nacional$fecha, covid_nacional$activos, col="red")
+
+# Casos fallecidos
+lines(covid_nacional$fecha, covid_nacional$fallecidos, col="black")
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  legend = c("Positivos", "Recuperados", "Activos", "Fallecidos"),
+  col = c("blue", "green", "red", "black"),
+  lty = 1,
+  cex = 0.7)
+
+# Formato del eje X
+axis(side = 1,
+     covid_nacional$fecha,
+     tick = FALSE,
+     format(covid_nacional$fecha, "%m-%y"),
+     cex.axis = .7)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid_nacional$positivos,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
+```
+
+#### ggplot2
+
+```{r ggplot2-linea}
+# ggplot2 - gráfico de línea
+ggplot2_covid_nacional_linea <-
+  covid_nacional %>%
+  ggplot(aes(x = fecha, y = value, color = variable)) +
+  ggtitle("Casos acumulados de covid-19 en Costa Rica") +
+  xlab("Fecha") +
+  ylab("Casos") +
+  geom_line(aes(y = positivos, color = "Positivos")) +
+  geom_line(aes(y = recuperados, color = "Recuperados")) +
+  geom_line(aes(y = activos, color = "Activos")) +
+  geom_line(aes(y = fallecidos, color = "Fallecidos")) +
+  scale_colour_manual(
+    "",
+    values = c(
+      "Positivos" = "blue",
+      "Recuperados" = "green",
+      "Activos" = "red",
+      "Fallecidos" = "black"
+    )
+  )
+
+ggplot2_covid_nacional_linea
+```
+
+#### plotly
+
+```{r plotly-linea}
+# plotly - gráfico de línea
+covid_nacional %>%
+  plot_ly(
+    x = ~ fecha,
+    y = ~ positivos,
+    name = 'Positivos',
+    type = 'scatter',
+    mode = 'lines',
+    line = list(color = "blue")
+  ) %>%
+  add_trace(
+    y = ~ recuperados,
+    name = 'Recuperados',
+    mode = 'lines',
+    line = list(color = "green")
+  ) %>%
+  add_trace(
+    y = ~ activos,
+    name = 'Activos',
+    mode = 'lines',
+    line = list(color = "red")
+  ) %>%
+  add_trace(
+    y = ~ fallecidos,
+    name = 'Fallecidos',
+    mode = 'lines',
+    line = list(color = "black")
+  ) %>%
+  layout(
+    title = "",
+    yaxis = list(title = "Casos"),
+    xaxis = list(title = "Fecha"),
+    legend = list(x = 0.1, y = 0.9),
+    hovermode = "compare"
+  )
+```
+
+#### ggplotly
+
+```{r ggplotly-linea, message=FALSE}
+# ggplotly - gráfico de línea
+ggplotly(ggplot2_covid_nacional_linea) %>% config(locale = 'es')
 ```
 
 ## Recursos de interés

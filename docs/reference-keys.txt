@@ -195,6 +195,7 @@ trabajo-previo-7
 lecturas-5
 resumen-11
 paquetes-2
+opciones-generales
 instalación-y-carga-2
 conjuntos-de-datos-para-ejemplos
 mtcars
@@ -207,4 +208,9 @@ graphics
 ggplot2
 plotly
 ggplotly
+gráficos-de-línea
+graphics-1
+ggplot2-1
+plotly-1
+ggplotly-1
 recursos-de-interés-10
