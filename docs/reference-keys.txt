@@ -206,11 +206,11 @@ ejemplos-de-gráficos
 gráficos-de-dispersión-1
 graphics
 ggplot2
-plotly
 ggplotly
+plotly
 gráficos-de-línea
 graphics-1
 ggplot2-1
-plotly-1
 ggplotly-1
+plotly-1
 recursos-de-interés-10

@@ -194,13 +194,14 @@ plot(
 ```
 
 #### ggplot2
+El argumento `text` de `aes()` en `geom_pont()` permite especificar texto que se despliega al colocar el ratón sobre un punto cuando se utiliza la función `ggplotly()`.
 
 ```{r ggplot2-dispersion}
 # ggplot2 - gráfico de dispersión
 ggplot2_mtcars_dispersion <-
   mtcars %>%
   ggplot(aes(x = wt, y = mpg)) +
-  geom_point(aes(color = factor(cyl))) +
+  geom_point(aes(text = rownames(mtcars), color = factor(cyl))) +
   ggtitle("Peso vs. rendimiento de automóviles") +
   xlab("Peso (miles de libras)") +
   ylab("Rendimiento (millas por galón de combustible)") +
@@ -209,25 +210,27 @@ ggplot2_mtcars_dispersion <-
 ggplot2_mtcars_dispersion
 ```
 
+#### ggplotly
+
+```{r ggplotly-dispersion, message=FALSE}
+# ggplotly - gráfico de dispersión
+ggplotly(ggplot2_mtcars_dispersion) %>% config(locale = 'es')
+```
+
 #### plotly
+El argumento `text` de `plot_ly()` permite especificar texto que se despliega al colocar el ratón sobre un punto.
 
 ```{r plotly-dispersion, message=FALSE}
 # plotly - gráfico de dispersión
 mtcars %>%
   plot_ly(x = ~ wt,
           y = ~ mpg,
+          text = rownames(mtcars),
           color = ~ factor(cyl)) %>% layout(
             title = "Peso vs. rendimiento de automóviles",
             xaxis = list(title = "Peso (miles de libras)"),
             yaxis = list(title = "Rendimiento (millas por galón de combustible)")
           ) %>% layout(legend = list(title = list(text = "Cilindros"))) %>% config(locale = 'es')
-```
-
-#### ggplotly
-
-```{r ggplotly-dispersion, message=FALSE}
-# ggplotly - gráfico de dispersión
-ggplotly(ggplot2_mtcars_dispersion) %>% config(locale = 'es')
 ```
 
 ### Gráficos de línea
@@ -313,6 +316,13 @@ ggplot2_covid_nacional_linea <-
 ggplot2_covid_nacional_linea
 ```
 
+#### ggplotly
+
+```{r ggplotly-linea, message=FALSE}
+# ggplotly - gráfico de línea
+ggplotly(ggplot2_covid_nacional_linea) %>% layout(legend = list(x = 0.1, y = 0.9)) %>% config(locale = 'es')
+```
+
 #### plotly
 
 ```{r plotly-linea}
@@ -349,15 +359,8 @@ covid_nacional %>%
     yaxis = list(title = "Casos"),
     xaxis = list(title = "Fecha"),
     legend = list(x = 0.1, y = 0.9),
-    hovermode = "compare"
+    hovermode = "x unified"
   )
-```
-
-#### ggplotly
-
-```{r ggplotly-linea, message=FALSE}
-# ggplotly - gráfico de línea
-ggplotly(ggplot2_covid_nacional_linea) %>% layout(legend = list(x = 0.1, y = 0.9)) %>% config(locale = 'es')
 ```
 
 ## Recursos de interés
