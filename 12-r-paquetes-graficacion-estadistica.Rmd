@@ -105,7 +105,7 @@ Importación:
 # Importación de datos nacionales de covid-19
 covid_nacional <-
   read_delim(
-    file = "datos/ministerio-salud/covid/05_17_22_CSV_GENERAL.csv",
+    file = "datos/ministerio-salud/covid/05_24_22_CSV_GENERAL.csv",
     delim = ";",
     col_select = c("FECHA", "positivos", "fallecidos", "RECUPERADOS", "activos")
   )
@@ -145,10 +145,10 @@ Importación:
 # Importación de casos positivos de covid-19 por cantón
 covid_cantonal_positivos <-
   read_delim(
-    file = "datos/ministerio-salud/covid/05_17_22_CSV_POSITIVOS.csv",
+    file = "datos/ministerio-salud/covid/05_24_22_CSV_POSITIVOS.csv",
     delim = ";",
     locale = locale(encoding = "WINDOWS-1252"), # esto es para resolver el problema con las tildes
-    col_select = c("canton", "17/02/2022")
+    col_select = c("canton", "24/05/2022")
   )
 ```
 
@@ -158,7 +158,7 @@ Transformación:
 # Transformación de casos positivos de covid-19 por cantón
 covid_cantonal_positivos <-
   covid_cantonal_positivos %>%
-  rename(positivos = '17/02/2022')
+  rename(positivos = '24/05/2022')
 ```
 
 Visualización en formato tabular:
