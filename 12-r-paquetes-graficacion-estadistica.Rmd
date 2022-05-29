@@ -209,7 +209,6 @@ plot(
 ```
 
 #### ggplot2
-El argumento `text` de `aes()` en `geom_pont()` permite especificar texto que se despliega al colocar el ratón sobre un punto, cuando se utiliza la función `ggplotly()`.
 
 ```{r ggplot2-dispersion}
 # ggplot2 - gráfico de dispersión
@@ -225,6 +224,8 @@ ggplot2_mtcars_dispersion <-
 ggplot2_mtcars_dispersion
 ```
 
+El argumento `text` de `aes()` en `geom_pont()` permite especificar texto que se despliega al colocar el ratón sobre un punto, cuando se utiliza la función `ggplotly()`.
+
 #### ggplotly
 
 ```{r ggplotly-dispersion, message=FALSE}
@@ -233,7 +234,6 @@ ggplotly(ggplot2_mtcars_dispersion) %>% config(locale = 'es')
 ```
 
 #### plotly
-El argumento `text` de `plot_ly()` permite especificar texto que se despliega al colocar el ratón sobre un punto.
 
 ```{r plotly-dispersion, message=FALSE}
 # plotly - gráfico de dispersión
@@ -247,6 +247,8 @@ mtcars %>%
             yaxis = list(title = "Rendimiento (millas por galón de combustible)")
           ) %>% layout(legend = list(title = list(text = "Cilindros"))) %>% config(locale = 'es')
 ```
+
+El argumento `text` de `plot_ly()` permite especificar texto que se despliega al colocar el ratón sobre un punto.
 
 ### Gráficos de líneas
 Un [gráfico de líneas](https://en.wikipedia.org/wiki/Line_chart) muestra información en la forma de puntos de datos, llamados marcadores (*markers*), conectados por segmentos de líneas rectas. Es similar a un gráfico de dispersión pero, además de los segmentos de línea, tiene la particularidad de que los datos están ordenados, usualmente con respecto al eje X. Los gráficos de línea son usados frecuentemente para mostrar tendencias a través del tiempo.
@@ -379,14 +381,14 @@ covid_nacional %>%
 ```
 
 ### Gráficos de barras
-Un [gráfico de barras](https://es.wikipedia.org/wiki/Diagrama_de_barras) se compone de barras rectangulares con longitud proporcional a estadísticas (ej. frecuencias, promedios) asociadas a una variable categórica. Las barras pueden ser horizontales o verticales y se recomienda que estén ordenadas según su longitud, a menos que exista un orden inherente a la variable categórica (ej. el orden de los días de la semana).
+Un [gráfico de barras](https://es.wikipedia.org/wiki/Diagrama_de_barras) se compone de barras rectangulares con longitud proporcional a estadísticas (ej. frecuencias, promedios, mínimos, máximos) asociadas a una variable categórica. Las barras pueden ser horizontales o verticales y se recomienda que estén ordenadas según su longitud, a menos que exista un orden inherente a la variable categórica (ej. el orden de los días de la semana).
 
 Es uno de los tipos de gráficos estadísticos más antiguos y comunes y tiene la ventaja de ser muy fácil de comprender.
 
 #### ggplot2 - ggplotly()
 En esta sección, se muestran ejemplos de gráficos de barras generados con el paquete `ggplot2` y convertidos a gráficos de `plotly` mediante la función `ggplotly()`.
 
-##### Transformaciones estadísticas
+##### Barras con transformaciones estadísticas
 Los gráficos de barras y otros tipos de gráficos (ej. histogramas, gráficos de caja, líneas de ajuste) pueden requerir de alguna **transformación estadística** antes de presentar la información. Por ejemplo, el siguiente gráfico muestra la cantidad de diamantes por tipo de corte (`cut`). Nótese que este conteo no está presente en ninguna de las variables del conjunto de datos.
 
 ```{r ggplot2-barras-conteo}
@@ -411,6 +413,8 @@ knitr::include_graphics(rep("img/ggplot2-transformacion-estadistica.png"))
 
 El tipo de transformación se especifica en el argumento `stat` de `geom_bar()` el cual, por defecto, tiene el valor `count`. Es posible cambiar la transformación representada en el eje y, con la función `stat()`.
 
+El siguiente gráfico muestra la cantidad proporcional de cada corte de diamantes mediante el uso del argumento `y = stat(prop)`.
+
 ```{r ggplot2-barras-proporcion}
 # ggplotly - Gráfico de barras simples con valores proporcionales
 ggplot2_barras_proporcion <-
@@ -425,6 +429,35 @@ ggplot2_barras_proporcion <-
 ggplotly(ggplot2_barras_proporcion) %>% config(locale = 'es')
 ```
 
+Las barras pueden mostrar otras transformaciones estadísticas, como el promedio, con los argumentos `stat = "summary"` y `fun.y = "mean"` de `geom_bar()`.
+
+A continuación, se muestra el cálculo del precio promedio de diamantes por tipo de corte con la función `summarise()` y luego el gráfico de barras correspondiente.
+
+```{r dplyr-promedio}
+# Precio promedio de diamantes por tipo de corte
+diamonds %>%
+  group_by(clarity) %>%
+  summarise(
+    price_avg = mean(price, na.rm = TRUE),
+    n = n()
+  )
+```
+
+```{r ggplot2-barras-promedio}
+# ggplotly - Gráfico de barras simples con promedio de una variable
+ggplot2_barras_promedio <-
+  diamonds %>%
+  ggplot(aes(x = cut, y = price)) +
+  geom_bar(stat = "summary", fun.y = "mean") +
+  ggtitle("Precio promedio de diamantes por tipo de corte") +
+  xlab("Corte") +
+  ylab("Precio promedio (dólares estadounidenses)") +
+  theme_minimal()
+
+ggplotly(ggplot2_barras_promedio) %>% config(locale = 'es')
+```
+
+##### Barras sin transformaciones estadísticas
 En algunos conjuntos de datos, el valor que se quiere representar en la longitud de las barras ya está presente como una variable en el conjunto de datos, por lo que no es necesario que `ggplot2` realice una transformación estadística. En este caso, a `stat` se le asigna el valor "identity" y al argumento `y` de `aes()` la variable que contiene el valor que quiere mostrarse en las barras.
 
 En el siguiente gráfico, se muestra en las barras la cantidad de casos positivos por cantón, tomada de la columna `positivos` del conjunto de datos `covid_cantonal_positivos`.
@@ -434,8 +467,8 @@ En el siguiente gráfico, se muestra en las barras la cantidad de casos positivo
 ggplot2_barras_identity <-
 covid_cantonal_positivos %>%
   slice_max(positivos, n = 15) %>% # se seleccionan los 15 cantones con mayor cantidad de casos
-  ggplot() +
-  geom_bar(mapping = aes(x = reorder(canton, positivos), y = positivos), stat = "identity") +
+  ggplot(aes(x = reorder(canton, positivos), y = positivos)) +
+  geom_bar(stat = "identity") +
   ggtitle("Cantidad de casos positivos de covid-19 por cantón") +
   xlab("Cantón") +
   ylab("Casos positivos") +
@@ -453,8 +486,8 @@ Al usar el argumento `fill` de `aes()` las barras pueden dividirse de acuerdo co
 # ggplotly - Gráfico de barras apiladas de cantidades
 ggplot2_barras_apiladas_cantidad <-
   diamonds %>%
-  ggplot(aes(x = cut)) +
-  geom_bar(aes(fill = clarity)) +
+  ggplot(aes(x = cut, fill = clarity)) +
+  geom_bar() +
   ggtitle("Cantidad de diamantes por tipo de corte y claridad") +
   xlab("Corte") +
   ylab("Cantidad") +
@@ -464,14 +497,14 @@ ggplot2_barras_apiladas_cantidad <-
 ggplotly(ggplot2_barras_apiladas_cantidad) %>% config(locale = 'es')
 ```
 
-El argumento `position = "fill"` de `aes()` también genera barras apiladas, pero le asigna a todas las barras la misma longitud, facilitando así la comparación de proporciones.
+El argumento `position = "fill"` de `geom_bar()` también genera barras apiladas, pero le asigna a todas las barras la misma longitud, facilitando así la comparación de proporciones.
 
 ```{r ggplot2-barras-apiladas-proporcion}
 # ggplotly - Gráfico de barras apiladas de proporciones
 ggplot2_barras_apiladas_proporcion <-
   diamonds %>%
-  ggplot(aes(x = cut)) +
-  geom_bar(aes(fill = clarity), position = "fill") +
+  ggplot(aes(x = cut, fill = clarity)) +
+  geom_bar(position = "fill") +
   ggtitle("Proporciones de claridad por tipo de corte de diamantes") +
   xlab("Corte") +
   ylab("Proporción") +
@@ -483,14 +516,14 @@ ggplotly(ggplot2_barras_apiladas_proporcion) %>% config(locale = 'es')
 
 ##### Barras agrupadas
 
-El argumento `position = "dodge"` de `aes()` genera barras agrupadas, facilitando así la comparación de valores individuales.
+El argumento `position = "dodge"` de `geom_bar()` genera barras agrupadas, facilitando así la comparación de valores individuales.
 
 ```{r ggplot2-barras-agrupadas}
 # ggplotly - Gráfico de barras agrupadas
 ggplot2_barras_agrupadas <-
   diamonds %>%
-  ggplot(aes(x = cut)) +
-  geom_bar(aes(fill = clarity), position = "dodge") +
+  ggplot(aes(x = cut, fill = clarity)) +
+  geom_bar(position = "dodge") +
   ggtitle("Cantidad de diamantes por tipo de corte y claridad") +
   xlab("Corte") +
   ylab("Cantidad") +
@@ -498,6 +531,58 @@ ggplot2_barras_agrupadas <-
   theme_minimal()
 
 ggplotly(ggplot2_barras_agrupadas) %>% config(locale = 'es')
+```
+
+### Histogramas
+Un [histograma](https://es.wikipedia.org/wiki/Histograma) es una representación gráfica de la distribución de una variable numérica en forma de barras (llamadas en inglés *bins*). La longitud de cada barra representa la frecuencia de un rango de valores de la variable. La graficación de la distribución de las variables es, frecuentemente, una de las primeras tareas que se realiza cuando se explora un conjunto de datos.
+
+Los siguientes histogramas muestran la distribución de las variables `price` (precio en dólares estadounidenses) y `carat` (peso en quilates).
+
+```{r ggplot2-histograma-diamantes-precio}
+# ggplotly - histograma
+ggplot2_histograma_diamantes_precio <-
+  diamonds %>%
+  ggplot(aes(x = price)) +
+  geom_histogram(bins = 20) + # cantidad de barras (bins) +  
+  ggtitle("Distribución del precio de diamantes") +
+  xlab("Precio (dólares estadounidenses)") +
+  ylab("Frecuencia") +
+  theme_minimal()
+
+ggplotly(ggplot2_histograma_diamantes_precio) %>% config(locale = 'es')  
+```
+
+```{r ggplot2-histograma-diamantes-peso}
+# ggplotly - histograma
+ggplot2_histograma_diamantes_peso <-
+  diamonds %>%
+  ggplot(aes(x = carat)) +
+  geom_histogram(binwidth = 0.5) + # ancho de las barras +  
+  ggtitle("Distribución del peso de diamantes") +
+  xlab("Peso (quilates)") +
+  ylab("Frecuencia") +
+  theme_minimal()
+
+ggplotly(ggplot2_histograma_diamantes_peso) %>% config(locale = 'es')  
+```
+
+Debe tenerse en cuenta que los argumentos `bins` y `binsize` de `geom_histogram()` determinan en gran medida el aspecto del histograma, por lo que puede ser necesario probarlos con diferentes valores.
+
+Un mismo histograma puede presentar la distribución de varios valores de una variable categórica, como se muestra en el siguiente gráfico.
+
+```{r ggplot2-histograma-diamantes-precio-color, message=FALSE}
+# ggplotly - histograma con distribución de dos valores de una variable
+ggplot2_histograma_diamantes_precio_claridad <-
+  diamonds %>%
+  filter(clarity == "SI2" | clarity == "VS1") %>%
+  ggplot(aes(x = price, fill = clarity)) +
+  geom_histogram(position = "identity", alpha = 0.4) + # ancho de las barras
+  ggtitle("Distribución del precio de diamantes de claridad 'SI2' y 'VS1") +
+  xlab("Precio (dólares estadounidenses)") +
+  ylab("Frecuencia") +
+  theme_minimal()
+
+ggplotly(ggplot2_histograma_diamantes_precio_claridad) %>% config(locale = 'es')  
 ```
 
 ## Recursos de interés

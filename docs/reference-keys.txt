@@ -217,7 +217,9 @@ ggplotly-1
 plotly-1
 gráficos-de-barras
 ggplot2---ggplotly
-transformaciones-estadísticas
+barras-con-transformaciones-estadísticas
+barras-sin-transformaciones-estadísticas
 barras-apiladas
 barras-agrupadas
+histogramas-1
 recursos-de-interés-10
