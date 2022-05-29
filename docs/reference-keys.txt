@@ -17,6 +17,7 @@ fig:r-markdown-knitr-pandoc
 fig:modelo-ciencia-datos
 fig:datos-tidy
 fig:ggplot2-transformacion-estadistica
+fig:componentes-diagrama-caja
 pensamiento-computacional
 resumen
 diapositivas
@@ -222,4 +223,5 @@ barras-sin-transformaciones-estadísticas
 barras-apiladas
 barras-agrupadas
 histogramas-1
+diagramas-de-caja-1
 recursos-de-interés-10

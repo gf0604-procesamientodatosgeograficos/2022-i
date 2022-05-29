@@ -78,8 +78,8 @@ Transformación:
 ```{r mtcars-transformacion}
 # Transformación de datos de mtcars
 mtcars <-
-  mtcars %>%
-  select(mpg, cyl, disp, hp, wt)
+  datasets::mtcars %>%
+  select(mpg, cyl, wt, gear)
 ```
 
 Visualización en formato tabular:
@@ -577,12 +577,50 @@ ggplot2_histograma_diamantes_precio_claridad <-
   filter(clarity == "SI2" | clarity == "VS1") %>%
   ggplot(aes(x = price, fill = clarity)) +
   geom_histogram(position = "identity", alpha = 0.4) + # ancho de las barras
-  ggtitle("Distribución del precio de diamantes de claridad 'SI2' y 'VS1") +
+  ggtitle("Distribución del precio de diamantes de claridad 'SI2' y 'VS1'") +
   xlab("Precio (dólares estadounidenses)") +
   ylab("Frecuencia") +
   theme_minimal()
 
 ggplotly(ggplot2_histograma_diamantes_precio_claridad) %>% config(locale = 'es')  
+```
+
+### Diagramas de caja
+Un [diagrama de caja](https://es.wikipedia.org/wiki/Diagrama_de_caja) muestra información de una variable numérica a través de su [mediana](https://es.wikipedia.org/wiki/Mediana), sus [cuartiles](https://es.wikipedia.org/wiki/Cuartiles) (Q1, Q2 y Q3) y sus [valores atípicos](https://es.wikipedia.org/wiki/Valor_at%C3%ADpico).
+
+La figura \@ref(fig:componentes-diagrama-caja) muestra los componentes de un diagrama de caja.
+
+```{r componentes-diagrama-caja, fig.cap='Componentes de un diagrama de caja. Imagen de [Onkel Dagobert](https://commons.wikimedia.org/wiki/File:Diagrama_de_caja.jpg).', echo=FALSE}
+knitr::include_graphics(rep("img/640px-Diagrama_de_caja.jpg"))
+```
+
+El siguiente diagrama de caja muestra los valores de Q1, Q2 (mediana), Q3, mínimo y máximo de la variable `mpg` (millas por galón).
+
+```{r ggplot2-diagrama-caja-mtcars-mpg}
+# ggplot2 - diagrama de caja
+ggplot2_diagrama_caja_mtcars_mpg <-
+  mtcars %>%
+  ggplot(aes(y = mpg)) +
+  geom_boxplot() +
+  ylab("Rendimiento (millas por galón de combustible)") +  
+  theme_minimal()
+  
+ggplotly(ggplot2_diagrama_caja_mtcars_mpg) %>% config(locale = 'es')  
+```
+
+El argumento `x` de la función `aes()` puede utilizarse para mostrar el diagrama anterior categorizado por otra variable.
+
+```{r ggplot2-diagrama-caja-mtcars-mpg-marchas}
+# ggplot2 - diagrama de caja categorizado
+ggplot2_diagrama_caja_mtcars_mpg_marchas <-
+  mtcars %>%
+  ggplot(aes(x = factor(gear), y = mpg)) +
+  geom_boxplot() +
+  xlab("Cantidad de marchas") +
+  ylab("Rendimiento (millas por galón de combustible)") +
+  theme_minimal()
+
+ggplotly(ggplot2_diagrama_caja_mtcars_mpg_marchas) %>% config(locale = 'es')  
 ```
 
 ## Recursos de interés
