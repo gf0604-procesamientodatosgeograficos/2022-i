@@ -158,7 +158,8 @@ Transformación:
 # Transformación de casos positivos de covid-19 por cantón
 covid_cantonal_positivos <-
   covid_cantonal_positivos %>%
-  rename(positivos = '24/05/2022')
+  rename(positivos = '24/05/2022') %>% # renombramiento de columna
+  filter(!is.na(canton) & canton != "Otros") # borrado de filas con valor NA u "Otros" en la columna canton
 ```
 
 Visualización en formato tabular:
@@ -172,7 +173,21 @@ covid_cantonal_positivos %>%
   ))
 ```
 
-## Ejemplos de gráficos
+### diamonds
+[diamonds: *Prices of over 50,000 round cut diamonds*](https://rdrr.io/github/tidyverse/ggplot2/man/diamonds.html) contiene los precios y otros atributos de casi 54000 diamantes. Este conjunto de datos está incluído en el paquete `ggplot2`.
+
+```{r diamonds-tabla}
+# Visualización de una muestra de 1000 observaciones de diamonds en formato tabular
+diamonds %>%
+  sample_n(1000) %>%
+  datatable(options = list(
+    pageLength = 5,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+## Tipos de gráficos y ejemplos
+En esta sección, se explican y ejemplifican varios tipos de gráficos estadísticos.
 
 ### Gráficos de dispersión
 Un [gráfico de dispersión o *scatterplot*](https://es.wikipedia.org/wiki/Diagrama_de_dispersi%C3%B3n) despliega los valores de dos variables numéricas de un conjunto de datos, como puntos en un sistema de coordenadas. El valor de una variable se despliega en el eje X y el de la otra variable en el eje Y. Variables adicionales pueden ser mostradas mediante atributos de los puntos, tales como tamaño, color y forma.
@@ -194,7 +209,7 @@ plot(
 ```
 
 #### ggplot2
-El argumento `text` de `aes()` en `geom_pont()` permite especificar texto que se despliega al colocar el ratón sobre un punto cuando se utiliza la función `ggplotly()`.
+El argumento `text` de `aes()` en `geom_pont()` permite especificar texto que se despliega al colocar el ratón sobre un punto, cuando se utiliza la función `ggplotly()`.
 
 ```{r ggplot2-dispersion}
 # ggplot2 - gráfico de dispersión
@@ -233,8 +248,8 @@ mtcars %>%
           ) %>% layout(legend = list(title = list(text = "Cilindros"))) %>% config(locale = 'es')
 ```
 
-### Gráficos de línea
-Un [gráfico de línea](https://en.wikipedia.org/wiki/Line_chart) muestra información en la forma de puntos de datos, llamados marcadores (*markers*), conectados por segmentos de líneas rectas. Es similar a un gráfico de dispersión pero, además de los segmentos de línea, tiene la particularidad de que los datos están ordenados, usualmente con respecto al eje X. Los gráficos de línea son usados frecuentemente para mostrar tendencias a través del tiempo.
+### Gráficos de líneas
+Un [gráfico de líneas](https://en.wikipedia.org/wiki/Line_chart) muestra información en la forma de puntos de datos, llamados marcadores (*markers*), conectados por segmentos de líneas rectas. Es similar a un gráfico de dispersión pero, además de los segmentos de línea, tiene la particularidad de que los datos están ordenados, usualmente con respecto al eje X. Los gráficos de línea son usados frecuentemente para mostrar tendencias a través del tiempo.
 
 Los siguientes gráficos de línea muestran la evolución en el tiempo de los casos positivos, fallecidos, recuperados y activos de covid-19 en Costa Rica.
 
@@ -361,6 +376,128 @@ covid_nacional %>%
     legend = list(x = 0.1, y = 0.9),
     hovermode = "x unified"
   )
+```
+
+### Gráficos de barras
+Un [gráfico de barras](https://es.wikipedia.org/wiki/Diagrama_de_barras) se compone de barras rectangulares con longitud proporcional a estadísticas (ej. frecuencias, promedios) asociadas a una variable categórica. Las barras pueden ser horizontales o verticales y se recomienda que estén ordenadas según su longitud, a menos que exista un orden inherente a la variable categórica (ej. el orden de los días de la semana).
+
+Es uno de los tipos de gráficos estadísticos más antiguos y comunes y tiene la ventaja de ser muy fácil de comprender.
+
+#### ggplot2 - ggplotly()
+En esta sección, se muestran ejemplos de gráficos de barras generados con el paquete `ggplot2` y convertidos a gráficos de `plotly` mediante la función `ggplotly()`.
+
+##### Transformaciones estadísticas
+Los gráficos de barras y otros tipos de gráficos (ej. histogramas, gráficos de caja, líneas de ajuste) pueden requerir de alguna **transformación estadística** antes de presentar la información. Por ejemplo, el siguiente gráfico muestra la cantidad de diamantes por tipo de corte (`cut`). Nótese que este conteo no está presente en ninguna de las variables del conjunto de datos.
+
+```{r ggplot2-barras-conteo}
+# ggplotly - Gráfico de barras simples con valores de conteo
+ggplot2_barras_conteo <-
+  diamonds %>%
+  ggplot(aes(x = cut)) +
+  geom_bar() +
+  ggtitle("Cantidad de diamantes por tipo de corte") +
+  xlab("Corte") +
+  ylab("Cantidad") +
+  theme_minimal()
+
+ggplotly(ggplot2_barras_conteo) %>% config(locale = 'es')
+```
+
+El cálculo de la cantidad de diamantes por tipo de corte es un ejemplo de transformación estadística. La figura \@ref(fig:ggplot2-transformacion-estadistica) muestra como se realiza este proceso para el gráfico anterior.
+
+```{r ggplot2-transformacion-estadistica, fig.cap='Transformación estadística para un gráfico de barras de ggplot2. Imagen de [Hadley Wickham](https://r4ds.had.co.nz/data-visualisation.html).', echo=FALSE}
+knitr::include_graphics(rep("img/ggplot2-transformacion-estadistica.png"))
+```
+
+El tipo de transformación se especifica en el argumento `stat` de `geom_bar()` el cual, por defecto, tiene el valor `count`. Es posible cambiar la transformación representada en el eje y, con la función `stat()`.
+
+```{r ggplot2-barras-proporcion}
+# ggplotly - Gráfico de barras simples con valores proporcionales
+ggplot2_barras_proporcion <-
+  diamonds %>%
+  ggplot(aes(x = cut, y = stat(prop), group = 1)) +
+  geom_bar() +
+  ggtitle("Proporciones de tipos de corte de diamantes") +
+  xlab("Corte") +
+  ylab("Proporción") +
+  theme_minimal()
+
+ggplotly(ggplot2_barras_proporcion) %>% config(locale = 'es')
+```
+
+En algunos conjuntos de datos, el valor que se quiere representar en la longitud de las barras ya está presente como una variable en el conjunto de datos, por lo que no es necesario que `ggplot2` realice una transformación estadística. En este caso, a `stat` se le asigna el valor "identity" y al argumento `y` de `aes()` la variable que contiene el valor que quiere mostrarse en las barras.
+
+En el siguiente gráfico, se muestra en las barras la cantidad de casos positivos por cantón, tomada de la columna `positivos` del conjunto de datos `covid_cantonal_positivos`.
+
+```{r ggplot2-barras-identity}
+# ggplotly - Gráfico de barras simples con valores de "identity"
+ggplot2_barras_identity <-
+covid_cantonal_positivos %>%
+  slice_max(positivos, n = 15) %>% # se seleccionan los 15 cantones con mayor cantidad de casos
+  ggplot() +
+  geom_bar(mapping = aes(x = reorder(canton, positivos), y = positivos), stat = "identity") +
+  ggtitle("Cantidad de casos positivos de covid-19 por cantón") +
+  xlab("Cantón") +
+  ylab("Casos positivos") +
+  coord_flip() + # se invierten los ejes para generar barras horizontales
+  theme_minimal()
+
+ggplotly(ggplot2_barras_identity) %>% config(locale = 'es')
+```
+
+##### Barras apiladas
+
+Al usar el argumento `fill` de `aes()` las barras pueden dividirse de acuerdo con una variable adicional, dando el efecto de barras apiladas.
+
+```{r ggplot2-barras-apiladas-cantidad}
+# ggplotly - Gráfico de barras apiladas de cantidades
+ggplot2_barras_apiladas_cantidad <-
+  diamonds %>%
+  ggplot(aes(x = cut)) +
+  geom_bar(aes(fill = clarity)) +
+  ggtitle("Cantidad de diamantes por tipo de corte y claridad") +
+  xlab("Corte") +
+  ylab("Cantidad") +
+  labs(fill = "Claridad") +
+  theme_minimal()
+
+ggplotly(ggplot2_barras_apiladas_cantidad) %>% config(locale = 'es')
+```
+
+El argumento `position = "fill"` de `aes()` también genera barras apiladas, pero le asigna a todas las barras la misma longitud, facilitando así la comparación de proporciones.
+
+```{r ggplot2-barras-apiladas-proporcion}
+# ggplotly - Gráfico de barras apiladas de proporciones
+ggplot2_barras_apiladas_proporcion <-
+  diamonds %>%
+  ggplot(aes(x = cut)) +
+  geom_bar(aes(fill = clarity), position = "fill") +
+  ggtitle("Proporciones de claridad por tipo de corte de diamantes") +
+  xlab("Corte") +
+  ylab("Proporción") +
+  labs(fill = "Claridad") +
+  theme_minimal()
+
+ggplotly(ggplot2_barras_apiladas_proporcion) %>% config(locale = 'es')
+```
+
+##### Barras agrupadas
+
+El argumento `position = "dodge"` de `aes()` genera barras agrupadas, facilitando así la comparación de valores individuales.
+
+```{r ggplot2-barras-agrupadas}
+# ggplotly - Gráfico de barras agrupadas
+ggplot2_barras_agrupadas <-
+  diamonds %>%
+  ggplot(aes(x = cut)) +
+  geom_bar(aes(fill = clarity), position = "dodge") +
+  ggtitle("Cantidad de diamantes por tipo de corte y claridad") +
+  xlab("Corte") +
+  ylab("Cantidad") +
+  labs(fill = "Claridad") +
+  theme_minimal()
+
+ggplotly(ggplot2_barras_agrupadas) %>% config(locale = 'es')
 ```
 
 ## Recursos de interés
