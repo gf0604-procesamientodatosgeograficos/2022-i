@@ -7,6 +7,8 @@
 ### Lecturas
 Chang, W. (2018). *R graphics cookbook: Practical recipes for visualizing data*. O’Reilly. https://r-graphics.org/
 
+Wickham, H., & Grolemund, G. (2017). *R for Data Science: Import, Tidy, Transform, Visualize, and Model Data* (capítulo 3). O’Reilly Media. https://r4ds.had.co.nz/
+
 ## Resumen
 R proporciona una gran cantidad de funciones para la elaboración de gráficos estadísticos. En este capítulo, se describen algunos de los paquetes que contienen estas funciones.
 
@@ -536,6 +538,7 @@ ggplotly(ggplot2_barras_agrupadas) %>% config(locale = 'es')
 ### Histogramas
 Un [histograma](https://es.wikipedia.org/wiki/Histograma) es una representación gráfica de la distribución de una variable numérica en forma de barras (llamadas en inglés *bins*). La longitud de cada barra representa la frecuencia de un rango de valores de la variable. La graficación de la distribución de las variables es, frecuentemente, una de las primeras tareas que se realiza cuando se explora un conjunto de datos.
 
+#### ggplot2 - ggplotly()
 Los siguientes histogramas muestran la distribución de las variables `price` (precio en dólares estadounidenses) y `carat` (peso en quilates).
 
 ```{r ggplot2-histograma-diamantes-precio}
@@ -594,6 +597,7 @@ La figura \@ref(fig:componentes-diagrama-caja) muestra los componentes de un dia
 knitr::include_graphics(rep("img/640px-Diagrama_de_caja.jpg"))
 ```
 
+#### ggplot2 - ggplotly()
 El siguiente diagrama de caja muestra los valores de Q1, Q2 (mediana), Q3, mínimo y máximo de la variable `mpg` (millas por galón).
 
 ```{r ggplot2-diagrama-caja-mtcars-mpg}
@@ -620,7 +624,56 @@ ggplot2_diagrama_caja_mtcars_mpg_marchas <-
   ylab("Rendimiento (millas por galón de combustible)") +
   theme_minimal()
 
-ggplotly(ggplot2_diagrama_caja_mtcars_mpg_marchas) %>% config(locale = 'es')  
+ggplotly(ggplot2_diagrama_caja_mtcars_mpg_marchas) %>% config(locale = 'es')
+```
+
+### Gráficos de pastel
+Un [gráfico de pastel](https://es.wikipedia.org/wiki/Gr%C3%A1fico_circular) representa porcentajes y porciones en secciones (*slices*) de un círculo. Son muy populares, pero también criticados debido a la dificultad del cerebro humano de comparar áreas de sectores circulares, por lo que algunos expertos recomiendan sustituirlos por otros tipos de gráficos como, por ejemplo, gráficos de barras.
+
+En los siguientes ejemplos, se utiliza un data frame llamado `diamonds_cut` que contiene el porcentaje que representa la cantidad de diamantes de cada tipo de corte (`cut`) con respecto al total.
+
+```{r}
+n <- nrow(diamonds)
+
+diamonds_cut <-
+  diamonds %>%
+  group_by(cut) %>%
+  summarise(cut_count = n(), cut_pct = round(cut_count/n * 100, digits = 1))
+```
+
+Seguidamente, se presentan ejemplos de gráficos de pastel elaborados con `ggplot2` y `plotly`.
+
+#### ggplot2
+
+```{r ggplot2-grafico-pastel}
+# ggplot2 - gráfico de pastel
+diamonds_cut %>%
+  ggplot(aes(x = factor(1), y = cut_pct, fill = cut)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  geom_text(aes(label = paste(cut_pct, "%")), position = position_stack(vjust=0.5)) +
+  scale_fill_brewer(palette = "Spectral") +
+  theme_void()
+```
+
+No es posible traducir un gráfico de pastel de `ggplot2` a `plotly` mediante `ggplotly()` debido que esa función aún no cuenta con soporte para `coord_polar()`.
+
+#### plotly
+
+```{r plotly-grafico-pastel}
+# ggplot2 - gráfico de pastel
+diamonds_cut %>%
+  plot_ly(
+    labels = ~ cut,
+    values = ~ cut_count,
+    type = 'pie',
+    textposition = 'inside',
+    textinfo = 'label+percent',
+    hoverinfo = 'text',
+    text = ~ paste(cut_count, ' diamantes')
+  ) %>%
+  layout(title = 'Proporciones de tipos de corte de diamantes') %>%
+  config(locale = 'es')
 ```
 
 ## Recursos de interés

@@ -223,5 +223,10 @@ barras-sin-transformaciones-estadísticas
 barras-apiladas
 barras-agrupadas
 histogramas-1
+ggplot2---ggplotly-1
 diagramas-de-caja-1
+ggplot2---ggplotly-2
+gráficos-de-pastel
+ggplot2-2
+plotly-2
 recursos-de-interés-10
