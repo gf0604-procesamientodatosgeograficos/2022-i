@@ -548,18 +548,18 @@ penguins %>%
   mutate(body_mass_g_species_normalized = body_mass_g / body_mass_g_mean_species)
 #> # A tibble: 344 × 4
 #> # Groups:   species [3]
-#>    species body_mass_g body_mass_g_mean_sp… body_mass_g_spe…
-#>    <fct>         <int>                <dbl>            <dbl>
-#>  1 Adelie         3750                3701.            1.01 
-#>  2 Adelie         3800                3701.            1.03 
-#>  3 Adelie         3250                3701.            0.878
-#>  4 Adelie           NA                3701.           NA    
-#>  5 Adelie         3450                3701.            0.932
-#>  6 Adelie         3650                3701.            0.986
-#>  7 Adelie         3625                3701.            0.980
-#>  8 Adelie         4675                3701.            1.26 
-#>  9 Adelie         3475                3701.            0.939
-#> 10 Adelie         4250                3701.            1.15 
+#>    species body_mass_g body_mass_g_mean_… body_mass_g_speci…
+#>    <fct>         <int>              <dbl>              <dbl>
+#>  1 Adelie         3750              3701.              1.01 
+#>  2 Adelie         3800              3701.              1.03 
+#>  3 Adelie         3250              3701.              0.878
+#>  4 Adelie           NA              3701.             NA    
+#>  5 Adelie         3450              3701.              0.932
+#>  6 Adelie         3650              3701.              0.986
+#>  7 Adelie         3625              3701.              0.980
+#>  8 Adelie         4675              3701.              1.26 
+#>  9 Adelie         3475              3701.              0.939
+#> 10 Adelie         4250              3701.              1.15 
 #> # … with 334 more rows
 ```
 

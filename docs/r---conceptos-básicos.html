@@ -7,48 +7,25 @@
 <title>Chapter 8 R - Conceptos básicos | GF0604 Procesamiento de datos geográficos 2022-I</title>
 <meta name="author" content="Manuel Vargas">
 <meta name="description" content="8.1 Trabajo previo  8.1.1 Lecturas Grolemund, G., &amp; Wickham, H. (2014). Hands-On Programming with R: Write Your Own Functions And Simulations. O’Reilly Media....">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 8 R - Conceptos básicos | GF0604 Procesamiento de datos geográficos 2022-I">
 <meta property="og:type" content="book">
 <meta property="og:description" content="8.1 Trabajo previo  8.1.1 Lecturas Grolemund, G., &amp; Wickham, H. (2014). Hands-On Programming with R: Write Your Own Functions And Simulations. O’Reilly Media....">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 8 R - Conceptos básicos | GF0604 Procesamiento de datos geográficos 2022-I">
 <meta name="twitter:description" content="8.1 Trabajo previo  8.1.1 Lecturas Grolemund, G., &amp; Wickham, H. (2014). Hands-On Programming with R: Write Your Own Functions And Simulations. O’Reilly Media....">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.20/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><script src="libs/plotly-locale-es-2.5.1/es.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
-    
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  </style>
-<style type="text/css">
-    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-        }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
-<link rel="stylesheet" href="bs4_style.css">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.9.4.1/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script><script src="libs/plotly-locale-es-1.57.1/es.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -87,6 +64,8 @@
 <li><a class="" href="dplyr-gram%C3%A1tica-para-manipulaci%C3%B3n-de-datos.html"><span class="header-section-number">11</span> dplyr: gramática para manipulación de datos</a></li>
 <li class="book-part">III. Graficación estadística en R</li>
 <li><a class="" href="paquetes-de-r-para-graficaci%C3%B3n-estad%C3%ADstica.html"><span class="header-section-number">12</span> Paquetes de R para graficación estadística</a></li>
+<li class="book-part">IV. El ecosistema geoespacial de R</li>
+<li><a class="" href="introducci%C3%B3n-al-manejo-de-datos-geoespaciales-en-r.html"><span class="header-section-number">13</span> Introducción al manejo de datos geoespaciales en R</a></li>
 <li class="book-part">Evaluaciones</li>
 <li><a class="" href="examen-corto-1.html">Examen corto 1</a></li>
 <li><a class="" href="examen-corto-2.html">Examen corto 2</a></li>
@@ -164,7 +143,7 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <h2>
 <span class="header-section-number">8.5</span> Conjuntos de datos para pruebas<a class="anchor" aria-label="anchor" href="#conjuntos-de-datos-para-pruebas"><i class="fas fa-link"></i></a>
 </h2>
-<p>Para efectos de pruebas y ejemplos, la distribución base de R incorpora varios conjuntos de datos que pueden listarse con la función <a href="https://rdrr.io/r/utils/data.html">data()</a>. Para obtener información acerca de un conjunto de datos en particular, puede utilizarse el operador <code>?</code>.</p>
+<p>Para efectos de pruebas y ejemplos, la distribución base de R incorpora varios conjuntos de datos que pueden listarse con la función <a href="https://rdrr.io/r/utils/data.html">data()</a>. Para obtener información acerca de un conjunto de datos en particular, puede utilizarse el operador <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code>.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Información sobre todos los conjuntos de datos incorporados en la distribución base de R</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="op">)</span>
@@ -251,7 +230,7 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <h3>
 <span class="header-section-number">8.6.4</span> Ayuda<a class="anchor" aria-label="anchor" href="#ayuda"><i class="fas fa-link"></i></a>
 </h3>
-<p>Para obtener ayuda de una función desde la línea de comandos de R, puede utilizarse un signo de pregunta (<code>?</code>) seguido del nombre de la función o bien la función <a href="https://rdrr.io/r/utils/help.html">help()</a>. Por ejemplo:</p>
+<p>Para obtener ayuda de una función desde la línea de comandos de R, puede utilizarse un signo de pregunta (<code><a href="https://rdrr.io/r/utils/Question.html">?</a></code>) seguido del nombre de la función o bien la función <a href="https://rdrr.io/r/utils/help.html">help()</a>. Por ejemplo:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Ayuda de la función setwd()</span>
 <span class="op">?</span><span class="va">setwd</span>
@@ -308,7 +287,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co">#&gt; </span>
 <span class="co">#&gt; 1st 2nd 3rd </span>
 <span class="co">#&gt; 323 277 709</span>
-
 <span class="co"># Gráfico de barras por clase de pasajero</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span>
   height<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">TITANIC3</span><span class="op">$</span><span class="va">pclass</span><span class="op">)</span>,
@@ -384,23 +362,20 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 </h2>
 <p>R puede trabajar con varios <a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Basic-types">tipos de datos básicos</a>, entre los que están números, caracteres (i.e. textos) y lógicos. También puede trabajar con <a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Special-compound-objects">tipos compuestos</a>, como factores y <em>data frames</em>.</p>
 <p>R proporciona acceso a los datos a través de objetos. Un objeto es una entidad que tiene asociadas propiedades (i.e. datos) y métodos (i.e. funciones) para manipular esas propiedades. Un objeto puede ser, por ejemplo, un número, una hilera de texto, un vector o una matriz.</p>
-<p>Hay muchas formas de crear objetos en R. Una de las más sencillas es con los operadores de asignación. Estos son <code>=</code> y <code>&lt;-</code> (o <code>-&gt;</code>). Por ejemplo, las siguientes sentencias crean un número, un texto y un vector.</p>
+<p>Hay muchas formas de crear objetos en R. Una de las más sencillas es con los operadores de asignación. Estos son <code><a href="https://rdrr.io/r/base/assignOps.html">=</a></code> y <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code> (o <code><a href="https://rdrr.io/r/base/assignOps.html">-&gt;</a></code>). Por ejemplo, las siguientes sentencias crean un número, un texto y un vector.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Número</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span>
 <span class="va">x</span>
 <span class="co">#&gt; [1] 10</span>
-
 <span class="co"># Otro número</span>
 <span class="fl">20</span> <span class="op">-&gt;</span> <span class="va">y</span>
 <span class="va">y</span>
 <span class="co">#&gt; [1] 20</span>
-
 <span class="co"># Hilera de caracteres</span>
 <span class="va">nombre</span> <span class="op">&lt;-</span> <span class="st">'Manuel'</span>
 <span class="va">nombre</span>
 <span class="co">#&gt; [1] "Manuel"</span>
-
 <span class="co"># Vector de hileras de caracteres</span>
 <span class="va">dias</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Domingo'</span>, <span class="st">'Lunes'</span>, <span class="st">'Martes'</span>, <span class="st">'Miércoles'</span>, <span class="st">'Jueves'</span>, <span class="st">'Viernes'</span>, <span class="st">'Sábado'</span><span class="op">)</span>
 <span class="va">dias</span>
@@ -436,7 +411,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co"># Suma</span>
 <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
 <span class="co">#&gt; [1] 5.5</span>
-
 <span class="co"># Tipos de datos numéricos</span>
 <span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1] "double"</span>
@@ -453,7 +427,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co"># Multiplicación</span>
 <span class="va">x</span> <span class="op">*</span> <span class="va">y</span>
 <span class="co">#&gt; [1] 150</span>
-
 <span class="co"># Tipos de datos enteros</span>
 <span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1] "integer"</span>
@@ -487,7 +460,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">&lt;</span> <span class="fl">2</span>
 <span class="va">a</span>
 <span class="co">#&gt; [1] TRUE</span>
-
 <span class="co"># Variable lógica</span>
 <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">&gt;</span> <span class="fl">2</span>
 <span class="va">b</span>
@@ -495,21 +467,19 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <p>Las expresiones lógicas pueden combinarse con operadores como:</p>
 <ul>
 <li>
-<code>&amp;</code> (Y, en inglés <em>AND</em>)</li>
+<code><a href="https://rdrr.io/r/base/Logic.html">&amp;</a></code> (Y, en inglés <em>AND</em>)</li>
 <li>
-<code>|</code> (O, en inglés <em>OR</em>)</li>
+<code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> (O, en inglés <em>OR</em>)</li>
 <li>
-<code>!</code> (NO, en inglés <em>NOT</em>)</li>
+<code><a href="https://rdrr.io/r/base/Logic.html">!</a></code> (NO, en inglés <em>NOT</em>)</li>
 </ul>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Operador lógico AND</span>
 <span class="op">(</span><span class="fl">1</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="fl">3</span> <span class="op">&lt;</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
-
 <span class="co"># Operador lógico OR</span>
 <span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="fl">20</span> <span class="op">&lt;=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE</span>
-
 <span class="co"># Operador lógico NOT</span>
 <span class="op">!</span><span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
@@ -529,23 +499,20 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">32</span>, <span class="fl">45</span>, <span class="fl">57</span><span class="op">)</span>
 <span class="va">vector_numeros</span>
 <span class="co">#&gt; [1]  1  7 32 45 57</span>
-
 <span class="co"># Definición de un vector de hileras de caracteres</span>
 <span class="va">vector_nombres</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Álvaro"</span>, <span class="st">"Ana"</span>, <span class="st">"Berta"</span>, <span class="st">"Bernardo"</span><span class="op">)</span>
 <span class="va">vector_nombres</span>
 <span class="co">#&gt; [1] "Álvaro"   "Ana"      "Berta"    "Bernardo"</span></code></pre></div>
-<p>Los vectores también pueden crearse con el operador <code>:</code>, el cual especifica una secuencia:</p>
+<p>Los vectores también pueden crearse con el operador <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code>, el cual especifica una secuencia:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Definición de un vector de números con la secuencia de 1 a 10</span>
 <span class="va">vector_secuencia</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
 <span class="va">vector_secuencia</span>
 <span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span>
-
 <span class="co"># Definición de un vector de números con la secuencia de -5 a 5</span>
 <span class="va">vector_secuencia</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span>
 <span class="va">vector_secuencia</span>
 <span class="co">#&gt;  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5</span>
-
 <span class="co"># Definición de un vector de números con la secuencia de -0.5 a 3.7</span>
 <span class="va">vector_secuencia</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">:</span><span class="fl">3.7</span>
 <span class="va">vector_secuencia</span>
@@ -556,12 +523,10 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="va">vector_secuencia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="va">vector_secuencia</span>
 <span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span>
-
 <span class="co"># Definición de un vector de números con la secuencia de 0.5 a 15.3, con incremento de 2</span>
 <span class="va">vector_secuencia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="fl">0.5</span>, to<span class="op">=</span><span class="fl">15.3</span>, by<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">vector_secuencia</span>
 <span class="co">#&gt; [1]  0.5  2.5  4.5  6.5  8.5 10.5 12.5 14.5</span>
-
 <span class="co"># Definición de un vector de números con la secuencia de 1.5 a 9.4, con longitud de 4</span>
 <span class="va">vector_secuencia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="fl">1.5</span>, to<span class="op">=</span><span class="fl">9.4</span>, length.out<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 <span class="va">vector_secuencia</span>
@@ -578,11 +543,10 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="va">paises</span>
 <span class="co">#&gt; [1] "Argentina" "Francia"   "China"     "Australia"</span>
 <span class="co">#&gt; [5] "México"</span>
-
 <span class="co"># Elemento en el índice 3</span>
 <span class="va">paises</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="co">#&gt; [1] "China"</span></code></pre></div>
-<p>El operador <code>:</code> puede utilizarse para especificar un rango de índices:</p>
+<p>El operador <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> puede utilizarse para especificar un rango de índices:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Elementos entre los índices 2 y 4 (2, 3 y 4)</span>
 <span class="va">paises</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
@@ -615,7 +579,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co"># Suma de vectores</span>
 <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>
 <span class="co">#&gt; [1]  3  7 11 15</span>
-
 <span class="co"># Multiplicación de vectores</span>
 <span class="va">a</span> <span class="op">*</span> <span class="va">b</span>
 <span class="co">#&gt; [1]  2 12 30 56</span></code></pre></div>
@@ -644,7 +607,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co">#&gt; [1,]    1    4    7</span>
 <span class="co">#&gt; [2,]    2    5    8</span>
 <span class="co">#&gt; [3,]    3    6    9</span>
-
 <span class="co"># Definición de una matriz de 3 x 3 con elementos de la secuencia 1:9 distribuidos en las filas</span>
 <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">3</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">m</span>
@@ -652,7 +614,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co">#&gt; [1,]    1    2    3</span>
 <span class="co">#&gt; [2,]    4    5    6</span>
 <span class="co">#&gt; [3,]    7    8    9</span>
-
 <span class="co"># Definición de una matriz de 3 x 2 con nombres para las filas y las columnas</span>
 <span class="va">datos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">500</span>, <span class="fl">25</span>, <span class="fl">1000</span>, <span class="fl">30</span>, <span class="fl">2000</span><span class="op">)</span>
 <span class="va">filas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ana"</span>, <span class="st">"Mario"</span>, <span class="st">"Laura"</span><span class="op">)</span>
@@ -675,28 +636,23 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <code class="sourceCode R"><span class="co"># Elemento en la posición [2,2] (segunda fila, segunda columna)</span>
 <span class="va">m</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt; [1] 1000</span>
-
 <span class="co"># Elementos de la primera fila</span>
 <span class="va">m</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span>
 <span class="co">#&gt;    Edad Salario </span>
 <span class="co">#&gt;      18     500</span>
-
 <span class="co"># Elementos de la segunda columna</span>
 <span class="va">m</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt;   Ana Mario Laura </span>
 <span class="co">#&gt;   500  1000  2000</span>
-
 <span class="co"># Elementos de las filas 1 y 2</span>
 <span class="va">m</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>
 <span class="co">#&gt;       Edad Salario</span>
 <span class="co">#&gt; Ana     18     500</span>
 <span class="co">#&gt; Mario   25    1000</span>
-
 <span class="co"># Elementos de la fila "Mario"</span>
 <span class="va">m</span><span class="op">[</span><span class="st">"Mario"</span>, <span class="op">]</span>
 <span class="co">#&gt;    Edad Salario </span>
 <span class="co">#&gt;      25    1000</span>
-
 <span class="co"># Elementos de la columna "Salario"</span>
 <span class="va">m</span><span class="op">[</span>, <span class="st">"Salario"</span><span class="op">]</span>
 <span class="co">#&gt;   Ana Mario Laura </span>
@@ -713,25 +669,21 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co">#&gt;      [,1] [,2]</span>
 <span class="co">#&gt; [1,]    1    3</span>
 <span class="co">#&gt; [2,]    2    4</span>
-
 <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span>, nrow<span class="op">=</span><span class="fl">2</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">b</span>
 <span class="co">#&gt;      [,1] [,2]</span>
 <span class="co">#&gt; [1,]    5    7</span>
 <span class="co">#&gt; [2,]    6    8</span>
-
 <span class="co"># Suma de matrices</span>
 <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>
 <span class="co">#&gt;      [,1] [,2]</span>
 <span class="co">#&gt; [1,]    6   10</span>
 <span class="co">#&gt; [2,]    8   12</span>
-
 <span class="co"># Multiplicación de matrices</span>
 <span class="va">a</span> <span class="op">*</span> <span class="va">b</span>
 <span class="co">#&gt;      [,1] [,2]</span>
 <span class="co">#&gt; [1,]    5   21</span>
 <span class="co">#&gt; [2,]   12   32</span>
-
 <span class="co"># Comparación de matrices con el operador &gt;</span>
 <span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span>
 <span class="co">#&gt;       [,1]  [,2]</span>
@@ -769,11 +721,9 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <code class="sourceCode R"><span class="co"># Etiquetas de los niveles</span>
 <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Femenino"  "Masculino"</span>
-
 <span class="co"># Cantidad de niveles</span>
 <span class="fu"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2</span>
-
 <span class="co"># Conteo de elementos de cada uno de los niveles del factor</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">)</span>
 <span class="co">#&gt; sexo</span>
@@ -827,31 +777,26 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="va">poblaciones_paises</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>
 <span class="co">#&gt;   pais poblacion</span>
 <span class="co">#&gt; 1  PAN       4.1</span>
-
 <span class="co"># Filas 1, 5 y 7</span>
 <span class="va">poblaciones_paises</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span>, <span class="op">]</span>
 <span class="co">#&gt;   pais poblacion</span>
 <span class="co">#&gt; 1  PAN       4.1</span>
 <span class="co">#&gt; 5  HND       9.2</span>
 <span class="co">#&gt; 7  BLZ       0.3</span>
-
 <span class="co"># Columna 2</span>
 <span class="va">poblaciones_paises</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt; [1]  4.1  5.0  6.2  6.4  9.2 16.9  0.3 10.6</span>
-
 <span class="co"># Fila 1, columna 2</span>
 <span class="va">poblaciones_paises</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt; [1] 4.1</span>
-
 <span class="co"># Filas 1:4, columna 2</span>
 <span class="va">poblaciones_paises</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt; [1] 4.1 5.0 6.2 6.4</span></code></pre></div>
-<p>Además, mediante el operador <code>$</code>, es posible acceder a las columnas (i.e. variables) del data frame.</p>
+<p>Además, mediante el operador <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code>, es posible acceder a las columnas (i.e. variables) del data frame.</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Columna de nombres de países</span>
 <span class="va">poblaciones_paises</span><span class="op">$</span><span class="va">pais</span>
 <span class="co">#&gt; [1] "PAN" "CRI" "NIC" "SLV" "HND" "GTM" "BLZ" "DOM"</span>
-
 <span class="co"># Modificación de los valores de toda una columna</span>
 <span class="va">poblaciones_paises</span><span class="op">$</span><span class="va">poblacion</span> <span class="op">=</span> <span class="va">poblaciones_paises</span><span class="op">$</span><span class="va">poblacion</span><span class="op">*</span><span class="fl">2</span>
 <span class="va">poblaciones_paises</span>
@@ -936,12 +881,10 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <code class="sourceCode R"><span class="co"># Fecha actual</span>
 <span class="va">fecha_actual</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">fecha_actual</span>
-<span class="co">#&gt; [1] "2022-05-31"</span>
-
+<span class="co">#&gt; [1] "2022-06-04"</span>
 <span class="co"># Tipo de datos</span>
 <span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">fecha_actual</span><span class="op">)</span>
 <span class="co">#&gt; [1] "double"</span>
-
 <span class="co"># Clase</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">fecha_actual</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Date"</span></code></pre></div>
@@ -952,13 +895,11 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="va">fecha_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">fecha_caracter_01</span>, format<span class="op">=</span><span class="st">"%Y-%m-%d"</span><span class="op">)</span>
 <span class="va">fecha_01</span>
 <span class="co">#&gt; [1] "2020-01-01"</span>
-
 <span class="co"># Conversión de fecha en formato día/mes/año</span>
 <span class="va">fecha_caracter_02</span> <span class="op">&lt;-</span> <span class="st">"31/01/2020"</span>
 <span class="va">fecha_02</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">fecha_caracter_02</span>, format<span class="op">=</span><span class="st">"%d/%m/%Y"</span><span class="op">)</span>
 <span class="va">fecha_02</span>
 <span class="co">#&gt; [1] "2020-01-31"</span>
-
 <span class="co"># Diferencia entre fechas</span>
 <span class="va">fecha_02</span> <span class="op">-</span> <span class="va">fecha_01</span>
 <span class="co">#&gt; Time difference of 30 days</span></code></pre></div>
@@ -1000,7 +941,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <code class="sourceCode R"><span class="co"># Si ni se incluyen los nombres de los argumentos, la función asume que se ingresan en el mismo orden en el que fueron definidos</span>
 <span class="fu">nota_final</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">50</span>, <span class="fl">0</span><span class="op">)</span>
 <span class="co">#&gt; [1] 70</span>
-
 <span class="co"># El uso de los nombres de argumentos permite modificar su orden</span>
 <span class="fu">nota_final</span><span class="op">(</span>promedio_examenes <span class="op">=</span>  <span class="fl">100</span>, promedio_tareas <span class="op">=</span>  <span class="fl">0</span>, promedio_proyectos <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
 <span class="co">#&gt; [1] 70</span></code></pre></div>
@@ -1021,7 +961,6 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <span class="co"># Se utiliza el valor por defecto (0) para el argumento promedio_tareas</span>
 <span class="fu">nota_final</span><span class="op">(</span>promedio_examenes <span class="op">=</span> <span class="fl">100</span>, promedio_proyectos <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
 <span class="co">#&gt; [1] 70</span>
-
 <span class="co"># Se llama la función usando la posición del primer argumento y el nombre del segundo</span>
 <span class="fu">nota_final</span><span class="op">(</span><span class="fl">100</span>, promedio_proyectos <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
 <span class="co">#&gt; [1] 70</span></code></pre></div>
@@ -1048,7 +987,7 @@ Figure 8.1: Interfaz del ambiente integrado de desarrollo RStudio.
 <h3>
 <span class="header-section-number">8.10.1</span> La sentencia <code>if</code><a class="anchor" aria-label="anchor" href="#la-sentencia-if"><i class="fas fa-link"></i></a>
 </h3>
-<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#if">if</a> evalúa una condición (i.e. una expresión lógica) y ejecuta un bloque de instrucciones, si es verdadera. El bloque se delimita con los caracteres de “llaves”: <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>.</p>
+<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#if">if</a> evalúa una condición (i.e. una expresión lógica) y ejecuta un bloque de instrucciones, si es verdadera. El bloque se delimita con los caracteres de “llaves”: <code>{}</code>.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">condicion</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># bloque de instrucciones a ejecutar si la condicion es verdadera</span>
@@ -1111,7 +1050,7 @@ Por ejemplo:</p>
 <span class="header-section-number">8.11</span> Ciclos<a class="anchor" aria-label="anchor" href="#ciclos"><i class="fas fa-link"></i></a>
 </h2>
 <p>Los ciclos permiten ejecutar tareas de manera repetitiva en un programa. Algunos ciclos se ejecutan una cantidad definida de veces, mientras que otros lo hacen mientras se cumple una condición lógica. Pueden usarse en combinación con cláusulas que terminan anticipadamente el ciclo o que omiten algunas de sus iteraciones.</p>
-<p><a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#Looping">Los ciclos en R</a> se implementan mediante las sentencias <code>for</code>, <code>while</code> y <code>repeat</code>, en combinación con las sentencias <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> y <code><a href="https://rdrr.io/r/base/Control.html">next</a></code>.</p>
+<p><a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#Looping">Los ciclos en R</a> se implementan mediante las sentencias <code>for</code>, <code>while</code> y <code>repeat</code>, en combinación con las sentencias <code>break</code> y <code>next</code>.</p>
 <p>R provee varias funciones que implementan ciclos de manera implícita, tales como <a href="https://rdrr.io/r/base/apply.html">apply()</a>, <a href="https://rdrr.io/r/base/tapply.html">tapply()</a> y <a href="https://rdrr.io/r/base/lapply.html">lapply()</a>. Adicionalmente, hay muchas operaciones (ej. las aritméticas) que están “vectorizadas”, por lo que no es necesario utilizarlas en ciclos. El uso de código vectorizado es muy recomendado en R, por ser muy eficiente.</p>
 <div id="sentencias-básicas-para-manejo-de-ciclos" class="section level3" number="8.11.1">
 <h3>
@@ -1166,7 +1105,6 @@ Por ejemplo:</p>
 <span class="co">#&gt; [1,]    1    4    7   10</span>
 <span class="co">#&gt; [2,]    2    5    8   11</span>
 <span class="co">#&gt; [3,]    3    6    9   12</span>
-
 <span class="co"># Ciclo externo para recorrer las columnas de la matriz</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">suma_columna</span> <span class="op">&lt;-</span> <span class="fl">0</span>
@@ -1223,7 +1161,7 @@ Por ejemplo:</p>
 <h4>
 <span class="header-section-number">8.11.1.3</span> La sentencia <code>repeat</code><a class="anchor" aria-label="anchor" href="#la-sentencia-repeat"><i class="fas fa-link"></i></a>
 </h4>
-<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#repeat">repeat</a> implementa un ciclo que se repite indefinidamente. Puede interrumpirse con una sentencia <code><a href="https://rdrr.io/r/base/Control.html">break</a></code>.</p>
+<p>La sentencia <a href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#repeat">repeat</a> implementa un ciclo que se repite indefinidamente. Puede interrumpirse con una sentencia <code>break</code>.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">repeat</span> <span class="op">{</span>
   <span class="co"># bloque de instrucciones </span>
@@ -1252,8 +1190,8 @@ Por ejemplo:</p>
 <h4>
 <span class="header-section-number">8.11.1.4</span> Las sentencias <code>break</code> y <code>next</code><a class="anchor" aria-label="anchor" href="#las-sentencias-break-y-next"><i class="fas fa-link"></i></a>
 </h4>
-<p>La sentencia <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> interrumpe un ciclo. La ejecución del programa continúa con la instrucción siguiente al bloque del ciclo.</p>
-<p>En el siguiente ciclo <code>for</code>, se suman uno a uno los números de un vector, pero se usa un <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> para interrumpir el ciclo cuando el acumulado es mayor que 100.</p>
+<p>La sentencia <code>break</code> interrumpe un ciclo. La ejecución del programa continúa con la instrucción siguiente al bloque del ciclo.</p>
+<p>En el siguiente ciclo <code>for</code>, se suman uno a uno los números de un vector, pero se usa un <code>break</code> para interrumpir el ciclo cuando el acumulado es mayor que 100.</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">17</span>, <span class="fl">23</span>, <span class="fl">37</span>, <span class="fl">41</span>, <span class="fl">52</span>, <span class="fl">64</span>, <span class="fl">75</span><span class="op">)</span>
 
@@ -1272,15 +1210,15 @@ Por ejemplo:</p>
 <span class="co">#&gt; Acumulado: 77 </span>
 <span class="co">#&gt; Acumulado: 118 </span>
 <span class="co">#&gt; Se superó el límite de 100 en el acumulado</span></code></pre></div>
-<p>Por su parte, la sentencia <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> retorna el control al principio del bloque. Las instrucciones que hay después del <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> no se ejecutan. La siguiente iteración del ciclo (si la hay), se inicia entonces.</p>
-<p>El siguiente ciclo recorre un vector de números. Se utiliza la sentencia <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> para “saltar” los números impares y sumar solo los pares.</p>
+<p>Por su parte, la sentencia <code>next</code> retorna el control al principio del bloque. Las instrucciones que hay después del <code>next</code> no se ejecutan. La siguiente iteración del ciclo (si la hay), se inicia entonces.</p>
+<p>El siguiente ciclo recorre un vector de números. Se utiliza la sentencia <code>next</code> para “saltar” los números impares y sumar solo los pares.</p>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">vector_numeros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">17</span>, <span class="fl">23</span>, <span class="fl">37</span>, <span class="fl">41</span>, <span class="fl">52</span>, <span class="fl">64</span>, <span class="fl">75</span><span class="op">)</span>
 
 <span class="va">suma_pares</span> <span class="op">&lt;-</span> <span class="fl">0</span>
 
 <span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">vector_numeros</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">%%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
     <span class="co"># Número par: se suma</span>
     <span class="va">suma_pares</span> <span class="op">&lt;-</span> <span class="va">suma_pares</span> <span class="op">+</span> <span class="va">x</span>
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
@@ -1319,7 +1257,6 @@ Por ejemplo:</p>
 <span class="co">#&gt; [1,]    1    4    7   10</span>
 <span class="co">#&gt; [2,]    2    5    8   11</span>
 <span class="co">#&gt; [3,]    3    6    9   12</span>
-
 <span class="co"># Suma de las columnas</span>
 <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">2</span>, <span class="va">sum</span><span class="op">)</span>
 <span class="co">#&gt; [1]  6 15 24 33</span></code></pre></div>
@@ -1367,7 +1304,6 @@ Por ejemplo:</p>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[6]]</span>
 <span class="co">#&gt; [1] "sara"</span>
-
 <span class="co"># Se genera un saludo para cada nombre</span>
 <span class="va">nombres_con_saludo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">nombres</span>, <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span>, arg1<span class="op">=</span><span class="st">"Hola"</span><span class="op">)</span>
 <span class="va">nombres_con_saludo</span>
@@ -1442,7 +1378,6 @@ Por ejemplo:</p>
 <span class="va">negativos</span> <span class="op">&lt;-</span> <span class="va">vector_numeros</span> <span class="op">&lt;</span> <span class="fl">0</span>
 <span class="va">negativos</span>
 <span class="co">#&gt; [1] FALSE  TRUE FALSE FALSE  TRUE FALSE</span>
-
 <span class="co"># Se cambian los elementos seleccionados en el paso anterior sin utilizar el for</span>
 <span class="va">vector_numeros</span><span class="op">[</span><span class="va">negativos</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">vector_numeros</span><span class="op">[</span><span class="va">negativos</span><span class="op">]</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1</span>
 
@@ -1536,7 +1471,7 @@ Por ejemplo:</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-05-31.</p>
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-06-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

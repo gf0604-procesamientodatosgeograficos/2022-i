@@ -231,7 +231,6 @@ Una de las diferencias entre un data.frame y un tibble es el despliegue de los d
 # Clase del conjunto de datos penguins
 class(penguins)
 #> [1] "tbl_df"     "tbl"        "data.frame"
-
 # Impresión del tibble penguins
 print(penguins)
 #> # A tibble: 344 × 8

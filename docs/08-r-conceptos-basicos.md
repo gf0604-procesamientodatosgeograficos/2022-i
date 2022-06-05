@@ -214,7 +214,6 @@ table(TITANIC3$pclass)
 #> 
 #> 1st 2nd 3rd 
 #> 323 277 709
-
 # Gráfico de barras por clase de pasajero
 barplot(
   height=table(TITANIC3$pclass),
@@ -307,17 +306,14 @@ Hay muchas formas de crear objetos en R. Una de las más sencillas es con los op
 x <- 10
 x
 #> [1] 10
-
 # Otro número
 20 -> y
 y
 #> [1] 20
-
 # Hilera de caracteres
 nombre <- 'Manuel'
 nombre
 #> [1] "Manuel"
-
 # Vector de hileras de caracteres
 dias <- c('Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado')
 dias
@@ -358,7 +354,6 @@ y <- 0.5
 # Suma
 x + y
 #> [1] 5.5
-
 # Tipos de datos numéricos
 typeof(x)
 #> [1] "double"
@@ -379,7 +374,6 @@ y <- as.integer(15)
 # Multiplicación
 x * y
 #> [1] 150
-
 # Tipos de datos enteros
 typeof(x)
 #> [1] "integer"
@@ -414,7 +408,6 @@ Los objetos lógicos (también llamados _booleanos_) tienen dos posibles valores
 a <- 1 < 2
 a
 #> [1] TRUE
-
 # Variable lógica
 b <- 1 > 2
 b
@@ -432,11 +425,9 @@ Las expresiones lógicas pueden combinarse con operadores como:
 # Operador lógico AND
 (1 < 2) & (3 < 4)
 #> [1] TRUE
-
 # Operador lógico OR
 (2 + 2 == 5) | (20 <= 10)
 #> [1] FALSE
-
 # Operador lógico NOT
 !(2 + 2 == 5)
 #> [1] TRUE
@@ -454,7 +445,6 @@ Los vectores pueden definirse de varias formas como, por ejemplo, con la funció
 vector_numeros <- c(1, 7, 32, 45, 57)
 vector_numeros
 #> [1]  1  7 32 45 57
-
 # Definición de un vector de hileras de caracteres
 vector_nombres <- c("Álvaro", "Ana", "Berta", "Bernardo")
 vector_nombres
@@ -469,12 +459,10 @@ Los vectores también pueden crearse con el operador ```:```, el cual especifica
 vector_secuencia <- 1:10
 vector_secuencia
 #>  [1]  1  2  3  4  5  6  7  8  9 10
-
 # Definición de un vector de números con la secuencia de -5 a 5
 vector_secuencia <- -5:5
 vector_secuencia
 #>  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5
-
 # Definición de un vector de números con la secuencia de -0.5 a 3.7
 vector_secuencia <- -0.5:3.7
 vector_secuencia
@@ -489,12 +477,10 @@ La función [seq()](https://rdrr.io/r/base/seq.html) también crea un vector con
 vector_secuencia <- seq(1, 10)
 vector_secuencia
 #>  [1]  1  2  3  4  5  6  7  8  9 10
-
 # Definición de un vector de números con la secuencia de 0.5 a 15.3, con incremento de 2
 vector_secuencia <- seq(from=0.5, to=15.3, by=2)
 vector_secuencia
 #> [1]  0.5  2.5  4.5  6.5  8.5 10.5 12.5 14.5
-
 # Definición de un vector de números con la secuencia de 1.5 a 9.4, con longitud de 4
 vector_secuencia <- seq(from=1.5, to=9.4, length.out=4)
 vector_secuencia
@@ -511,7 +497,6 @@ paises <- c("Argentina", "Francia", "China", "Australia", "México")
 paises
 #> [1] "Argentina" "Francia"   "China"     "Australia"
 #> [5] "México"
-
 # Elemento en el índice 3
 paises[3]
 #> [1] "China"
@@ -564,7 +549,6 @@ b <- c(2, 4, 6, 8)
 # Suma de vectores
 a + b
 #> [1]  3  7 11 15
-
 # Multiplicación de vectores
 a * b
 #> [1]  2 12 30 56
@@ -594,7 +578,6 @@ m
 #> [1,]    1    4    7
 #> [2,]    2    5    8
 #> [3,]    3    6    9
-
 # Definición de una matriz de 3 x 3 con elementos de la secuencia 1:9 distribuidos en las filas
 m <- matrix(1:9, nrow=3, ncol=3, byrow=TRUE)
 m
@@ -602,7 +585,6 @@ m
 #> [1,]    1    2    3
 #> [2,]    4    5    6
 #> [3,]    7    8    9
-
 # Definición de una matriz de 3 x 2 con nombres para las filas y las columnas
 datos <- c(18, 500, 25, 1000, 30, 2000)
 filas <- c("Ana", "Mario", "Laura")
@@ -625,28 +607,23 @@ La indexación de matrices es similar a la de vectores, pero deben especificarse
 # Elemento en la posición [2,2] (segunda fila, segunda columna)
 m[2, 2]
 #> [1] 1000
-
 # Elementos de la primera fila
 m[1,]
 #>    Edad Salario 
 #>      18     500
-
 # Elementos de la segunda columna
 m[, 2]
 #>   Ana Mario Laura 
 #>   500  1000  2000
-
 # Elementos de las filas 1 y 2
 m[1:2, ]
 #>       Edad Salario
 #> Ana     18     500
 #> Mario   25    1000
-
 # Elementos de la fila "Mario"
 m["Mario", ]
 #>    Edad Salario 
 #>      25    1000
-
 # Elementos de la columna "Salario"
 m[, "Salario"]
 #>   Ana Mario Laura 
@@ -663,25 +640,21 @@ a
 #>      [,1] [,2]
 #> [1,]    1    3
 #> [2,]    2    4
-
 b <- matrix(5:8, nrow=2, ncol=2)
 b
 #>      [,1] [,2]
 #> [1,]    5    7
 #> [2,]    6    8
-
 # Suma de matrices
 a + b
 #>      [,1] [,2]
 #> [1,]    6   10
 #> [2,]    8   12
-
 # Multiplicación de matrices
 a * b
 #>      [,1] [,2]
 #> [1,]    5   21
 #> [2,]   12   32
-
 # Comparación de matrices con el operador >
 a > b
 #>       [,1]  [,2]
@@ -715,11 +688,9 @@ R proporciona una gran variedad de funciones para manejar factores. Seguidamente
 # Etiquetas de los niveles
 levels(sexo)
 #> [1] "Femenino"  "Masculino"
-
 # Cantidad de niveles
 nlevels(sexo)
 #> [1] 2
-
 # Conteo de elementos de cada uno de los niveles del factor
 table(sexo)
 #> sexo
@@ -770,22 +741,18 @@ Los datos de un data frame pueden accederse principalmente de dos formas. La pri
 poblaciones_paises[1, ]
 #>   pais poblacion
 #> 1  PAN       4.1
-
 # Filas 1, 5 y 7
 poblaciones_paises[c(1, 5, 7), ]
 #>   pais poblacion
 #> 1  PAN       4.1
 #> 5  HND       9.2
 #> 7  BLZ       0.3
-
 # Columna 2
 poblaciones_paises[, 2]
 #> [1]  4.1  5.0  6.2  6.4  9.2 16.9  0.3 10.6
-
 # Fila 1, columna 2
 poblaciones_paises[1, 2]
 #> [1] 4.1
-
 # Filas 1:4, columna 2
 poblaciones_paises[1:4, 2]
 #> [1] 4.1 5.0 6.2 6.4
@@ -798,7 +765,6 @@ Además, mediante el operador ```$```, es posible acceder a las columnas (i.e. v
 # Columna de nombres de países
 poblaciones_paises$pais
 #> [1] "PAN" "CRI" "NIC" "SLV" "HND" "GTM" "BLZ" "DOM"
-
 # Modificación de los valores de toda una columna
 poblaciones_paises$poblacion = poblaciones_paises$poblacion*2
 poblaciones_paises
@@ -884,12 +850,10 @@ La función [Sys.Date()](https://rdrr.io/r/base/Sys.time.html) retorna la fecha 
 # Fecha actual
 fecha_actual <- Sys.Date()
 fecha_actual
-#> [1] "2022-05-31"
-
+#> [1] "2022-06-04"
 # Tipo de datos
 typeof(fecha_actual)
 #> [1] "double"
-
 # Clase
 class(fecha_actual)
 #> [1] "Date"
@@ -904,13 +868,11 @@ fecha_caracter_01 <- "2020-01-01"
 fecha_01 <- as.Date(fecha_caracter_01, format="%Y-%m-%d")
 fecha_01
 #> [1] "2020-01-01"
-
 # Conversión de fecha en formato día/mes/año
 fecha_caracter_02 <- "31/01/2020"
 fecha_02 <- as.Date(fecha_caracter_02, format="%d/%m/%Y")
 fecha_02
 #> [1] "2020-01-31"
-
 # Diferencia entre fechas
 fecha_02 - fecha_01
 #> Time difference of 30 days
@@ -960,7 +922,6 @@ Ahora que está definida, la función ```nota_final()``` puede ser invocada, con
 # Si ni se incluyen los nombres de los argumentos, la función asume que se ingresan en el mismo orden en el que fueron definidos
 nota_final(100, 50, 0)
 #> [1] 70
-
 # El uso de los nombres de argumentos permite modificar su orden
 nota_final(promedio_examenes =  100, promedio_tareas =  0, promedio_proyectos = 50)
 #> [1] 70
@@ -986,7 +947,6 @@ nota_final <- function(promedio_examenes,
 # Se utiliza el valor por defecto (0) para el argumento promedio_tareas
 nota_final(promedio_examenes = 100, promedio_proyectos = 50)
 #> [1] 70
-
 # Se llama la función usando la posición del primer argumento y el nombre del segundo
 nota_final(100, promedio_proyectos = 50)
 #> [1] 70
@@ -1129,7 +1089,6 @@ m
 #> [1,]    1    4    7   10
 #> [2,]    2    5    8   11
 #> [3,]    3    6    9   12
-
 # Ciclo externo para recorrer las columnas de la matriz
 for (j in 1:ncol(m)) {
   suma_columna <- 0
@@ -1291,7 +1250,6 @@ m
 #> [1,]    1    4    7   10
 #> [2,]    2    5    8   11
 #> [3,]    3    6    9   12
-
 # Suma de las columnas
 apply(m, 2, sum)
 #> [1]  6 15 24 33
@@ -1340,7 +1298,6 @@ nombres_en_minuscula
 #> 
 #> [[6]]
 #> [1] "sara"
-
 # Se genera un saludo para cada nombre
 nombres_con_saludo <- lapply(nombres, function(arg1, arg2) paste(arg1, arg2), arg1="Hola")
 nombres_con_saludo
@@ -1420,7 +1377,6 @@ vector_numeros <- c(23, -17, 34, 0, -12, 55)
 negativos <- vector_numeros < 0
 negativos
 #> [1] FALSE  TRUE FALSE FALSE  TRUE FALSE
-
 # Se cambian los elementos seleccionados en el paso anterior sin utilizar el for
 vector_numeros[negativos] <- vector_numeros[negativos] * -1
 
