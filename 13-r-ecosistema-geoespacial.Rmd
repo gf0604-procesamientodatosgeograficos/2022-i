@@ -433,33 +433,28 @@ res(altitud)
 #### leaflet
 A la fecha de escritura de este documento (2022-06-05), el paquete `leaflet` no cuenta con soporte para objetos de tipo `SpatRaster`, pero sí para objetos de tipo `RasterLayer` del paquete [raster](https://cran.r-project.org/web/packages/raster/) (antecesor de `terra`). Por este motivo, se utiliza el método `raster()` de `raster` para realizar la conversión de `SpatRaster` a `RasterLayer` y así mapear el objeto `altitud` con el método `addRasterImage()` de `leaflet`. Para más información sobre el tema de conversiones entre las diferentes clases espaciales de R, puede consultarse [Conversions between different spatial classes in R](https://www.r-bloggers.com/2021/06/conversions-between-different-spatial-classes-in-r/).
 
-Entonces, primero se instala y carga el paquete `raster`.
+Entonces, primero se instala y carga el paquete `raster`. También debe cargarse e instalarse el paquete `rgdal`, como complemento de `raster`.
 
 ```{r raster-instalacion, eval=FALSE}
-# Instalación de raster
+# Instalación de raster y rgdal
 install.packages("raster")
+install.packages("rgdal")
 ```
 
 ```{r raster-carga, message=FALSE}
 # Carga de raster
 library(raster)
+library(rgdal)
 ```
 
-Luego, se convierte el objeto `altitud` a la clase `RasterLayer`.
-
-```{r conversion-spatraster-rasterlayer, message=FALSE, warning=FALSE}
-# Conversión del objeto altitud a la clase RasterLayer
-altitud <- raster(altitud)
-```
-
-Finalmente, se muestran en un mapa `leaflet` las capas de altitud (raster), provincias (polígonos) y registros de presencia de felinos (puntos) sobre una capa base de [OpenStreetMap (OSM)](https://www.openstreetmap.org/).
+Se muestran en un mapa `leaflet` las capas de altitud (raster), provincias (polígonos) y registros de presencia de felinos (puntos) sobre una capa base de [OpenStreetMap (OSM)](https://www.openstreetmap.org/).
 
 ```{r leaflet-raster, message=FALSE, warning=FALSE}
 # Mapa leaflet básico con capas de altitud, provincias y registros de presencia de felinos
 leaflet() %>%
   addTiles() %>%
   addRasterImage( # capa raster
-    altitud, 
+    raster(altitud), # conversión de SpatRaster a RasterLayer 
     opacity = 0.6
   ) %>%    
   addPolygons(
