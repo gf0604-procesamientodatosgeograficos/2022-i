@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Examen corto 2 | GF0604 Procesamiento de datos geográficos 2022-I</title>
+<title>COVID-19 en Costa Rica | GF0604 Procesamiento de datos geográficos 2022-I</title>
 <meta name="author" content="Manuel Vargas">
-<meta name="description" content="Fecha Grupo 001: Miércoles 25 de mayo de 2022 Grupo 002: Jueves 26 de mayo de 2022  Temas a evaluar R - Conceptos básicos R Markdown Tidyverse: colección de paquetes para ciencia de datos dplyr:...">
+<meta name="description" content="Análisis de datos de COVID-19 en Costa Rica - Gráficos del paquete base">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="Examen corto 2 | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta property="og:title" content="COVID-19 en Costa Rica | GF0604 Procesamiento de datos geográficos 2022-I">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Fecha Grupo 001: Miércoles 25 de mayo de 2022 Grupo 002: Jueves 26 de mayo de 2022  Temas a evaluar R - Conceptos básicos R Markdown Tidyverse: colección de paquetes para ciencia de datos dplyr:...">
+<meta property="og:description" content="Análisis de datos de COVID-19 en Costa Rica - Gráficos del paquete base">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Examen corto 2 | GF0604 Procesamiento de datos geográficos 2022-I">
-<meta name="twitter:description" content="Fecha Grupo 001: Miércoles 25 de mayo de 2022 Grupo 002: Jueves 26 de mayo de 2022  Temas a evaluar R - Conceptos básicos R Markdown Tidyverse: colección de paquetes para ciencia de datos dplyr:...">
+<meta name="twitter:title" content="COVID-19 en Costa Rica | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta name="twitter:description" content="Análisis de datos de COVID-19 en Costa Rica - Gráficos del paquete base">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -68,11 +68,11 @@
 <li><a class="" href="introducci%C3%B3n-al-manejo-de-datos-geoespaciales-en-r.html"><span class="header-section-number">13</span> Introducción al manejo de datos geoespaciales en R</a></li>
 <li class="book-part">Evaluaciones</li>
 <li><a class="" href="examen-corto-1.html">Examen corto 1</a></li>
-<li><a class="active" href="examen-corto-2.html">Examen corto 2</a></li>
+<li><a class="" href="examen-corto-2.html">Examen corto 2</a></li>
 <li><a class="" href="examen-corto-3.html">Examen corto 3</a></li>
 <li><a class="" href="tarea-1.html">Tarea 1</a></li>
 <li class="book-part">Documentos y aplicaciones de ejemplo</li>
-<li><a class="" href="covid-19-en-costa-rica.html">COVID-19 en Costa Rica</a></li>
+<li><a class="active" href="covid-19-en-costa-rica.html">COVID-19 en Costa Rica</a></li>
 <li><a class="" href="felinos-de-costa-rica.html">Felinos de Costa Rica</a></li>
 <li class="book-part">Apéndices</li>
 <li><a class="" href="conjuntos-de-datos.html">Conjuntos de datos</a></li>
@@ -83,48 +83,24 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="examen-corto-2" class="section level1 unnumbered">
-<h1>Examen corto 2<a class="anchor" aria-label="anchor" href="#examen-corto-2"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="covid-19-en-costa-rica" class="section level1 unnumbered">
+<h1>COVID-19 en Costa Rica<a class="anchor" aria-label="anchor" href="#covid-19-en-costa-rica"><i class="fas fa-link"></i></a>
 </h1>
-<div id="fecha-1" class="section level2 unnumbered">
-<h2>Fecha<a class="anchor" aria-label="anchor" href="#fecha-1"><i class="fas fa-link"></i></a>
-</h2>
 <ul>
-<li>Grupo 001: Miércoles 25 de mayo de 2022<br>
-</li>
-<li>Grupo 002: Jueves 26 de mayo de 2022</li>
+<li><a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i-analisis-covid-basico/">Análisis de datos de COVID-19 en Costa Rica - Gráficos del paquete base</a></li>
 </ul>
-</div>
-<div id="temas-a-evaluar-1" class="section level2 unnumbered">
-<h2>Temas a evaluar<a class="anchor" aria-label="anchor" href="#temas-a-evaluar-1"><i class="fas fa-link"></i></a>
-</h2>
-<ul>
-<li><a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i/r---conceptos-b%C3%A1sicos.html">R - Conceptos básicos</a></li>
-<li>
-<a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i/r-markdown.html">R Markdown</a><br>
-</li>
-<li>
-<a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i/tidyverse-colecci%C3%B3n-de-paquetes-para-ciencia-de-datos.html">Tidyverse: colección de paquetes para ciencia de datos</a><br>
-</li>
-<li><a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i/dplyr-gram%C3%A1tica-para-manipulaci%C3%B3n-de-datos.html">dplyr: gramática para manipulación de datos</a></li>
-</ul>
-</div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="examen-corto-1.html">Examen corto 1</a></div>
-<div class="next"><a href="examen-corto-3.html">Examen corto 3</a></div>
+<div class="prev"><a href="tarea-1.html">Tarea 1</a></div>
+<div class="next"><a href="felinos-de-costa-rica.html">Felinos de Costa Rica</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#examen-corto-2">Examen corto 2</a></li>
-<li><a class="nav-link" href="#fecha-1">Fecha</a></li>
-<li><a class="nav-link" href="#temas-a-evaluar-1">Temas a evaluar</a></li>
-</ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#covid-19-en-costa-rica">COVID-19 en Costa Rica</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/51-examen-corto-02.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/51-examen-corto-02.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/70-ejemplos-covid.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/70-ejemplos-covid.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
