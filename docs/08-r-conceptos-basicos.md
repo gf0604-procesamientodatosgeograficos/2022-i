@@ -850,7 +850,7 @@ La función [Sys.Date()](https://rdrr.io/r/base/Sys.time.html) retorna la fecha 
 # Fecha actual
 fecha_actual <- Sys.Date()
 fecha_actual
-#> [1] "2022-06-11"
+#> [1] "2022-06-12"
 # Tipo de datos
 typeof(fecha_actual)
 #> [1] "double"
