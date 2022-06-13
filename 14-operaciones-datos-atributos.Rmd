@@ -1,0 +1,463 @@
+# Operaciones con datos de atributos
+
+## Resumen
+Se les llama atributos a los elementos de datos no espaciales o geométricos de un conjunto de datos geoespaciales. Estos datos pueden ser de tipos numéricos o textuales, entre otros. Un conjunto de datos vectoriales puede tener asociados varios campos de atributos, mientras que un conjunto de datos raster tiene solamente uno.
+
+Las operaciones con atributos en datos vectoriales incluyen creación de subconjuntos, agregación y cruce de datos. Estas operaciones pueden ejecutarse con funciones del paquete base de R o con las de paquetes de Tidyverse. Por su parte, las operaciones con atributos en datos raster incluyen creación de subconjuntos y resumen de información.
+
+## Trabajo previo
+
+### Lecturas
+Lovelace, R., Nowosad, J., & Münchow, J. (2019). *Geocomputation with R* (capítulo 3). CRC Press. https://geocompr.robinlovelace.net/
+
+## Preparativos
+
+### Carga de paquetes
+
+```{r carga-paquetes, message=FALSE}
+# Carga de paquetes
+
+library(readr) # lectura de datos
+library(dplyr) # transformación de datos
+library(DT) # tablas interactivas
+library(sf) # manejo de datos vectoriales
+library(terra) # manejo de datos raster
+library(raster) # manejo de datos raster
+library(rgdal) # manejo de datos raster
+library(leaflet) # mapas interactivos
+```
+
+### Conjuntos de datos para ejemplos
+
+#### Cantones de Costa Rica
+Es un [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para desplegarlo más fácilmente en `leaflet`.
+
+```{r carga-datos-cantones}
+# Lectura y visualización de datos geoespaciales de cantones
+
+# Lectura
+cantones <-
+  st_read(
+    dsn = "datos/ign/delimitacion-territorial-administrativa/cantones.geojson",
+    quiet = TRUE
+  ) %>%
+  st_transform(4326) # transformación a WGS84
+
+# Visualización en un mapa
+plot(
+  cantones$geometry,
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  main = "Cantones de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+#### Casos positivos de covid-19 en antones de Costa Rica
+Es un [archivo CSV con el acumulado de casos positivos de covid-19 en cada cantón](datos/ministerio-salud/covid/05_30_22_CSV_POSITIVOS.csv). Es publicado regularmente por el Ministerio de Salud en el sitio web [Situación Nacional COVID-19](https://geovision.uned.ac.cr/oges/).
+
+```{r carga-datos-covid, message=FALSE, warning=FALSE}
+# Lectura, transformación y visualización de casos positivos acumulados de covid-19 en cantones de Costa Rica
+
+# Carga
+covid_cantonal_positivos <-
+  read_delim(file = "datos/ministerio-salud/covid/05_30_22_CSV_POSITIVOS.csv",
+             locale = locale(encoding = "WINDOWS-1252"), # para desplegar correctamente acentos y otros caracteres
+             col_select = c("cod_provin", "provincia", "cod_canton", "canton", "30/05/2022"))
+
+# Transformación
+covid_cantonal_positivos <-
+  covid_cantonal_positivos %>%
+  rename(positivos = '30/05/2022') %>% # renombramiento de columna
+  filter(!is.na(canton) & canton != "Otros") # borrado de filas con valor NA u "Otros" en la columna canton
+
+# Visualización en una tabla
+covid_cantonal_positivos %>%
+  datatable(options = list(
+    pageLength = 5,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+## Introducción
+Se les llama atributos a los elementos de datos no espaciales o geométricos de un conjunto de datos geográficos. Estos datos pueden ser de tipos numéricos o textuales, entre otros. Un conjunto de datos vectoriales puede tener asociados varios campos de atributos, mientras que un conjunto de datos raster tiene solamente uno.
+
+## Datos vectoriales
+Las operaciones con atributos en datos vectoriales incluyen:
+
+- Creación de subconjuntos (*subsetting*).  
+- Agregación (*aggregation*).  
+- Cruce (unión) de datos (*joining*). 
+
+Seguidamente, se explicará como maneja estas operaciones el paquete `sf`.
+
+## Manejo de datos de atributos con el paquete sf
+Como se mencionó en capítulos anteriores, el paquete `sf` define una clase, llamada `sf`, la cual extiende la clase `data.frame` del paquete base de R. Los objetos de la clase `sf` tienen una fila (o *feature*) por cada observación y una columna por cada atributo. También tienen una columna especial para almacenar las geometrías (puntos, líneas, polígonos, etc.), la cual generalmente se denomina `geometry` o `geom`. Esto permite que sf utilice métodos (i.e. funciones) de la clase `data.frame`, tales como `plot()` y `summary()`, entre otros.
+
+Además de `data.frame`, `sf` es compatible con clases como las del paquete [tibble](https://tibble.tidyverse.org/), las cuales pueden manipularse mediante los métodos de `dplyr`. Esto que permite un manejo *tidy* (i.e. ordenado, organizado) de los datos geoespaciales, de acuerdo con el enfoque de [Tidyverse](https://www.tidyverse.org/).
+
+En la secciones siguientes, se explicará el manejo de datos de atributos tanto mediante funciones y operaciones del paquete base de R, como mediante Tidyverse.
+
+### Funciones básicas para manejo de data frames y objetos sf
+Las siguientes son algunas de las funciones disponibles para obtener información básica de un objeto sf.
+
+```{r funciones-basicas}
+# Funciones básicas para manejo de objetos tipo data.frame y sf
+
+# Clase de cantones
+class(cantones)
+
+# Dimensiones (cantidad de filas y de columnas)
+dim(cantones)
+
+# Cantidad de filas (i.e. observaciones)
+nrow(cantones)
+
+# Cantidad de columnas (i.e. variables)
+ncol(cantones)
+
+# Nombres de las columnas
+names(cantones)
+
+# Estructura del conjunto de datos
+glimpse(cantones)
+```
+
+La función `st_drop_geometry()` remueve la columna de geometría de un objeto `sf`. Puede ser útil cuando, por ejemplo, solo se necesita trabajar con los atributos o cuando la columna con la geometría consume demasiados recursos del computador.
+
+```{r st_drop_geometry}
+# Ejemplos de uso de st_drop_geometry()
+
+# Remoción de la columna de geometría
+cantones_df <- st_drop_geometry(cantones)
+
+# Nombres de las columnas (nótese que ya no está la columna de geometría)
+names(cantones_df)
+
+# Clase de df_cantones (nótese como no se muestra ya la clase sf)
+class(cantones_df)
+
+# Tamaño del conjunto de datos original (tipo sf)
+print(object.size(cantones), units="Kb")
+
+# Tamaño del conjunto de datos sin geometrías (tipo data.frame)
+print(object.size(cantones_df), units="Kb")
+```
+
+Para algunas operaciones, también es posible ocultar la columna de geometría de un conjunto de datos (sin borrarla) mediante el argumento `drop = TRUE`.
+
+```{r drop-true}
+# Ejemplos de uso del argumento drop
+
+# Sin drop = TRUE
+cantones[1:10, c("canton", "area")]
+
+# Con drop = TRUE
+cantones[1:10, c("canton", "area"), drop=TRUE]
+```
+
+### Creación de subconjuntos
+Frecuentemente, es necesario extrer subconjuntos del conjunto de datos original, para facilidad de manejo y para atender requerimientos específicos de un análisis. En esta sección, se explican las diferentes opciones para creación de subconjuntos, tanto con el paquete base de R como con `dplyr`. En resumen, estas son las opciones:
+
+- Con el paquete base:
+  - La notación de `[]` y `$`
+  - La función `subset()`
+- Con el paquete `dplyr`:
+  - La función `select()`
+  - La función `slice()`
+  - La función `filter()`
+
+#### Notaciones y funciones del paquete base
+
+##### La notación de `[]` y `$`
+La notación de paréntesis cuadrados (`[]`) y el signo de dólar (`$`) permite crear subconjuntos con base en la posición de filas y de columnas, por medio de nombres de columnas y a través de la especificación de condiciones (i.e. expresiones lógicas).
+
+```{r subconjuntos-notacion-base, message=FALSE, warning=FALSE, results='hide'}
+# Ejemplos de uso de la notación []
+
+# Subconjunto especificado por posiciones de filas
+cantones[1:10, ]
+
+# Subconjunto especificado por posiciones de columnas
+cantones[, 8:10]
+
+# Subconjunto especificado por nombres de columnas
+cantones[, c("canton", "area", "provincia")]
+```
+
+Especificación mediante una condición (i.e. expresión lógica):
+
+```{r subconjuntos-expresion-logica}
+# Ejemplos de uso de la notación $
+
+# Cantones de la provincia de Cartago
+cantones[cantones$provincia == "Cartago", c("canton", "provincia"), drop = TRUE]
+```
+
+##### La función subset()
+La función [subset()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/subset) también retorna un subconjunto cuyos registros cumplen una condición.
+
+```{r subset}
+# Ejemplos de uso de subset()
+
+# Cantones con área >= 2000 km2
+subset(cantones[, c("canton", "area"), drop = TRUE],
+       area >= 2000)
+```
+
+Los operadores lógicos y de comparación que pueden utilizarse en las condiciones de la función `subset()`, y en expresiones lógicas en general, se listan en la siguiente tabla:
+
+```{r operadores-logicos, echo=FALSE}
+knitr::kable(data.frame(
+  c("==",      "!=",          ">, <",                 ">=, <=",                               "&, |, !"),
+  c(
+    "igual a",
+    "distinto de",
+    "mayor que, menor que",
+    "mayor o igual que, menor o igual que",
+    "Operadores lógicos: y, o, no"
+  )
+),
+col.names = c("Operador", "Descripción"))
+```
+
+#### Métodos del paquete dplyr
+Las funciones del paquete base de R son confiables y ampliamente usadas. Sin embargo, el enfoque más moderno de `dplyr` permite flujos de trabajo más intuitivos y es más rápido, debido a que se apoya en código escrito en el lenguaje C++. Esto es útil, por ejemplo, cuando se trabaja con conjuntos de datos grandes (_big data_) y cuando se necesita integración con bases de datos. Los principales métodos de `dplyr` para creación de subconjuntos son `select()`, `slice()` y `filter()`.
+
+##### El método select()
+`dplyr::select()` permite seleccionar y renombrar columnas de un conjunto de datos.
+
+```{r sf-select}
+# Ejemplos de uso de dplyr::select()
+
+# Selección de columnas
+cantones %>%
+  dplyr::select(canton, provincia) # se especifica el nombre del paquete para evitar un conflicto con raster::select
+
+# Selección y cambio de nombre de columnas
+cantones %>%
+  dplyr::select(canton, area_km2 = area, provincia)
+```
+
+##### El método slice()
+`slice()` es el equivalente de `select()` para filas. Crea un subconjunto con base en las posiciones de las filas.
+
+```{r slice, results='hide'}
+# Ejemplos de uso de slice()
+
+# Subconjunto especificado mediante un rango de filas
+cantones %>%
+  slice(1:10)
+```
+
+##### El método filter()
+`filter()` es el equivalente en `dplyr` de la función `subset()` del paquete `base`. Retorna los registros que cumplen con una condición.
+
+```{r filter}
+# Androides de "La Guerra de las Galaxias"
+starwars %>%
+  filter(species == "Droid")
+```
+
+##### El operador pipe (%>%)
+Los métodos del paquete `dplyr` (y otros) suelen ser utilizados conjuntamente con el [operador _pipe_ (%>%)](http://r4ds.had.co.nz/pipes.html), el cual posibilita el "encadenamiento" (*chaining*) de funciones: la salida de la función previa se convierte en el primer argumento de la siguiente función. En el siguiente ejemplo, el conjunto de datos [starwars](https://dplyr.tidyverse.org/reference/starwars.html) se pasa como entrada al método `filter()`, para filtrar los personajes humanos. Seguidamente, el resultado se pasa a `select()`, para seleccionar las columnas  `name`, `homeworld` y `species`. Finalmente, `slice()` reduce el resultado a las 10 primeras filas.
+
+```{r funciones-encadenamiento}
+# Encadenamiento de funciones mediante pipes (%>%)
+
+starwars %>%
+  filter(species == "Human") %>%
+  dplyr::select(name, homeworld, species) %>%
+  slice(1:10)
+```
+
+Una alternativa al uso de *pipes* es el "anidamiento" (*nesting*) de las funciones:
+
+```{r funciones-anidamiento}
+# Anidamiento de funciones
+slice(
+  dplyr::select(
+    filter(
+      starwars,
+      species=="Human"
+    ),
+    name, homeworld, species
+  ),
+  1:10
+)
+```
+
+**Ejercicio: mediante las funciones `select()` y `filter()` de `dplyr`, cree un nuevo objeto `sf` que contenga los cantones de Puntarenas y Guanacaste con área mayor o igual a 2000 km2. Incluya las columnas de provincia, cantón y área.**
+
+### Agregación de datos
+Las operaciones de agregación realizan cálculos (suma, promedio, etc.) a partir de la agrupación de valores de variables. En esta sección, se explican funciones de agregación contenidas en los paquetes  `stats`, `sf` y `dplyr`, las cuales son:
+
+- Del paquete stats:
+  - La función `aggregate()`
+- Del paquete sf:
+  - El método `aggregate()`  
+- Del paquete dplyr:
+  - El método `summarize()`
+  
+#### La función aggregate() de stats
+La función `aggregate()` del paquete [stats](https://rdrr.io/r/#stats) aplica una función de agregación (ej. suma, promedio, mínimo, máximo) sobre una columna. El resultado es un objeto de tipo `data.frame`.
+
+```{r aggregate-stats}
+# Ejemplos de uso de stats::agregate()
+
+# Suma de áreas de cantones por provincia
+aggregate(
+  data = cantones, 
+  area ~ provincia, 
+  FUN = sum, 
+  na.rm = TRUE
+)
+```
+
+#### El método aggregate() de sf
+`aggregate()` es una [función genérica](https://adv-r.hadley.nz/s3.html#s3-methods), lo que significa que puede comportarse de manera diferente, dependiendo de los valores de entrada. El paquete `sf` también provee una versión de [aggregate()](https://r-spatial.github.io/sf/reference/aggregate.sf.html), la cual se activa cuando recibe un objeto  `sf`` y se usa el argumento  `by`. El resultado es un objeto de tipo `sf`.
+
+```{r aggregate-sf}
+# Ejemplos de uso de sf::agregate()
+
+# Suma de áreas de cantones por provincia
+aggregate(
+  cantones["area"], 
+  by = list(cantones$provincia), 
+  FUN = sum, 
+  na.rm = TRUE
+)
+```
+
+#### El método `summarise()` de dplyr
+`summarise()` es el equivalente de `aggregate()` en el paquete `dplyr`. Suele utilizarse conjuntamente con `group_by()`, que especifica la variable a agrupar.
+
+```{r summarise}
+# Ejemplos de uso de de summarise()
+
+# Suma de áreas de cantones por provincia
+cantones %>%
+  group_by(provincia) %>%
+  summarise(area_km2 = sum(area, na.rm = TRUE))
+```
+
+`summarize()` permite renombrar las variables, como se muestra seguidamente.
+
+```{r summarize-renombramiento}
+# Ejemplo de renombramiento de variables con summarise()
+
+# Suma total de las áreas de cantones
+cantones %>%
+  summarize(area_km2 = sum(area, na.rm = TRUE),
+            cantidad_cantones = n())
+```
+
+El siguiente ejemplo utiliza otras funciones del paquete `dplyr` para encontrar las tres provincias más grandes y sus respectivas áreas, con base en los datos disponibles en la capa de cantones.
+
+```{r subconjuntos-ejemplo-dplyr}
+# Área y cantidad de cantones de las tres provincias más grandes
+cantones %>%
+  st_drop_geometry() %>%  
+  dplyr::select(area, provincia) %>%
+  group_by(provincia) %>%
+  summarise(area = sum(area, na.rm = TRUE),
+            cantidad_cantones = n()) %>%
+  arrange(desc(area)) %>%
+  top_n(n = 3, wt = area)
+```
+
+**Ejercicio: mediante ```summarize()```, y otras funciones de dplyr, despliegue el área y la cantidad de cantones de las dos provincias más pequeñas.**
+
+### Cruce de datos
+La combinación de datos ubicados en diferentes fuentes es una tarea común en análisis de información. Este tipo de operaciones se realizan con base en atributos que son comunes en los conjuntos de datos que se desea "cruzar" (*join*). El paquete `dplyr` proporciona varios [métodos para realizar cruces de datos](https://dplyr.tidyverse.org/reference/mutate-joins.html), entre los que se encuentran:
+
+- `left_join()`
+- `inner_join()`
+- `right_join()`
+- `full_join()`
+
+Seguidamente, se ejemplificarán las dos primeras.
+
+#### El método left_join()
+El método `left_join()` mantiene todos los registros de la tabla del lado izquierdo y agrega las columnas de la tabla del lado derecho, en los registros en los que hay coincidencia.
+
+Todos los tipos de *joins* requiere de al menos una columna que sea común a ambos conjuntos de datos. En este caso, esa columna es `cod_canton`. Si la columna no tiene el mismo nombre, puede utilizarse el argumento `by` (ej. `by = c(cod_canton_1 = "cod_canton_2")`, en donde `cod_canton_1` es el nombre de la columna en el primer conjunto de datos y `cod_canton_2` en el segundo).
+
+```{r left-join}
+# Ejemplos de uso de left_join()
+
+# "Join" de los datos geoespaciales de cantones con los de casos positivos de covid. 
+# Ambas tablas comparten la columna cod_canton.
+covid_cantonal_positivos_geoespacial <- left_join(cantones, covid_cantonal_positivos)
+
+# Visualización en un mapa generado con plot()
+plot(
+  covid_cantonal_positivos_geoespacial["positivos"],
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  main = "Casos positivos de covid-19 en cantones de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+Seguidamente, se muestra el mismo resultado en un mapa `leaflet`.
+
+```{r simplificacion-geometrias}
+# OPCIONAL: simplificación de geometrías
+
+covid_cantonal_positivos_geoespacial <-
+  covid_cantonal_positivos_geoespacial %>%
+  st_transform(5367) %>%
+  st_simplify(dTolerance = 100) %>%
+  st_transform(4326)
+```
+
+```{r leaflet-covid, eval=FALSE}
+# Función para generar colores
+colores <-
+  colorNumeric(palette = "YlOrBr",
+               domain = covid_cantonal_positivos_geoespacial$positivos,
+               na.color = "transparent")
+
+# Mapa
+leaflet() %>%
+  setView(lng = -84.19452,
+          lat = 9.572735,
+          zoom = 7) %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Stamen TonerLite") %>% # capa base de Stamen TonerLite
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group = "OpenStreetMap") %>% # capa base de OSM
+  addProviderTiles(providers$Esri.WorldImagery, group = "ESRI World Imagery") %>% # capa base de ESRI World Imagery
+  addPolygons(
+    # polígonos de cantones
+    data = covid_cantonal_positivos_geoespacial,
+    fillColor = ~ colores(covid_cantonal_positivos_geoespacial$positivos),
+    fillOpacity = 0.7,
+    color = "black",
+    stroke = TRUE,
+    weight = 1.0,
+    popup = paste(
+      paste(
+        "<strong>Cantón:</strong>",
+        covid_cantonal_positivos_geoespacial$canton
+      ),
+      paste(
+        "<strong>Casos positivos de covid:</strong>",
+        covid_cantonal_positivos_geoespacial$positivos
+        
+      ),
+      sep = '<br/>'
+    ),
+    group = "Casos positivos de covid"
+  ) %>%
+  addLayersControl( # control de capas
+    baseGroups = c("Stamen TonerLite", "OpenStreetMap", "ESRI World Imagery"),
+    overlayGroups = c("Casos positivos de COVID")
+  ) %>%
+  addLegend( # leyenda
+    position = "bottomleft",
+    pal = colores,
+    values = covid_cantonal_positivos_geoespacial$positivos,
+    group = "Casos positivos de COVID",
+    title = "Cantidad de casos"
+  )
+```

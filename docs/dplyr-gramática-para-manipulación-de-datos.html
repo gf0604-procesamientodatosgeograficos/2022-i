@@ -7,25 +7,51 @@
 <title>Chapter 11 dplyr: gramática para manipulación de datos | GF0604 Procesamiento de datos geográficos 2022-I</title>
 <meta name="author" content="Manuel Vargas">
 <meta name="description" content="11.1 Trabajo previo  11.1.1 Lecturas Wickham, H., &amp; Grolemund, G. (2017). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media. https://r4ds.had.co.nz/   11.2...">
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
 <meta property="og:title" content="Chapter 11 dplyr: gramática para manipulación de datos | GF0604 Procesamiento de datos geográficos 2022-I">
 <meta property="og:type" content="book">
 <meta property="og:description" content="11.1 Trabajo previo  11.1.1 Lecturas Wickham, H., &amp; Grolemund, G. (2017). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media. https://r4ds.had.co.nz/   11.2...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 11 dplyr: gramática para manipulación de datos | GF0604 Procesamiento de datos geográficos 2022-I">
 <meta name="twitter:description" content="11.1 Trabajo previo  11.1.1 Lecturas Wickham, H., &amp; Grolemund, G. (2017). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media. https://r4ds.had.co.nz/   11.2...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.20/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.9.4.1/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet">
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script><script src="libs/plotly-locale-es-1.57.1/es.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><script src="libs/plotly-locale-es-2.5.1/es.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -66,6 +92,7 @@
 <li><a class="" href="paquetes-de-r-para-graficaci%C3%B3n-estad%C3%ADstica.html"><span class="header-section-number">12</span> Paquetes de R para graficación estadística</a></li>
 <li class="book-part">IV. El ecosistema geoespacial de R</li>
 <li><a class="" href="introducci%C3%B3n-al-manejo-de-datos-geoespaciales-en-r.html"><span class="header-section-number">13</span> Introducción al manejo de datos geoespaciales en R</a></li>
+<li><a class="" href="operaciones-con-datos-de-atributos.html"><span class="header-section-number">14</span> Operaciones con datos de atributos</a></li>
 <li class="book-part">Evaluaciones</li>
 <li><a class="" href="examen-corto-1.html">Examen corto 1</a></li>
 <li><a class="" href="examen-corto-2.html">Examen corto 2</a></li>
@@ -156,7 +183,7 @@
 <p>Estructura del conjunto de datos <code>penguins</code>:</p>
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Carga del paquete de datos palmerpenguins</span>
-<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 344</span>
 <span class="co">#&gt; Columns: 8</span>
 <span class="co">#&gt; $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, …</span>
@@ -183,7 +210,7 @@
 <p>La función <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> selecciona (y opcionalmente renombra) columnas de un data frame con base en sus nombres.</p>
 <div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Selección de las columnas de especie, longitud del pico y sexo</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">bill_length_mm</span>, <span class="va">sex</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 3</span>
 <span class="co">#&gt;    species bill_length_mm sex   </span>
@@ -202,7 +229,7 @@
 <p>Cambio de nombres de columnas:</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Selección y cambio de nombre de las columnas de especie, longitud del pico y sexo</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>especie <span class="op">=</span> <span class="va">species</span>,
          longitud_pico_mm <span class="op">=</span> <span class="va">bill_length_mm</span>,
          sexo <span class="op">=</span> <span class="va">sex</span><span class="op">)</span>
@@ -220,10 +247,10 @@
 <span class="co">#&gt;  9 Adelie              34.1 &lt;NA&gt;  </span>
 <span class="co">#&gt; 10 Adelie              42   &lt;NA&gt;  </span>
 <span class="co">#&gt; # … with 334 more rows</span></code></pre></div>
-<p>El operador <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> permite seleccionar un rango de columnas continuas:</p>
+<p>El operador <code>:</code> permite seleccionar un rango de columnas continuas:</p>
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Selección de las columnas en el rango de species a flipper_length_mm</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span><span class="op">:</span><span class="va">flipper_length_mm</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 5</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -243,7 +270,7 @@
 <p>Selección de todas las columnas que cumplen una condición:</p>
 <div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Selección de las columnas numéricas</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 5</span>
 <span class="co">#&gt;    bill_length_mm bill_depth_mm flipper_length_… body_mass_g</span>
@@ -268,7 +295,7 @@
 <p>Ejemplos de uso de expresiones y operadores lógicos:</p>
 <div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filas de la especie 'Adelie' con longitud del pico mayor o igual a 45 mm</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">'Adelie'</span> <span class="op">&amp;</span> <span class="va">bill_length_mm</span> <span class="op">&gt;=</span> <span class="fl">45</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 × 8</span>
 <span class="co">#&gt;   species island    bill_length_mm bill_depth_mm</span>
@@ -280,7 +307,7 @@
 <span class="co">#&gt; #   body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filas de las especie 'Adelie' o 'Gentoo'</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">'Adelie'</span> <span class="op">|</span> <span class="va">species</span> <span class="op">==</span> <span class="st">'Gentoo'</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 276 × 8</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -300,7 +327,7 @@
 <span class="co">#&gt; #   year &lt;int&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filas de especies diferentes a 'Chinstrap'</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">'Chinstrap'</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 276 × 8</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -320,7 +347,7 @@
 <span class="co">#&gt; #   year &lt;int&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filas con longitud del pico mayor o igual al promedio</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">bill_length_mm</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">bill_length_mm</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 175 × 8</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -342,7 +369,7 @@
 <code class="sourceCode R"><span class="co"># Filas con longitud del pico mayor o igual al promedio</span>
 <span class="co">#   El argumento lógico na.rm de mean() indica si los valores NA ("not available") </span>
 <span class="co">#   deben ser removidos antes del cálculo</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">bill_length_mm</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">bill_length_mm</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 175 × 8</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -363,8 +390,8 @@
 <p>Condiciones relacionadas con valores NA:</p>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filas con valor NA en la columna sex</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 11 × 3</span>
 <span class="co">#&gt;    species island    sex  </span>
@@ -380,17 +407,17 @@
 <span class="co">#&gt;  9 Gentoo  Biscoe    &lt;NA&gt; </span>
 <span class="co">#&gt; 10 Gentoo  Biscoe    &lt;NA&gt; </span>
 <span class="co">#&gt; 11 Gentoo  Biscoe    &lt;NA&gt;</span></code></pre></div>
-<p>La función <code>drop_na()</code> remueve las filas con valores <code>NA</code> en una o varias columnas.</p>
+<p>La función <code><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na()</a></code> remueve las filas con valores <code>NA</code> en una o varias columnas.</p>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filas con valor diferente a NA en la columna sex</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>,
          <span class="va">bill_length_mm</span>,
          <span class="va">bill_depth_mm</span>,
          <span class="va">flipper_length_mm</span>,
          <span class="va">body_mass_g</span>,
-         <span class="va">sex</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">drop_na</span><span class="op">(</span><span class="va">sex</span><span class="op">)</span>
+         <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 333 × 6</span>
 <span class="co">#&gt;    species bill_length_mm bill_depth_mm flipper_length_mm</span>
 <span class="co">#&gt;    &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;</span>
@@ -408,14 +435,14 @@
 <span class="co">#&gt; #   body_mass_g &lt;int&gt;, sex &lt;fct&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filas con valor diferente a NA en cualquier columna</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>,
          <span class="va">bill_length_mm</span>,
          <span class="va">bill_depth_mm</span>,
          <span class="va">flipper_length_mm</span>,
          <span class="va">body_mass_g</span>,
-         <span class="va">sex</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">drop_na</span><span class="op">(</span><span class="op">)</span>
+         <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 333 × 6</span>
 <span class="co">#&gt;    species bill_length_mm bill_depth_mm flipper_length_mm</span>
 <span class="co">#&gt;    &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;</span>
@@ -439,7 +466,7 @@
 <p>La función <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> cambia el orden de las filas de un data frame de acuerdo con los valores de las columnas seleccionadas.</p>
 <div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Ordenamiento ascendente por las columnas 'bill_lenght_mm' y 'bill_depth_mm'</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">bill_length_mm</span>, <span class="va">bill_depth_mm</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 8</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -460,7 +487,7 @@
 <p>Por defecto, las columnas se ordenan de manera acendente. Si se desea un orden descendente, puede utilizarse la función <code><a href="https://dplyr.tidyverse.org/reference/desc.html">desc()</a></code>.</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Ordenamiento descendente por las columnas 'bill_lenght_mm' y 'bill_depth_mm'</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">bill_length_mm</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 8</span>
 <span class="co">#&gt;    species   island bill_length_mm bill_depth_mm</span>
@@ -482,7 +509,7 @@
 <p>La función <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> aplica una función en múltiples columnas.</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Ordenamiento ascendente por las columnas que empiezan con 'bill'</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">'bill'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 8</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -502,7 +529,7 @@
 <span class="co">#&gt; #   year &lt;int&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Ordenamiento ascendente por las columnas que contienen la hilera 'lenght'</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">'length'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 8</span>
 <span class="co">#&gt;    species island    bill_length_mm bill_depth_mm</span>
@@ -528,8 +555,8 @@
 <p>La función <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> crea o modifica columnas en un data frame.</p>
 <div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Creación de la columna 'body_mass_kg' con el valor de 'body_mass_g' expresado en kg</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_mass_kg <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 3</span>
 <span class="co">#&gt;    species body_mass_g body_mass_kg</span>
@@ -548,9 +575,9 @@
 <div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Creación de la columnas 'body_mass_g_mean' (promedio de masa) </span>
 <span class="co"># y 'body_mass_g_normalized' (proporción con respecto al promedio)</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_mass_g_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_mass_g_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_mass_g_normalized <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">/</span> <span class="va">body_mass_g_mean</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 4</span>
 <span class="co">#&gt;    species body_mass_g body_mass_g_mean body_mass_g_normali…</span>
@@ -570,25 +597,25 @@
 <div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Creación de la columnas 'body_mass_g_mean_species' (promedio de masa de la especie) </span>
 <span class="co"># y 'body_mass_g_species_normalized' (proporción con respecto al promedio de masa de la especie)</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_mass_g_mean_species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_mass_g_mean_species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_mass_g_species_normalized <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">/</span> <span class="va">body_mass_g_mean_species</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 344 × 4</span>
 <span class="co">#&gt; # Groups:   species [3]</span>
-<span class="co">#&gt;    species body_mass_g body_mass_g_mean_… body_mass_g_speci…</span>
-<span class="co">#&gt;    &lt;fct&gt;         &lt;int&gt;              &lt;dbl&gt;              &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Adelie         3750              3701.              1.01 </span>
-<span class="co">#&gt;  2 Adelie         3800              3701.              1.03 </span>
-<span class="co">#&gt;  3 Adelie         3250              3701.              0.878</span>
-<span class="co">#&gt;  4 Adelie           NA              3701.             NA    </span>
-<span class="co">#&gt;  5 Adelie         3450              3701.              0.932</span>
-<span class="co">#&gt;  6 Adelie         3650              3701.              0.986</span>
-<span class="co">#&gt;  7 Adelie         3625              3701.              0.980</span>
-<span class="co">#&gt;  8 Adelie         4675              3701.              1.26 </span>
-<span class="co">#&gt;  9 Adelie         3475              3701.              0.939</span>
-<span class="co">#&gt; 10 Adelie         4250              3701.              1.15 </span>
+<span class="co">#&gt;    species body_mass_g body_mass_g_mean_sp… body_mass_g_spe…</span>
+<span class="co">#&gt;    &lt;fct&gt;         &lt;int&gt;                &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Adelie         3750                3701.            1.01 </span>
+<span class="co">#&gt;  2 Adelie         3800                3701.            1.03 </span>
+<span class="co">#&gt;  3 Adelie         3250                3701.            0.878</span>
+<span class="co">#&gt;  4 Adelie           NA                3701.           NA    </span>
+<span class="co">#&gt;  5 Adelie         3450                3701.            0.932</span>
+<span class="co">#&gt;  6 Adelie         3650                3701.            0.986</span>
+<span class="co">#&gt;  7 Adelie         3625                3701.            0.980</span>
+<span class="co">#&gt;  8 Adelie         4675                3701.            1.26 </span>
+<span class="co">#&gt;  9 Adelie         3475                3701.            0.939</span>
+<span class="co">#&gt; 10 Adelie         4250                3701.            1.15 </span>
 <span class="co">#&gt; # … with 334 more rows</span></code></pre></div>
 </div>
 <div id="summarise" class="section level3" number="11.6.5">
@@ -600,7 +627,7 @@
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Creación de un data frame con las columnas sumarizadas 'body_mass_g_mean' (promedio de masa) </span>
 <span class="co"># y 'n' (cantidad de individuos)</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>body_mass_g_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
             n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 × 2</span>
@@ -612,8 +639,8 @@
 <div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Creación de un data frame con las columnas sumarizadas de mínimo, máximo y promedio de masa,</span>
 <span class="co"># y cantidad de individuos para cada especie</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
     body_mass_g_min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
     body_mass_g_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
@@ -639,7 +666,7 @@
 <p>Una forma alternativa (a <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>) de realizar un conteo es con la función <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>:</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Creación de un data frame con el conteo de individuos por especie</span>
-<span class="va">penguins</span> <span class="op">%&gt;%</span>
+<span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 × 2</span>
 <span class="co">#&gt;   species       n</span>
