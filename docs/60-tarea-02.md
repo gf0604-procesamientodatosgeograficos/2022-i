@@ -42,7 +42,7 @@ Las tablas y gráficos que debe desarrollar son:
     - Todo el contenido del gráfico debe ser legible.
     - Sugerencia: para obtener el mes del año, considere la función `lubridate::month()`.
     
-4. Un gráfico de barras agrupadas que muestre una barra por cada tipo de delito (Asalto, homicidio, hurto, etc). Cada barra debe mostrar la proporción (no la cantidad) de delitos por género (mujer, hombre, desconocido).
+4. Un gráfico de barras apiladas que muestre una barra por cada tipo de delito (Asalto, homicidio, hurto, etc). Cada barra debe mostrar la proporción (no la cantidad) de delitos por género (mujer, hombre, desconocido).
     - El gráfico debe tener título, etiqueta para el eje X y etiqueta para el eje Y.
     - Todo el contenido del gráfico debe ser legible.
 
