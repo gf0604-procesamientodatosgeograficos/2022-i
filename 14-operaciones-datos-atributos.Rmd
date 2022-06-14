@@ -376,8 +376,6 @@ La combinación de datos ubicados en diferentes fuentes es una tarea común en a
 - `right_join()`
 - `full_join()`
 
-Seguidamente, se ejemplificarán las dos primeras.
-
 #### El método left_join()
 El método `left_join()` mantiene todos los registros de la tabla del lado izquierdo y agrega las columnas de la tabla del lado derecho, en los registros en los que hay coincidencia.
 
@@ -402,18 +400,17 @@ plot(
 
 Seguidamente, se muestra el mismo resultado en un mapa `leaflet`.
 
-```{r simplificacion-geometrias}
-# OPCIONAL: simplificación de geometrías
+```{r leaflet-covid}
+# Mapa leaflet de casos positivos de covid en cantones
 
+# OPCIONAL: simplificación de geometrías
 covid_cantonal_positivos_geoespacial <-
   covid_cantonal_positivos_geoespacial %>%
   st_transform(5367) %>%
   st_simplify(dTolerance = 100) %>%
   st_transform(4326)
-```
 
-```{r leaflet-covid, eval=FALSE}
-# Función para generar colores
+# Paleta de colores
 colores <-
   colorNumeric(palette = "YlOrBr",
                domain = covid_cantonal_positivos_geoespacial$positivos,
@@ -421,14 +418,13 @@ colores <-
 
 # Mapa
 leaflet() %>%
-  setView(lng = -84.19452,
-          lat = 9.572735,
-          zoom = 7) %>%
-  addProviderTiles(providers$Stamen.TonerLite, group = "Stamen TonerLite") %>% # capa base de Stamen TonerLite
-  addProviderTiles(providers$OpenStreetMap.Mapnik, group = "OpenStreetMap") %>% # capa base de OSM
-  addProviderTiles(providers$Esri.WorldImagery, group = "ESRI World Imagery") %>% # capa base de ESRI World Imagery
+  setView(# centro y nivel inicial de acercamiento
+    lng = -84.19452,
+    lat = 9.572735,
+    zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>% # capa base
   addPolygons(
-    # polígonos de cantones
+    # capa de polígonos
     data = covid_cantonal_positivos_geoespacial,
     fillColor = ~ colores(covid_cantonal_positivos_geoespacial$positivos),
     fillOpacity = 0.7,
@@ -436,6 +432,7 @@ leaflet() %>%
     stroke = TRUE,
     weight = 1.0,
     popup = paste(
+      # ventana emergente
       paste(
         "<strong>Cantón:</strong>",
         covid_cantonal_positivos_geoespacial$canton
@@ -443,17 +440,18 @@ leaflet() %>%
       paste(
         "<strong>Casos positivos de covid:</strong>",
         covid_cantonal_positivos_geoespacial$positivos
-        
       ),
       sep = '<br/>'
     ),
     group = "Casos positivos de covid"
   ) %>%
-  addLayersControl( # control de capas
-    baseGroups = c("Stamen TonerLite", "OpenStreetMap", "ESRI World Imagery"),
+  addLayersControl(
+    # control de capas
+    baseGroups = c("OpenStreetMap"),
     overlayGroups = c("Casos positivos de COVID")
   ) %>%
-  addLegend( # leyenda
+  addLegend(
+    # leyenda
     position = "bottomleft",
     pal = colores,
     values = covid_cantonal_positivos_geoespacial$positivos,
