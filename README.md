@@ -8,10 +8,8 @@ Se creó un ambiente conda con los paquetes de R utilizados en el curso.
 
 ```shell
 conda update conda
-# conda create -n gf0604-2022-i # se deja de usar porque podría estar dañado
-# conda activate gf0604-2022-i
-conda create -n gf0604
-conda activate gf0604
+conda create -n gf0604-2022-i
+conda activate gf0604-2022-i
 conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
 conda install r-base r-essentials r-downlit r-bookdown r-blogdown r-xaringan r-distill r-ggplot2 r-plotly r-dt r-sf r-terra r-raster r-rgdal r-leaflet r-leaflet.providers r-leaflet.extras r-leaflet.minicharts r-leafem r-flexdashboard r-shiny r-shinydashboard r-packrat r-rsconnect
