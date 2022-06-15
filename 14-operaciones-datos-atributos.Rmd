@@ -459,3 +459,169 @@ leaflet() %>%
     title = "Cantidad de casos"
   )
 ```
+
+## Datos raster
+Las operaciones con atributos en datos raster incluyen:
+
+- Creación de subconjuntos (_subsetting_).  
+- Resumen de información (_summarizing_).  
+
+Seguidamente, se explicará como maneja estas operaciones el paquete `terra`.
+
+## Manejo de datos de atributos con el paquete terra
+### Funciones básicas para manejo de objetos SpatRaster
+El siguiente bloque de código crea y mapea un objeto ```SpatRaster``` llamado ```elevacion```.
+
+```{r rast-creacion-1}
+# Creación de un objeto SpatRaster
+elevacion <- rast(
+  nrows = 6,
+  ncols = 6,
+  resolution = 0.5,
+  xmin = -1.5,
+  xmax = 1.5,
+  ymin = -1.5,
+  ymax = 1.5,
+  vals = 1:36
+)
+
+# Mapeo
+plot(elevacion)
+```
+
+Los objetos `SpatRaster` también pueden contener valores categóricos de tipo `logical` o `factor`. El siguiente bloque de código crea y mapea un objeto `SpatRaster` con información sobre tipos de granos (i.e. partículas) de una porción de suelo.
+
+```{r rast-creacion-2, collapse=TRUE}
+# Tipos de granos
+grano_tipo <- c("arcilla", "limo", "arena")
+
+# Lista de granos generada aleatoriamente
+lista_granos <- sample(grano_tipo, 36, replace = TRUE)
+lista_granos
+
+# Factor de tipos de granos
+grano_factor <- factor(lista_granos, levels = grano_tipo)
+
+# Objeto SpatRaster de tipos de granos
+grano <- rast(
+  nrows = 6,
+  ncols = 6,
+  resolution = 0.5,
+  xmin = -1.5,
+  xmax = 1.5,
+  ymin = -1.5,
+  ymax = 1.5,
+  vals = grano_factor
+)
+
+# Mapeo
+plot(grano)
+```
+
+Ambos objetos pueden guardados en el disco con la función `writeRaster()`.
+
+```{r writeraster, eval=FALSE}
+# Especificación del directorio de trabajo (debe ser una ruta existente)
+setwd("/home/mfvargas")
+
+# Escritura de los objetos raster
+writeRaster(elevacion, "elevacion.asc")
+writeRaster(grano, "grano.asc")
+```
+
+La función `levels()` puede utilizarse para consultar la *Raster Attribute Table* (RAT) de un objeto `SpatRaster`, la cual contiene información sobre sus factores y niveles. También puede emplearse para asignar nuevos factores a un objeto.
+
+```{r rat, collapse=TRUE}
+# Consulta de la RAT
+levels(grano)
+
+# Nuevo factor
+levels(grano) = data.frame(value = c(0, 1, 2), wetness = c("mojado", "húmedo", "seco"))
+
+# Consulta de la RAT
+levels(grano)
+```
+
+Los raster categóricos también pueden almacenar información relacionada con los colores de cada valor, mediante una tabla. La tabla de colores es un data frame con tres (*red*, *green*, *blue*) o cuatro (*alpha*) columnas, en la que cada fila corresponde a un valor. Las tablas de colores en `terra` pueden consultarse o modificarse con la función `coltab()`.
+
+### Creación de subconjuntos
+Los subconjuntos se crean en objetos `SpatRaster` con el operador `[`, el cual acepta varios tipos de entradas.
+
+- Índices de filas y columnas.
+- ID de celdas.
+- Coordenadas.
+- Otros objetos espaciales.
+
+En este capítulo, solo se tratarán las dos primeras opciones. Las restantes se cubrirán en las secciones sobre operaciones espaciales.
+
+Las dos primeras opciones se ilustran en el siguiente bloque de código, en el que se consulta la celda (también llamada pixel) ubicada en la esquina superior izquierda del objeto de elevación.
+
+```{r indices-id-celdas}
+# Celda en la fila 1, columna 1
+elevacion[1, 1]
+elevacion[]
+
+# Celda con ID = 1
+elevacion[1]
+```
+
+La totalidad de los valores de un objeto `SpatRaster` puede consultarse con las función `values()`.
+
+```{r values, collapse=TRUE}
+# Valores de un objeto raster
+values(elevacion)
+```
+
+El operador `[` también puede utilizarse para modificar los valores de las celdas un objeto `SpatRaster`.
+
+```{r modificacion-celdas}
+# Modificación de una celda
+elevacion[1, 1] = 0
+
+# Consulta de todos los valores del raster (equivalente a values())
+elevacion[]
+
+# Modificación de rangos de celdas
+elevacion[1, c(1, 2)] = 0
+
+elevacion[1, 1:6] = 0
+elevacion[2, 1:6] = 10
+elevacion[3, 1:6] = 15
+elevacion[4, 1:6] = 15
+elevacion[5, 1:6] = 20
+elevacion[6, 1:6] = 35
+
+# Consulta de los valores
+elevacion[]
+```
+
+### Resumen y sumarización de información
+La escritura del nombre de un objeto `SpatRaster` en la consola imprime información general sobre ese objeto. La función `summary()` proporciona algunas estadísticas descriptivas (mínimo, máximo, cuartiles, etc.). Otras estadísticas pueden ser calculadas con la función  `global()`.
+
+```{r global, collapse=TRUE}
+# Información general
+elevacion
+
+# Resumen de un raster de una capa
+summary(elevacion)
+
+# Desviación estándar
+global(elevacion, sd)
+```
+
+Adicionalmente, la función `freq()` retorna la tabla de frecuencias de valores categóricos.
+
+```{r freq}
+# Tabla de frecuencias
+freq(grano)
+```
+
+Las estadísticas pueden ser visualizadas con funciones como `hist()` y `density()`.
+
+```{r hist-density}
+# Histograma
+hist(elevacion)
+
+# Densidad
+density(elevacion)
+```

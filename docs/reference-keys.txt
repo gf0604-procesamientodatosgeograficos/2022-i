@@ -303,3 +303,9 @@ el-método-aggregate-de-sf
 el-método-summarise-de-dplyr
 cruce-de-datos
 el-método-left_join
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
+datos-raster-1
+manejo-de-datos-de-atributos-con-el-paquete-terra
+funciones-básicas-para-manejo-de-objetos-spatraster
+creación-de-subconjuntos-1
+resumen-y-sumarización-de-información
