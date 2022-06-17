@@ -308,3 +308,16 @@ manejo-de-datos-de-atributos-con-el-paquete-terra
 funciones-básicas-para-manejo-de-objetos-spatraster
 creación-de-subconjuntos-1
 resumen-y-sumarización-de-información
+operaciones-con-datos-espaciales
+resumen-14
+trabajo-previo-10
+lecturas-8
+preparativos-2
+carga-de-paquetes-2
+conjuntos-de-datos-para-ejemplos-2
+provincias-de-costa-rica
+introducción-2
+datos-vectoriales-2
+manejo-de-datos-espaciales-con-el-paquete-sf
+datos-raster-2
+manejo-de-datos-espaciales-con-el-paquete-terra
