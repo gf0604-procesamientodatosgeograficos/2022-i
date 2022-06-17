@@ -283,7 +283,8 @@ preparativos-1
 carga-de-paquetes-1
 conjuntos-de-datos-para-ejemplos-1
 cantones-de-costa-rica
-casos-positivos-de-covid-19-en-antones-de-costa-rica
+casos-positivos-de-covid-19-en-cantones-de-costa-rica
+estadísticas-policiales-de-costa-rica-del-año-2021
 introducción-1
 datos-vectoriales-1
 manejo-de-datos-de-atributos-con-el-paquete-sf
@@ -303,6 +304,9 @@ el-método-aggregate-de-sf
 el-método-summarise-de-dplyr
 cruce-de-datos
 el-método-left_join
+ejemplos-2
+covid
+estadísticas-policiales
 datos-raster-1
 manejo-de-datos-de-atributos-con-el-paquete-terra
 funciones-básicas-para-manejo-de-objetos-spatraster

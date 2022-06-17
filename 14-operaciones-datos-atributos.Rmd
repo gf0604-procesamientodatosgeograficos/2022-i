@@ -17,7 +17,8 @@ Lovelace, R., Nowosad, J., & Münchow, J. (2019). *Geocomputation with R* (capí
 ```{r carga-paquetes, message=FALSE}
 # Carga de paquetes
 
-library(readr) # lectura de datos
+library(readr) # lectura de archivos CSV
+library(readxl) # lectura de archivos XLS
 library(dplyr) # transformación de datos
 library(DT) # tablas interactivas
 library(sf) # manejo de datos vectoriales
@@ -25,6 +26,7 @@ library(terra) # manejo de datos raster
 library(raster) # manejo de datos raster
 library(rgdal) # manejo de datos raster
 library(leaflet) # mapas interactivos
+library(stringi) # manejo de hileras de texto
 ```
 
 ### Conjuntos de datos para ejemplos
@@ -53,7 +55,7 @@ plot(
 )
 ```
 
-#### Casos positivos de covid-19 en antones de Costa Rica
+#### Casos positivos de covid-19 en cantones de Costa Rica
 Es un [archivo CSV con el acumulado de casos positivos de covid-19 en cada cantón](datos/ministerio-salud/covid/05_30_22_CSV_POSITIVOS.csv). Es publicado regularmente por el Ministerio de Salud en el sitio web [Situación Nacional COVID-19](https://geovision.uned.ac.cr/oges/).
 
 ```{r carga-datos-covid, message=FALSE, warning=FALSE}
@@ -78,6 +80,18 @@ covid_cantonal_positivos %>%
     language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
   ))
 ```
+
+#### Estadísticas policiales de Costa Rica del año 2021
+Es un [archivo XLS con registros de delitos](datos/oij/estadisticas-policiales/estadisticaspoliciales2021.xls). Es publicado regularmente por el Organismo de Investigación Judicial (OIJ) en el sitio web [Datos abiertos del OIJ](https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos).
+
+```{r carga-datos-estadisticas-policiales, message=FALSE, warning=FALSE}
+# Lectura, transformación y visualización de estadísticas policiales
+
+# Carga
+estadisticas_policiales <-
+  read_xls(path = "datos/oij/estadisticas-policiales/estadisticaspoliciales2021.xls")
+```
+
 
 ## Introducción
 Se les llama atributos a los elementos de datos no espaciales o geométricos de un conjunto de datos geográficos. Estos datos pueden ser de tipos numéricos o textuales, entre otros. Un conjunto de datos vectoriales puede tener asociados varios campos de atributos, mientras que un conjunto de datos raster tiene solamente uno.
@@ -381,11 +395,13 @@ El método `left_join()` mantiene todos los registros de la tabla del lado izqui
 
 Todos los tipos de *joins* requiere de al menos una columna que sea común a ambos conjuntos de datos. En este caso, esa columna es `cod_canton`. Si la columna no tiene el mismo nombre, puede utilizarse el argumento `by` (ej. `by = c(cod_canton_1 = "cod_canton_2")`, en donde `cod_canton_1` es el nombre de la columna en el primer conjunto de datos y `cod_canton_2` en el segundo).
 
-```{r left-join}
-# Ejemplos de uso de left_join()
+##### Ejemplos
 
-# "Join" de los datos geoespaciales de cantones con los de casos positivos de covid. 
-# Ambas tablas comparten la columna cod_canton.
+###### Covid
+Se unen los datos geoespaciales de cantones con los datos de covid-19.
+
+```{r left-join-covid}
+# "Join" de los datos geoespaciales de cantones con los de casos positivos de covid. Ambas tablas comparten la columna cod_canton.
 covid_cantonal_positivos_geoespacial <- left_join(cantones, covid_cantonal_positivos)
 
 # Visualización en un mapa generado con plot()
@@ -458,6 +474,14 @@ leaflet() %>%
     group = "Casos positivos de COVID",
     title = "Cantidad de casos"
   )
+```
+
+###### Estadísticas policiales
+Se unen los datos geoespaciales de cantones con los datos de estadísticas policiales.
+
+```{r}
+estadisticas_policiales %>%
+  count(Provincia, Canton, Distrito)
 ```
 
 ## Datos raster
