@@ -17,25 +17,54 @@ Lovelace, R., Nowosad, J., & Münchow, J. (2019). *Geocomputation with R* (capí
 ```{r carga-paquetes, message=FALSE}
 # Carga de paquetes
 
+library(stringi) # manejo de hileras de texto
 library(readr) # lectura de archivos CSV
 library(readxl) # lectura de archivos XLS
 library(dplyr) # transformación de datos
 library(DT) # tablas interactivas
 library(sf) # manejo de datos vectoriales
 library(terra) # manejo de datos raster
-library(raster) # manejo de datos raster
-library(rgdal) # manejo de datos raster
 library(leaflet) # mapas interactivos
-library(stringi) # manejo de hileras de texto
 ```
 
 ### Conjuntos de datos para ejemplos
 
-#### Cantones de Costa Rica
-Es un [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para desplegarlo más fácilmente en `leaflet`.
+#### Provincias de Costa Rica
+Es un [archivo GeoJSON con los polígonos de las provincias de Costa Rica](datos/ign/delimitacion-territorial-administrativa/provincias.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para posteriormente desplegarlo más fácilmente en `leaflet`.
 
-```{r carga-datos-cantones}
-# Lectura y visualización de datos geoespaciales de cantones
+```{r lectura-provincias}
+# Lectura, transformación y visualización de datos geoespaciales de provincias
+
+# Lectura
+provincias <-
+  st_read(
+    dsn = "datos/ign/delimitacion-territorial-administrativa/provincias.geojson",
+    quiet = TRUE
+  ) %>%
+  st_transform(4326) # transformación a WGS84
+
+# Transformación
+provincias <-
+  provincias %>%
+  st_transform(5367) %>%
+  st_simplify(dTolerance = 100) %>% # simplificación de geometrías
+  st_transform(4326)
+
+# Visualización en un mapa
+plot(
+  provincias$geometry,
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  main = "Provincias de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+#### Cantones de Costa Rica
+Es un [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para posteriormente desplegarlo más fácilmente en `leaflet`.
+
+```{r lectura-cantones}
+# Lectura, transformación y visualización de datos geoespaciales de cantones
 
 # Lectura
 cantones <-
@@ -44,6 +73,13 @@ cantones <-
     quiet = TRUE
   ) %>%
   st_transform(4326) # transformación a WGS84
+
+# Transformación
+cantones <-
+  cantones %>%
+  st_transform(5367) %>%
+  st_simplify(dTolerance = 100) %>% # simplificación de geometrías
+  st_transform(4326)
 
 # Visualización en un mapa
 plot(
@@ -55,43 +91,81 @@ plot(
 )
 ```
 
-#### Casos positivos de covid-19 en cantones de Costa Rica
-Es un [archivo CSV con el acumulado de casos positivos de covid-19 en cada cantón](datos/ministerio-salud/covid/05_30_22_CSV_POSITIVOS.csv). Es publicado regularmente por el Ministerio de Salud en el sitio web [Situación Nacional COVID-19](https://geovision.uned.ac.cr/oges/).
+#### Distritos de Costa Rica
+Es un [archivo GeoJSON con los polígonos de los distritos de Costa Rica](datos/ign/delimitacion-territorial-administrativa/distritos.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para posteriormente desplegarlo más fácilmente en `leaflet`.
 
-```{r carga-datos-covid, message=FALSE, warning=FALSE}
-# Lectura, transformación y visualización de casos positivos acumulados de covid-19 en cantones de Costa Rica
+```{r lectura-distritos}
+# Lectura, transformación y visualización de datos geoespaciales de distritos
 
-# Carga
-covid_cantonal_positivos <-
-  read_delim(file = "datos/ministerio-salud/covid/05_30_22_CSV_POSITIVOS.csv",
-             locale = locale(encoding = "WINDOWS-1252"), # para desplegar correctamente acentos y otros caracteres
-             col_select = c("cod_provin", "provincia", "cod_canton", "canton", "30/05/2022"))
+# Lectura
+distritos <-
+  st_read(
+    dsn = "datos/ign/delimitacion-territorial-administrativa/distritos.geojson",
+    quiet = TRUE
+  ) %>%
+  st_transform(4326) # transformación a WGS84
 
 # Transformación
-covid_cantonal_positivos <-
-  covid_cantonal_positivos %>%
-  rename(positivos = '30/05/2022') %>% # renombramiento de columna
-  filter(!is.na(canton) & canton != "Otros") # borrado de filas con valor NA u "Otros" en la columna canton
+distritos <-
+  distritos %>%
+  st_transform(5367) %>%
+  st_simplify(dTolerance = 100) %>% # simplificación de geometrías
+  st_transform(4326)
+
+# Visualización en un mapa
+plot(
+  distritos$geometry,
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  main = "Distritos de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+#### Casos positivos acumulados de covid en cantones de Costa Rica
+Es un [archivo CSV con el acumulado de casos positivos de covid-19 en cada cantón](datos/ministerio-salud/covid/05_30_22_CSV_POSITIVOS.csv). Es publicado regularmente por el Ministerio de Salud en el sitio web [Situación Nacional COVID-19](https://geovision.uned.ac.cr/oges/).
+
+```{r lectura-covid-positivos, message=FALSE, warning=FALSE}
+# Lectura, transformación y visualización de casos positivos acumulados de covid-19 en cantones de Costa Rica
+
+# Lectura
+covid_positivos <-
+  read_delim(file = "datos/ministerio-salud/covid/05_30_22_CSV_POSITIVOS.csv",
+             locale = locale(encoding = "WINDOWS-1252"), # para desplegar correctamente acentos y otros caracteres
+             col_select = c("cod_canton", "canton", "30/05/2022"))
+
+# Transformación
+covid_positivos <-
+  covid_positivos %>%
+  rename(positivos = '30/05/2022') # renombramiento de columna
 
 # Visualización en una tabla
-covid_cantonal_positivos %>%
+covid_positivos %>%
+  arrange(desc(positivos)) %>%
   datatable(options = list(
-    pageLength = 5,
+    pageLength = 10,
     language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
   ))
 ```
 
-#### Estadísticas policiales de Costa Rica del año 2021
+#### Delitos ocurridos en Costa Rica en el año 2021
 Es un [archivo XLS con registros de delitos](datos/oij/estadisticas-policiales/estadisticaspoliciales2021.xls). Es publicado regularmente por el Organismo de Investigación Judicial (OIJ) en el sitio web [Datos abiertos del OIJ](https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos).
 
-```{r carga-datos-estadisticas-policiales, message=FALSE, warning=FALSE}
-# Lectura, transformación y visualización de estadísticas policiales
+```{r lectura-delitos, message=FALSE, warning=FALSE}
+# Lectura, transformación y visualización de delitos
 
-# Carga
-estadisticas_policiales <-
+# Lectura
+delitos <-
   read_xls(path = "datos/oij/estadisticas-policiales/estadisticaspoliciales2021.xls")
-```
 
+# Visualización en una tabla
+delitos %>%
+  select(Delito, Fecha, Victima, Provincia, Canton, Distrito) %>%
+  datatable(options = list(
+    pageLength = 10,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
 
 ## Introducción
 Se les llama atributos a los elementos de datos no espaciales o geométricos de un conjunto de datos geográficos. Estos datos pueden ser de tipos numéricos o textuales, entre otros. Un conjunto de datos vectoriales puede tener asociados varios campos de atributos, mientras que un conjunto de datos raster tiene solamente uno.
@@ -100,8 +174,8 @@ Se les llama atributos a los elementos de datos no espaciales o geométricos de 
 Las operaciones con atributos en datos vectoriales incluyen:
 
 - Creación de subconjuntos (*subsetting*).  
-- Agregación (*aggregation*).  
-- Cruce (unión) de datos (*joining*). 
+- Agregación de datos (*aggregation*).  
+- Unión de datos (*joining*). 
 
 Seguidamente, se explicará como maneja estas operaciones el paquete `sf`.
 
@@ -115,7 +189,7 @@ En la secciones siguientes, se explicará el manejo de datos de atributos tanto 
 ### Funciones básicas para manejo de data frames y objetos sf
 Las siguientes son algunas de las funciones disponibles para obtener información básica de un objeto sf.
 
-```{r funciones-basicas}
+```{r sf-funciones-basicas}
 # Funciones básicas para manejo de objetos tipo data.frame y sf
 
 # Clase de cantones
@@ -160,14 +234,14 @@ print(object.size(cantones_df), units="Kb")
 
 Para algunas operaciones, también es posible ocultar la columna de geometría de un conjunto de datos (sin borrarla) mediante el argumento `drop = TRUE`.
 
-```{r drop-true}
+```{r sf-drop}
 # Ejemplos de uso del argumento drop
 
 # Sin drop = TRUE
 cantones[1:10, c("canton", "area")]
 
 # Con drop = TRUE
-cantones[1:10, c("canton", "area"), drop=TRUE]
+cantones[1:10, c("canton", "area"), drop = TRUE]
 ```
 
 ### Creación de subconjuntos
@@ -241,7 +315,7 @@ Las funciones del paquete base de R son confiables y ampliamente usadas. Sin emb
 ##### El método select()
 `dplyr::select()` permite seleccionar y renombrar columnas de un conjunto de datos.
 
-```{r sf-select}
+```{r dplyr-select}
 # Ejemplos de uso de dplyr::select()
 
 # Selección de columnas
@@ -368,7 +442,7 @@ cantones %>%
 
 El siguiente ejemplo utiliza otras funciones del paquete `dplyr` para encontrar las tres provincias más grandes y sus respectivas áreas, con base en los datos disponibles en la capa de cantones.
 
-```{r subconjuntos-ejemplo-dplyr}
+```{r agregacion-ejemplo-dplyr}
 # Área y cantidad de cantones de las tres provincias más grandes
 cantones %>%
   st_drop_geometry() %>%  
@@ -382,57 +456,62 @@ cantones %>%
 
 **Ejercicio: mediante ```summarize()```, y otras funciones de dplyr, despliegue el área y la cantidad de cantones de las dos provincias más pequeñas.**
 
-### Cruce de datos
-La combinación de datos ubicados en diferentes fuentes es una tarea común en análisis de información. Este tipo de operaciones se realizan con base en atributos que son comunes en los conjuntos de datos que se desea "cruzar" (*join*). El paquete `dplyr` proporciona varios [métodos para realizar cruces de datos](https://dplyr.tidyverse.org/reference/mutate-joins.html), entre los que se encuentran:
+### Unión de datos
+La combinación de datos ubicados en diferentes fuentes es una tarea común en análisis de información. Este tipo de operaciones se realizan con base en atributos que son comunes en los conjuntos de datos que se desea "unir" (*join*). El paquete `dplyr` proporciona varios [métodos para realizar uniones de datos](https://dplyr.tidyverse.org/reference/mutate-joins.html), entre los que se encuentran:
 
-- `left_join()`
-- `inner_join()`
-- `right_join()`
-- `full_join()`
+- `left_join()`: mantiene todas las filas del conjunto de datos del lado izquierdo y les agrega las columnas del conjunto de datos del lado derecho, en las filas en las que hay coincidencia.
+- `inner_join()`: incluye las filas que coinciden en ambos conjuntos de datos.
+- `right_join()`: mantiene todas las filas del conjunto de datos del lado derecho y agrega las columnas del conjunto de datos del lado izquierdo, en las filas en las que hay coincidencia.
+- `full_join()`: incluye todas las filas de ambos conjuntos de datos.
 
-#### El método left_join()
-El método `left_join()` mantiene todos los registros de la tabla del lado izquierdo y agrega las columnas de la tabla del lado derecho, en los registros en los que hay coincidencia.
+Todos los tipos de *joins* requieren de una o varias columnas que sean comunes a ambos conjuntos de datos, llamadas *join keys*, en inglés. Esas columnas se especifican con el argumento `by`. Por ejemplo, `by = codigo`, si la columna común se llama `codigo` en ambos conjuntos de datos. Si tienen diferentes nombres, se utiliza un vector (ej. `by = c("codigo_1" = "codigo_2")`, en donde `codigo_1` es el nombre de la columna en el conjunto de datos de la izquierda y `codigo_2` en el de la derecha. Si hay columnas con nombres iguales en ambos conjuntos de datos, `by` utiliza esos nombres por defecto.
 
-Todos los tipos de *joins* requiere de al menos una columna que sea común a ambos conjuntos de datos. En este caso, esa columna es `cod_canton`. Si la columna no tiene el mismo nombre, puede utilizarse el argumento `by` (ej. `by = c(cod_canton_1 = "cod_canton_2")`, en donde `cod_canton_1` es el nombre de la columna en el primer conjunto de datos y `cod_canton_2` en el segundo).
+#### Ejemplos
 
-##### Ejemplos
+##### Casos positivos acumulados de covid en cantones
+En este caso, se unen los datos geoespaciales de cantones con los datos de casos positivos acumulados de covid-19 en los cantones de Costa Rica. La columna común (*join key*) se llama `cod_canton` en ambos conjuntos de datos y contiene el código de cantón asignado por el IGN.
 
-###### Covid
-Se unen los datos geoespaciales de cantones con los datos de covid-19.
+```{r join-cantones-covid-positivos}
+# Unión de los datos geoespaciales de cantones con los de casos positivos de covid. 
+# Ambas tablas comparten la columna "cod_canton".
+cantones_covid_positivos <-
+  cantones %>%
+  left_join(
+    dplyr::select(covid_positivos, cod_canton, positivos), # el select() es para no llevar columnas innecesarias a la unión
+    by = "cod_canton", # campo común para realizar la unión
+    copy = FALSE, # para no copiar todos los campos del data frame derecho en el data frame izquierdo
+    keep = FALSE # # para no copiar el campo de unión
+  )
+```
 
-```{r left-join-covid}
-# "Join" de los datos geoespaciales de cantones con los de casos positivos de covid. Ambas tablas comparten la columna cod_canton.
-covid_cantonal_positivos_geoespacial <- left_join(cantones, covid_cantonal_positivos)
+Con el data frame resultante del `join`, se generan [mapas de coropletas](https://es.wikipedia.org/wiki/Mapa_coropl%C3%A9tico) que muestran la cantidad de casos positivos de covid en los cantones. Para estos mapas, se crea un paleta de colores.
 
+```{r colores-cantones-covid-positivos}
+# Paleta de colores para los mapas
+colores_cantones_covid_positivos <-
+  colorNumeric(palette = "Reds",
+               domain = cantones_covid_positivos$positivos,
+               na.color = "transparent")
+```
+
+El resultado se muestra en un mapa generado con `plot()`.
+
+```{r plot-cantones-covid-positivos}
 # Visualización en un mapa generado con plot()
 plot(
-  covid_cantonal_positivos_geoespacial["positivos"],
+  cantones_covid_positivos["positivos"],
   extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
-  main = "Casos positivos de covid-19 en cantones de Costa Rica",
+  col = colores_cantones_covid_positivos(cantones_covid_positivos$positivos),
+  main = "Casos positivos acumulados de covid en cantones de Costa Rica",
   axes = TRUE,
   graticule = TRUE
 )
 ```
 
-Seguidamente, se muestra el mismo resultado en un mapa `leaflet`.
+Y en un mapa generado con `leaflet()`.
 
-```{r leaflet-covid}
-# Mapa leaflet de casos positivos de covid en cantones
-
-# OPCIONAL: simplificación de geometrías
-covid_cantonal_positivos_geoespacial <-
-  covid_cantonal_positivos_geoespacial %>%
-  st_transform(5367) %>%
-  st_simplify(dTolerance = 100) %>%
-  st_transform(4326)
-
-# Paleta de colores
-colores <-
-  colorNumeric(palette = "YlOrBr",
-               domain = covid_cantonal_positivos_geoespacial$positivos,
-               na.color = "transparent")
-
-# Mapa
+```{r leaflet-cantones-covid-positivos}
+# Visualización en un mapa generado con leaflet()
 leaflet() %>%
   setView(# centro y nivel inicial de acercamiento
     lng = -84.19452,
@@ -441,9 +520,9 @@ leaflet() %>%
   addTiles(group = "OpenStreetMap") %>% # capa base
   addPolygons(
     # capa de polígonos
-    data = covid_cantonal_positivos_geoespacial,
-    fillColor = ~ colores(covid_cantonal_positivos_geoespacial$positivos),
-    fillOpacity = 0.7,
+    data = cantones_covid_positivos,
+    fillColor = ~ colores_cantones_covid_positivos(cantones_covid_positivos$positivos),
+    fillOpacity = 0.8,
     color = "black",
     stroke = TRUE,
     weight = 1.0,
@@ -451,37 +530,549 @@ leaflet() %>%
       # ventana emergente
       paste(
         "<strong>Cantón:</strong>",
-        covid_cantonal_positivos_geoespacial$canton
+        cantones_covid_positivos$canton
       ),
       paste(
-        "<strong>Casos positivos de covid:</strong>",
-        covid_cantonal_positivos_geoespacial$positivos
+        "<strong>Casos:</strong>",
+        cantones_covid_positivos$positivos
       ),
       sep = '<br/>'
     ),
-    group = "Casos positivos de covid"
+    group = "Casos positivos acumulados de covid en cantones"
   ) %>%
   addLayersControl(
     # control de capas
     baseGroups = c("OpenStreetMap"),
-    overlayGroups = c("Casos positivos de COVID")
+    overlayGroups = c("Casos positivos acumulados de covid en cantones")
   ) %>%
   addLegend(
     # leyenda
     position = "bottomleft",
-    pal = colores,
-    values = covid_cantonal_positivos_geoespacial$positivos,
-    group = "Casos positivos de COVID",
+    pal = colores_cantones_covid_positivos,
+    values = cantones_covid_positivos$positivos,
+    group = "Casos positivos acumulados de covid en cantones",
     title = "Cantidad de casos"
   )
 ```
 
-###### Estadísticas policiales
-Se unen los datos geoespaciales de cantones con los datos de estadísticas policiales.
+##### Delitos
+En este ejemplo, se unen los datos geoespaciales de provincias, cantones y distritos con los datos de delitos ocurridos en Costa Rica en el año 2021. El data frame de delitos tiene columnas correspondientes al nombre de la provincia, cantón y distrito en donde ocurrió cada uno. Sin embargo, por exactitud y eficiencia, se prefieren los códigos del IGN a los nombres, por lo que se incluyen a través de uniones con los conjuntos de datos de provincias, cantones y distritos.
 
-```{r}
-estadisticas_policiales %>%
-  count(Provincia, Canton, Distrito)
+###### En provincias
+Se crea el campo `provincia_normalizado`, en `provincias` y en `delitos`, correspondiente al nombre de la provincia, pero en minúsculas, sin acentos, ni eñes ni otros caracteres especiales o propios del idioma español (ej. "san jose", en lugar de "San José"). Este campo será más fácil de usar para unir las tablas, ya que evitará dificultades por diferencias en mayúsculas, minúsculas, tildes y otras.
+
+```{r normalizacion-provincias}
+# Normalización de los nombres de provincias
+
+# En el data frame de provincias
+provincias <-
+  provincias %>%
+  mutate(provincia_normalizado = tolower(stri_trans_general(provincia, id = "Latin-ASCII")))
+
+# En el data frame de delitos
+delitos <-
+  delitos %>%
+  mutate(provincia_normalizado = tolower(stri_trans_general(Provincia, id = "Latin-ASCII")))
+```
+
+Mediante un *join* de los nombres normalizados, se agrega el código de la provincia a `delitos`.
+
+```{r join-delitos-provincias}
+# Unión del código de provincia a delitos
+delitos <-
+  delitos %>%
+  left_join(
+    dplyr::select(
+      st_drop_geometry(provincias),
+      cod_provin,
+      provincia_normalizado
+    ),
+    by = "provincia_normalizado",
+    copy = FALSE,
+    keep = FALSE
+  )
+```
+
+Se cuenta la cantidad de registros por provincia y se une al data frame `provincias`.
+
+```{r conteo-delitos-x-provincia}
+# Conteo de registros por código de provincia
+delitos_x_provincia <-
+  delitos %>%
+  count(cod_provin, name = "delitos")
+
+# Unión de cantidad de delitos por provincia a provincias
+provincias_delitos <-
+  provincias %>%
+  left_join(
+    delitos_x_provincia,
+    by = "cod_provin",
+    copy = FALSE,
+    keep = FALSE
+  )
+
+# Visualización en formato de tabla
+provincias_delitos %>%
+  st_drop_geometry() %>%
+  select(provincia, delitos) %>%
+  arrange(desc(delitos)) %>%
+  datatable(options = list(
+    pageLength = 10,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+Paleta de colores para los mapas de coropletas.
+
+```{r colores-provincias-delitos}
+# Paleta de colores para los mapas
+colores_provincias_delitos <-
+  colorNumeric(palette = "Reds",
+               domain = provincias_delitos$delitos,
+               na.color = "transparent")
+```
+
+Mapa de coropletas generado con `plot()`.
+
+```{r plot-provincias-delitos}
+# Visualización en un mapa generado con plot()
+plot(
+  provincias_delitos["delitos"],
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  col = colores_provincias_delitos(provincias_delitos$delitos),
+  main = "Cantidad de delitos ocurridos en 2021 en provincias de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+Mapa de coropletas generado con `leaflet()`.
+
+```{r leaflet-provincias-delitos}
+# Mapa leaflet de delitos en provincias
+leaflet() %>%
+  setView(# centro y nivel inicial de acercamiento
+    lng = -84.19452,
+    lat = 9.572735,
+    zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>% # capa base
+  addPolygons(
+    # capa de polígonos
+    data = provincias_delitos,
+    fillColor = ~ colores_provincias_delitos(provincias_delitos$delitos),
+    fillOpacity = 0.8,
+    color = "black",
+    stroke = TRUE,
+    weight = 1.0,
+    popup = paste(
+      # ventana emergente
+      paste(
+        "<strong>Provincia:</strong>",
+        provincias_delitos$provincia
+      ),
+      paste(
+        "<strong>Delitos:</strong>",
+        provincias_delitos$delitos
+      ),
+      sep = '<br/>'
+    ),
+    group = "Delitos en provincias"
+  ) %>%
+  addLayersControl(
+    # control de capas
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("Delitos en provincias")
+  ) %>%
+  addLegend(
+    # leyenda
+    position = "bottomleft",
+    pal = colores_provincias_delitos,
+    values = provincias_delitos$delitos,
+    group = "Delitos",
+    title = "Cantidad de delitos"
+  )
+```
+
+###### En cantones
+Primero, se corrigen algunos nombres de cantones en `delitos`, con el fin de que sean iguales a los de `cantones`, el conjunto de datos oficial del IGN.
+
+Se crea el campo `canton_normalizado`, en `cantones` y en `delitos`, correspondiente al nombre del cantón, en minúscula y sin acentos ni caracteres especiales.
+
+```{r normalizacion-cantones}
+# Normalización de los nombres de cantones
+
+# En el data frame de cantones
+cantones <-
+  cantones %>%
+  mutate(canton_normalizado = tolower(stri_trans_general(canton, id = "Latin-ASCII")))
+
+# En el data frame de delitos
+delitos <-
+  delitos %>%
+  mutate(canton_normalizado = tolower(stri_trans_general(Canton, id = "Latin-ASCII")))
+```
+
+Luego, mediante un `join`, se obtienen los nombres de cantones en `delitos` que no están en `cantones`.
+
+```{r cantones-no-coincidentes-delitos-cantones}
+delitos %>%
+  left_join(
+    dplyr::select(st_drop_geometry(cantones),
+                  canton_normalizado, cod_canton),
+    by = "canton_normalizado",
+    copy = FALSE,
+    keep = FALSE
+  ) %>%
+  filter(is.na(cod_canton) & canton_normalizado != "desconocido") %>% # los cod_canton = NA son los que no están en el data frame de cantones
+  distinct(canton_normalizado) # se despliegan solo los nombres de cantones diferentes
+```
+
+Los anteriores, son los nombres de cantones en `delitos` sin coincidencia en `cantones`. En el siguiente bloque de código, se corrigen esos nombres de acuerdo con los de `cantones`.
+
+```{r curacion-delitos-cantones}
+# Corrección de nombres de cantones en delitos
+delitos <-
+  delitos %>%
+  mutate(Canton = if_else(Canton == "LEON CORTES", "LEON CORTES CASTRO", Canton)) %>%
+  mutate(Canton = if_else(Canton == "VASQUEZ DE CORONADO", "VAZQUEZ DE CORONADO", Canton))
+
+# Se realiza nuevamente esta operación para reflejar los cambios en los nombres de cantones
+delitos <-
+  delitos %>%
+  mutate(canton_normalizado = tolower(stri_trans_general(Canton, id = "Latin-ASCII")))
+
+# Revisión
+delitos %>%
+  left_join(
+    dplyr::select(st_drop_geometry(cantones),
+                  canton_normalizado, cod_canton),
+    by = "canton_normalizado",
+    copy = FALSE,
+    keep = FALSE
+  ) %>%
+  filter(is.na(cod_canton) & canton_normalizado != "desconocido") %>% # los cod_canton = NA son los que no están en el data frame de cantones
+  distinct(canton_normalizado) # se despliegan solo los nombres de cantones diferentes
+```
+
+Mediante un *join* de los nombres normalizados, se agrega el código del cantón a `delitos`.
+
+```{r join-delitos-cantones}
+# Unión del código de cantón a delitos
+delitos <-
+  delitos %>%
+  left_join(
+    dplyr::select(
+      st_drop_geometry(cantones),
+      cod_canton,
+      canton_normalizado
+    ),
+    by = "canton_normalizado",
+    copy = FALSE,
+    keep = FALSE
+  )
+```
+
+Se cuenta la cantidad de registros por cantón y se une al data frame `cantones`.
+
+```{r conteo-delitos-x-canton}
+# Conteo de registros por código de cantón
+delitos_x_canton <-
+  delitos %>%
+  count(cod_canton, name = "delitos")
+
+# Unión de cantidad de delitos por cantón a cantones
+cantones_delitos <-
+  cantones %>%
+  left_join(
+    delitos_x_canton,
+    by = "cod_canton",
+    copy = FALSE,
+    keep = FALSE
+  )
+
+# Visualización en formato de tabla
+cantones_delitos %>%
+  st_drop_geometry() %>%
+  select(canton, delitos) %>%
+  arrange(desc(delitos)) %>%
+  datatable(options = list(
+    pageLength = 10,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+Paleta de colores para los mapas de coropletas.
+
+```{r colores-cantones-delitos}
+# Paleta de colores para los mapas
+colores_cantones_delitos <-
+  colorNumeric(palette = "Reds",
+               domain = cantones_delitos$delitos,
+               na.color = "transparent")
+```
+
+Mapa de coropletas generado con `plot()`.
+
+```{r plot-cantones-delitos}
+# Visualización en un mapa generado con plot()
+plot(
+  cantones_delitos["delitos"],
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  col = colores_cantones_delitos(cantones_delitos$delitos),
+  main = "Cantidad de delitos ocurridos en 2021 en cantones de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+Mapa de coropletas generado con `leaflet()`.
+
+```{r leaflet-cantones-delitos}
+# Mapa leaflet de delitos en cantones
+leaflet() %>%
+  setView(# centro y nivel inicial de acercamiento
+    lng = -84.19452,
+    lat = 9.572735,
+    zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>% # capa base
+  addPolygons(
+    # capa de polígonos
+    data = cantones_delitos,
+    fillColor = ~ colores_cantones_delitos(cantones_delitos$delitos),
+    fillOpacity = 0.8,
+    color = "black",
+    stroke = TRUE,
+    weight = 1.0,
+    popup = paste(
+      # ventana emergente
+      paste(
+        "<strong>Cantón:</strong>",
+        cantones_delitos$canton
+      ),
+      paste(
+        "<strong>Delitos:</strong>",
+        cantones_delitos$delitos
+      ),
+      sep = '<br/>'
+    ),
+    group = "Delitos en cantones"
+  ) %>%
+  addLayersControl(
+    # control de capas
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("Delitos en cantones")
+  ) %>%
+  addLegend(
+    # leyenda
+    position = "bottomleft",
+    pal = colores_cantones_delitos,
+    values = cantones_delitos$delitos,
+    group = "Delitos",
+    title = "Cantidad de delitos"
+  )
+```
+
+###### En distritos
+Primero, se corrigen algunos nombres de distritos en `delitos`, con el fin de que sean iguales a los de `distritos`, el conjunto de datos oficial del IGN.
+
+Se crea el campo `distrito_normalizado`, en `distritos` y en `delitos`, el cual corresponde al nombre del distrito, en minúscula y sin acentos ni caracteres especiales. El nombre de un distrito debe consultarse conjuntamente con el código del cantón (`cod_canton`), debido a que el nombre del distrito solamente es único si se asocia con su cantón. Por ejemplo, existen varios distritos llamados "Concepción", pero pertenecientes a diferentes cantones.
+
+```{r normalizacion-distritos}
+# Normalización de los nombres de distritos
+
+# En el data frame de distritos
+distritos <-
+  distritos %>%
+  mutate(distrito_normalizado = tolower(stri_trans_general(distrito, id = "Latin-ASCII")))
+
+# En el data frame de delitos
+delitos <-
+  delitos %>%
+  mutate(distrito_normalizado = tolower(stri_trans_general(Distrito, id = "Latin-ASCII")))
+```
+
+Luego, mediante un `join`, se obtienen los nombres de cantones en `delitos` que no están en `distritos`.
+
+```{r distritos-no-coincidentes-delitos-distritos}
+delitos %>%
+  left_join(
+    dplyr::select(st_drop_geometry(distritos),
+                  codigo_dta, 
+                  cod_canton, 
+                  distrito_normalizado
+    ),
+    by = c("cod_canton" = "cod_canton", "distrito_normalizado" = "distrito_normalizado"),
+    copy = FALSE,
+    keep = FALSE
+  ) %>%
+  filter(is.na(codigo_dta) & distrito_normalizado != "desconocido") %>% # los cod_dta = NA son los que no están en el data frame de distritos
+  distinct(cod_canton, Canton, distrito_normalizado) %>% # se despliegan solo los nombres diferentes de distritos (tomando en cuenta el cantón)
+  print(n = Inf)
+```
+
+Los anteriores, son los nombres de cantones en `delitos` sin coincidencia en `distritos`. En el siguiente bloque de código, se corrigen esos nombres de acuerdo con los de `distritos`.
+
+```{r curacion-delitos-distritos}
+# Corrección de nombres de distritos en el data frame de delitos
+
+delitos <-
+  delitos %>%
+  mutate(Distrito = if_else(cod_canton == 703 & Distrito == "CAIRO", "EL CAIRO", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 210 & Distrito == "FORTUNA", "LA FORTUNA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 410 & Distrito == "HORQUETAS", "LAS HORQUETAS", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 119 & Distrito == "GENERAL", "EL GENERAL", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 402 & Distrito == "SAN JOSE DE LA MONTA?A", "SAN JOSE DE LA MONTANA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 602 & Distrito == "MACACOMA", "MACACONA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 301 & Distrito == "SAN FRANCISCO", "AGUACALIENTE O SAN FRANCISCO", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 209 & Distrito == "CEIBA", "LA CEIBA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 605 & Distrito == "CORTES", "PUERTO CORTES", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 201 & Distrito == "LA GARITA", "GARITA", Distrito))
+# TODO: agregar los cambios restantes...
+
+
+# Se realiza nuevamente esta operación para reflejar los cambios en los nombres de distritos
+delitos <-
+  delitos %>%
+  mutate(distrito_normalizado = tolower(stri_trans_general(Distrito, id = "Latin-ASCII")))
+
+# Revisión
+delitos %>%
+  left_join(
+    dplyr::select(st_drop_geometry(distritos),
+                  codigo_dta, 
+                  cod_canton, 
+                  distrito_normalizado
+    ),
+    by = c("cod_canton" = "cod_canton", "distrito_normalizado" = "distrito_normalizado"),
+    copy = FALSE,
+    keep = FALSE
+  ) %>%
+  filter(is.na(codigo_dta) & distrito_normalizado != "desconocido") %>% # los cod_dta = NA son los que no están en el data frame de distritos
+  distinct(cod_canton, Canton, distrito_normalizado) %>% # se despliegan solo los nombres diferentes de distritos (tomando en cuenta el cantón)
+  print(n = Inf)
+```
+
+Mediante un *join* de los nombres normalizados, se agrega el código del distrito (`codigo_dta`) a `delitos`.
+
+```{r join-delitos-distritos}
+# Unión del código de distrito a delitos
+delitos <-
+  delitos %>%
+  left_join(
+    dplyr::select(
+      st_drop_geometry(distritos),
+      codigo_dta,
+      cod_canton,
+      distrito_normalizado
+    ),
+    by = c("cod_canton" = "cod_canton", "distrito_normalizado" = "distrito_normalizado"),
+    copy = FALSE,
+    keep = FALSE
+  )
+```
+
+Se cuenta la cantidad de delitos por distrito y se une al data frame `distritos`.
+
+```{r conteo-delitos-x-distrito}
+# Conteo de delitos por código de distrito
+delitos_x_distrito <-
+  delitos %>%
+  count(codigo_dta, name = "delitos")
+
+# Unión de cantidad de delitos por distrito a distritos
+distritos_delitos <-
+  distritos %>%
+  left_join(
+    delitos_x_distrito,
+    by = "codigo_dta",
+    copy = FALSE,
+    keep = FALSE
+  )
+
+# Visualización en formato de tabla
+distritos_delitos %>%
+  st_drop_geometry() %>%
+  select(provincia, canton, codigo_dta, distrito, delitos) %>%
+  arrange(desc(delitos)) %>%
+  datatable(options = list(
+    pageLength = 10,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+Paleta de colores para los mapas de coropletas.
+
+```{r colores-distritos-delitos}
+# Paleta de colores para los mapas
+colores_distritos_delitos <-
+  colorNumeric(palette = "Reds",
+               domain = distritos_delitos$delitos,
+               na.color = "transparent")
+```
+
+Mapa de coropletas generado con `plot()`.
+
+```{r plot-distritos-delitos}
+# Visualización en un mapa generado con plot()
+plot(
+  distritos_delitos["delitos"],
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  col = colores_distritos_delitos(distritos_delitos$delitos),
+  main = "Cantidad de delitos ocurridos en 2021 en distritos de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+Mapa de coropletas generado con `leaflet()`.
+
+```{r leaflet-distritos-delitos}
+# Mapa leaflet de delitos en distritos
+leaflet() %>%
+  setView(# centro y nivel inicial de acercamiento
+    lng = -84.19452,
+    lat = 9.572735,
+    zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>% # capa base
+  addPolygons(
+    # capa de polígonos
+    data = distritos_delitos,
+    fillColor = ~ colores_distritos_delitos(distritos_delitos$delitos),
+    fillOpacity = 0.8,
+    color = "black",
+    stroke = TRUE,
+    weight = 1.0,
+    popup = paste(
+      # ventana emergente
+      paste(
+        "<strong>Cantón:</strong>",
+        distritos_delitos$canton
+      ),
+      paste(
+        "<strong>Distrito:</strong>",
+        distritos_delitos$distrito
+      ),
+      paste(
+        "<strong>Delitos:</strong>",
+        cantones_delitos$delitos
+      ),
+      sep = '<br/>'
+    ),
+    group = "Delitos en distritos"
+  ) %>%
+  addLayersControl(
+    # control de capas
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("Delitos en distritos")
+  ) %>%
+  addLegend(
+    # leyenda
+    position = "bottomleft",
+    pal = colores_distritos_delitos,
+    values = distritos_delitos$delitos,
+    group = "Delitos",
+    title = "Cantidad de delitos"
+  )
 ```
 
 ## Datos raster
