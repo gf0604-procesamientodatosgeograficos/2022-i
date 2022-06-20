@@ -1054,7 +1054,7 @@ leaflet() %>%
       ),
       paste(
         "<strong>Delitos:</strong>",
-        cantones_delitos$delitos
+        distritos_delitos$delitos
       ),
       sep = '<br/>'
     ),
