@@ -1070,7 +1070,7 @@ leaflet() %>%
     position = "bottomleft",
     pal = colores_distritos_delitos,
     values = distritos_delitos$delitos,
-    group = "Delitos",
+    group = "Delitos en distritos",
     title = "Cantidad de delitos"
   )
 ```
