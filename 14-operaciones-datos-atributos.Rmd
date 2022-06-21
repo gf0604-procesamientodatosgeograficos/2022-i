@@ -926,10 +926,29 @@ delitos <-
   mutate(Distrito = if_else(cod_canton == 301 & Distrito == "SAN FRANCISCO", "AGUACALIENTE O SAN FRANCISCO", Distrito)) %>%
   mutate(Distrito = if_else(cod_canton == 209 & Distrito == "CEIBA", "LA CEIBA", Distrito)) %>%
   mutate(Distrito = if_else(cod_canton == 605 & Distrito == "CORTES", "PUERTO CORTES", Distrito)) %>%
-  mutate(Distrito = if_else(cod_canton == 201 & Distrito == "LA GARITA", "GARITA", Distrito))
-# TODO: agregar los cambios restantes...
-
-
+  mutate(Distrito = if_else(cod_canton == 201 & Distrito == "LA GARITA", "GARITA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 119 & Distrito == "LA AMISTAD", "LA  AMISTAD", Distrito)) %>% # el nombre del IGN tiene un espacio en blanco de más
+  mutate(Distrito = if_else(cod_canton == 213 & Distrito == "SAN JOSE (PIZOTE)", "SAN JOSE O PIZOTE", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 607 & Distrito == "JIMENEZ", "PUERTO JIMENEZ", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 405 & Distrito == "LOS ANGELES", "ANGELES", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 301 & Distrito == "GUADALUPE", "GUADALUPE O ARENILLA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 407 & Distrito == "ASUNCION", "LA ASUNCION", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 209 & Distrito == "MASTATE", "EL MASTATE", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 604 & Distrito == "UNION", "LA UNION", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 108 & Distrito == "MATA PLATANO", "MATA DE PLATANO", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 608 & Distrito == "AGUA BUENA", "AGUABUENA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 206 & Distrito == "ROSARIO", "EL ROSARIO", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 210 & Distrito == "PALMERA", "LA PALMERA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 210 & Distrito == "TIGRA", "LA TIGRA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 706 & Distrito == "MERECEDES", "MERCEDES", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 504 & Distrito == "FORTUNA", "LA FORTUNA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 605 & Distrito == "DRAKE", "BAHIA DRAKE", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 207 & Distrito == "GRANJA", "LA GRANJA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 410 & Distrito == "CURE?A", "CURENA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 305 & Distrito == "EL CHIRRIPO", "CHIRRIPO", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 106 & Distrito == "LA LEGUA", "LEGUA", Distrito)) %>%
+  mutate(Distrito = if_else(cod_canton == 211 & Distrito == "TAPEZCO", "TAPESCO", Distrito))
+  
 # Se realiza nuevamente esta operación para reflejar los cambios en los nombres de distritos
 delitos <-
   delitos %>%
@@ -987,7 +1006,8 @@ distritos_delitos <-
     by = "codigo_dta",
     copy = FALSE,
     keep = FALSE
-  )
+  ) %>%
+  mutate(delitos = ifelse(is.na(delitos), 0, delitos)) # para sustituir los NA con 0
 
 # Visualización en formato de tabla
 distritos_delitos %>%
