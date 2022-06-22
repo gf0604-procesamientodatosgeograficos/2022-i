@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 7 Git: sistema de control de versiones | GF0604 Procesamiento de datos geográficos 2022-I</title>
+<meta name="author" content="Manuel Vargas">
+<meta name="description" content="7.1 Trabajo previo  7.1.1 Tutoriales Abba, I. V. (2021). Git and GitHub Tutorial – Version Control for Beginners. FreeCodeCamp.Org. https://www.freecodecamp.org/news/git-and-github-for-beginners/ ...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Chapter 7 Git: sistema de control de versiones | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta property="og:type" content="book">
+<meta property="og:description" content="7.1 Trabajo previo  7.1.1 Tutoriales Abba, I. V. (2021). Git and GitHub Tutorial – Version Control for Beginners. FreeCodeCamp.Org. https://www.freecodecamp.org/news/git-and-github-for-beginners/ ...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 7 Git: sistema de control de versiones | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta name="twitter:description" content="7.1 Trabajo previo  7.1.1 Tutoriales Abba, I. V. (2021). Git and GitHub Tutorial – Version Control for Beginners. FreeCodeCamp.Org. https://www.freecodecamp.org/news/git-and-github-for-beginners/ ...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><script src="libs/plotly-locale-es-2.5.1/es.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script><script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script><link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet">
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet">
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script><script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script><script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script><link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet">
+<script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script><script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script><link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet">
+<script src="libs/fuse_js-3.2.0/fuse_js-prod.js"></script><link href="libs/lfx-search-2.3.7/lfx-search-prod.css" rel="stylesheet">
+<script src="libs/lfx-search-2.3.7/lfx-search-prod.js"></script><script src="libs/lfx-search-2.3.7/lfx-search-bindings.js"></script><script src="libs/clipboard-0.0.1/setClipboardText.js"></script><link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet">
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script><script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">GF0604 Procesamiento de datos geográficos 2022-I</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Bienvenida</a></li>
+<li><a class="" href="programa-del-curso.html">Programa del curso</a></li>
+<li class="book-part">I. Introducción a la programación de computadoras</li>
+<li><a class="" href="pensamiento-computacional.html"><span class="header-section-number">1</span> Pensamiento computacional</a></li>
+<li><a class="" href="arquitectura-de-computadoras-y-lenguajes-de-programaci%C3%B3n.html"><span class="header-section-number">2</span> Arquitectura de computadoras y lenguajes de programación</a></li>
+<li><a class="" href="interacci%C3%B3n-humano-computadora.html"><span class="header-section-number">3</span> Interacción humano-computadora</a></li>
+<li><a class="" href="ejemplo-de-interfaz-de-l%C3%ADnea-de-comandos---gdalogr-biblioteca-para-lectura-y-escritura-de-datos-geoespaciales.html"><span class="header-section-number">4</span> Ejemplo de interfaz de línea de comandos - GDAL/OGR: biblioteca para lectura y escritura de datos geoespaciales</a></li>
+<li><a class="" href="reproducibilidad.html"><span class="header-section-number">5</span> Reproducibilidad</a></li>
+<li><a class="" href="markdown-lenguaje-de-marcado.html"><span class="header-section-number">6</span> Markdown: lenguaje de marcado</a></li>
+<li><a class="active" href="git-sistema-de-control-de-versiones.html"><span class="header-section-number">7</span> Git: sistema de control de versiones</a></li>
+<li class="book-part">II. El lenguaje de programación R</li>
+<li><a class="" href="r---conceptos-b%C3%A1sicos.html"><span class="header-section-number">8</span> R - Conceptos básicos</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">9</span> R Markdown</a></li>
+<li><a class="" href="tidyverse-colecci%C3%B3n-de-paquetes-para-ciencia-de-datos.html"><span class="header-section-number">10</span> Tidyverse: colección de paquetes para ciencia de datos</a></li>
+<li><a class="" href="dplyr-gram%C3%A1tica-para-manipulaci%C3%B3n-de-datos.html"><span class="header-section-number">11</span> dplyr: gramática para manipulación de datos</a></li>
+<li class="book-part">III. Graficación estadística en R</li>
+<li><a class="" href="paquetes-de-r-para-graficaci%C3%B3n-estad%C3%ADstica.html"><span class="header-section-number">12</span> Paquetes de R para graficación estadística</a></li>
+<li class="book-part">IV. El ecosistema geoespacial de R</li>
+<li><a class="" href="introducci%C3%B3n-al-manejo-de-datos-geoespaciales-en-r.html"><span class="header-section-number">13</span> Introducción al manejo de datos geoespaciales en R</a></li>
+<li><a class="" href="operaciones-con-datos-de-atributos.html"><span class="header-section-number">14</span> Operaciones con datos de atributos</a></li>
+<li><a class="" href="operaciones-con-datos-espaciales.html"><span class="header-section-number">15</span> Operaciones con datos espaciales</a></li>
+<li class="book-part">Evaluaciones</li>
+<li><a class="" href="examen-corto-1.html">Examen corto 1</a></li>
+<li><a class="" href="examen-corto-2.html">Examen corto 2</a></li>
+<li><a class="" href="examen-corto-3.html">Examen corto 3</a></li>
+<li><a class="" href="examen-corto-4.html">Examen corto 4</a></li>
+<li><a class="" href="tarea-1.html">Tarea 1</a></li>
+<li><a class="" href="tarea-2.html">Tarea 2</a></li>
+<li class="book-part">Documentos y aplicaciones de ejemplo</li>
+<li><a class="" href="covid-19-en-costa-rica.html">COVID-19 en Costa Rica</a></li>
+<li><a class="" href="felinos-de-costa-rica.html">Felinos de Costa Rica</a></li>
+<li class="book-part">Apéndices</li>
+<li><a class="" href="conjuntos-de-datos.html">Conjuntos de datos</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-sistema-de-control-de-versiones" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Git: sistema de control de versiones<a class="anchor" aria-label="anchor" href="#git-sistema-de-control-de-versiones"><i class="fas fa-link"></i></a>
+</h1>
+<div id="trabajo-previo-2" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Trabajo previo<a class="anchor" aria-label="anchor" href="#trabajo-previo-2"><i class="fas fa-link"></i></a>
+</h2>
+<div id="tutoriales-2" class="section level3" number="7.1.1">
+<h3>
+<span class="header-section-number">7.1.1</span> Tutoriales<a class="anchor" aria-label="anchor" href="#tutoriales-2"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Abba, I. V. (2021). <em>Git and GitHub Tutorial – Version Control for Beginners</em>. FreeCodeCamp.Org. <a href="https://www.freecodecamp.org/news/git-and-github-for-beginners/" class="uri">https://www.freecodecamp.org/news/git-and-github-for-beginners/</a>
+</li>
+</ul>
+</div>
+<div id="otros-1" class="section level3" number="7.1.2">
+<h3>
+<span class="header-section-number">7.1.2</span> Otros<a class="anchor" aria-label="anchor" href="#otros-1"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Instale en su computadora el sistema de control de versiones <a href="https://git-scm.com/downloads">Git</a>.</li>
+</ul>
+</div>
+</div>
+<div id="resumen-6" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Resumen<a class="anchor" aria-label="anchor" href="#resumen-6"><i class="fas fa-link"></i></a>
+</h2>
+<p>Git es un sistema para administrar versiones de código fuente o, en general, de cualquier conjunto de archivos.</p>
+</div>
+<div id="descripción-general-2" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Descripción general<a class="anchor" aria-label="anchor" href="#descripci%C3%B3n-general-2"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://git-scm.com/">Git</a> es un sistema de <a href="https://es.wikipedia.org/wiki/Control_de_versiones">control de versiones</a> diseñado para rastrear cambios en el código fuente durante el proceso de desarrollo de software. Sin embargo, puede ser utilizado para llevar el control de los cambios en cualquier conjunto de archivos (ej. <a href="https://guides.github.com/features/wikis/">documentación</a>, <a href="https://techcrunch.com/2013/10/09/splice-music/">música</a>).</p>
+<p>Un sistema de control de versiones proporciona, entre otras ventajas:</p>
+<ul>
+<li>La capacidad de recuperar versiones anteriores del conjunto de archivos.</li>
+<li>La capacidad de integrar modificaciones efectuadas por varias personas en el conjunto de archivos.</li>
+<li>La capacidad de mantener varias “ramas” (<em>branches</em>) de un producto (ej. “estable”, “evaluación”, “inestable”, como en el caso de <a href="https://www.debian.org/releases/">Debian Linux</a>, <a href="https://grass.osgeo.org/download/software/sources/">GRASS GIS</a> y muchos otros proyectos de software libre).</li>
+<li>Facilidades para mantener redundancia y respaldos de los archivos (ej. <a href="https://archiveprogram.github.com/">Programa de respaldos de GitHub</a>).</li>
+</ul>
+<p>Git fue diseñado por Linus Torvalds en 2005 durante del desarrollo del <em>kernel</em> del sistema operativo Linux. Se caracteriza por ser un <a href="https://es.wikipedia.org/wiki/Control_de_versiones_distribuido">sistema de control de versiones distribuido</a>, lo que significa que el código fuente puede estar alojado en la estación de trabajo de cualquier miembro del equipo de desarrollo (i.e. no tiene que existir un repositorio central).</p>
+<p>El protocolo de Git es utilizado en varios sitios que proveen servicios de alojamiento de software, entre los que están <a href="https://sourceforge.net/">SourceForge</a>, <a href="https://bitbucket.org/">Bitbucket</a>, <a href="https://about.gitlab.com/">GitLab</a> y <a href="https://github.com/">GitHub</a>.</p>
+</div>
+<div id="como-funciona-git" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> ¿Como funciona Git?<a class="anchor" aria-label="anchor" href="#como-funciona-git"><i class="fas fa-link"></i></a>
+</h2>
+<p>Desde el punto de vista de un usuario de Git (ej. un programador), Git se utiliza para sincronizar la versión local de un conjunto de archivos, llamado proyecto o repositorio, con la versión que está alojada en un sistema remoto (ej. GitHub). Cada repositorio se almacena en un directorio (carpeta) del sistema operativo. La sincronización se realiza principalmente a través de dos operaciones:</p>
+<ul>
+<li>
+<strong><em>push</em></strong>: para “subir” al repositorio remoto los cambios realizados en el repositorio local. Esta operación se realiza mediante el comando <a href="https://git-scm.com/docs/git-push">git push</a>. Es probable que el sistema remoto le solicite al usuario algún tipo de autenticación (ej. nombre de usuario y clave).</li>
+<li>
+<strong><em>pull</em></strong>: para “bajar” al repositorio local los cambios realizados en el repositorio remoto. Esta operación se realiza mediante el comando <a href="https://git-scm.com/docs/git-pull">git pull</a>.</li>
+</ul>
+<p>Las operaciones <em>push</em> y <em>pull</em> se ilustran en la figura <a href="git-sistema-de-control-de-versiones.html#fig:git-push-pull">7.1</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:git-push-pull"></span>
+<img src="img/git-push-pull.png" alt="Operaciones _push_ y _pull_. Imagen de [Melinda Higgins](https://www.coursera.org/learn/reproducible-templates-analysis/lecture/NGbQv/git-and-github-part-1)." width="251"><p class="caption">
+Figure 7.1: Operaciones <em>push</em> y <em>pull</em>. Imagen de <a href="https://www.coursera.org/learn/reproducible-templates-analysis/lecture/NGbQv/git-and-github-part-1">Melinda Higgins</a>.
+</p>
+</div>
+<p>Antes de un <em>push</em>, el usuario debe seleccionar los archivos que desea subir mediante el comando <a href="https://git-scm.com/docs/git-add">git add</a>, el cual pasa los archivos a un “área de espera” (<em>staging area</em>). Luego debe usarse el comando <a href="https://git-scm.com/docs/git-commit">git commit</a> para “guardar” los cambios en el área de espera.</p>
+<p>La relación entre estas operaciones de Git, se ilustra en la figura <a href="git-sistema-de-control-de-versiones.html#fig:git-push-pull-commit">7.2</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:git-push-pull-commit"></span>
+<img src="img/git-push-pull-commit.png" alt="Operaciones de Git. Imagen de [Steven Klavins](https://medium.com/@stevenklavins94/version-control-part-4-c9387cf5b33e)." width="640"><p class="caption">
+Figure 7.2: Operaciones de Git. Imagen de <a href="https://medium.com/@stevenklavins94/version-control-part-4-c9387cf5b33e">Steven Klavins</a>.
+</p>
+</div>
+<p>En la figura <a href="git-sistema-de-control-de-versiones.html#fig:git-stage-commit-push">7.3</a> se muestra el funcionamiento de Git mediante una comparación con el procesamiento de una compra en línea.</p>
+<div class="figure">
+<span style="display:block;" id="fig:git-stage-commit-push"></span>
+<img src="img/git-stage-commit-push.png" alt="Operaciones de Git y compras en línea. Imagen de [Melinda Higgins](https://www.coursera.org/learn/reproducible-templates-analysis/lecture/NGbQv/git-and-github-part-2)." width="400"><p class="caption">
+Figure 7.3: Operaciones de Git y compras en línea. Imagen de <a href="https://www.coursera.org/learn/reproducible-templates-analysis/lecture/NGbQv/git-and-github-part-2">Melinda Higgins</a>.
+</p>
+</div>
+<p>Otras operaciones de Git de uso frecuente son:</p>
+<ul>
+<li>
+<a href="https://git-scm.com/docs/git-config">git config</a>: para especificar opciones globales de la sesión de Git (ej. nombre del usuario, dirección de corre electrónico).</li>
+<li>
+<a href="https://git-scm.com/docs/git-clone">git clone</a>: para clonar (i.e. copiar) un repositorio remoto en la computadora local.</li>
+<li>
+<a href="https://git-scm.com/docs/git-status">git status</a>: para revisar el estado de los archivos y, por ejemplo, saber cuales deben pasarse al área de espera.</li>
+</ul>
+</div>
+<div id="ejemplos-de-uso-1" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> Ejemplos de uso<a class="anchor" aria-label="anchor" href="#ejemplos-de-uso-1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="clonación-de-un-repositorio-remoto-y-sincronización-de-los-cambios-efectuados-localmente" class="section level3" number="7.5.1">
+<h3>
+<span class="header-section-number">7.5.1</span> Clonación de un repositorio remoto y sincronización de los cambios efectuados localmente<a class="anchor" aria-label="anchor" href="#clonaci%C3%B3n-de-un-repositorio-remoto-y-sincronizaci%C3%B3n-de-los-cambios-efectuados-localmente"><i class="fas fa-link"></i></a>
+</h3>
+<p>Para seguir este ejemplo:</p>
+<ol style="list-style-type: decimal">
+<li>Bifurque (<em>fork</em>) a su cuenta en GitHub el repositorio localizado en la dirección <a href="https://github.com/gf0604-procesamientodatosgeograficos/2022-i-tutorial-git-repo-ejemplo">https://github.com/gf0604-procesamientodatosgeograficos/2022-i-tutorial-git-repo-ejemplo</a>.<br>
+</li>
+<li>Con la opción <em>File - New Project - Version Control - Git</em> de RStudio, clone a su computadora el repositorio que acaba de bifurcar.</li>
+<li>Con el editor de RStudio, abra el archivo <code>README.md</code>, agregue una línea y guarde el archivo.<br>
+</li>
+<li>Luego, ejecute los siguientes comandos desde la la ventana <em>Terminal</em> de RStudio. Nota: las líneas que empiezan con <code>#</code> son comentarios.</li>
+</ol>
+<pre class="shell"><code># 0. Especificación del nombre y de la dirección de correo del usuario.
+# Debe modificar la dirección de correo y el nombre del usuario con sus propios datos.
+$ git config --global user.email usuario@correo.com
+$ git config --global user.name usuariogithub
+# Para revisar:
+$ git config --global --list
+
+# 1. Revisión de los archivos con modificaciones.
+$ git status
+
+# 2. Adición de los archivos modificados al "área de espera".
+# El punto (.) indica que se agregarán todos los archivos modificados.
+$ git add .
+
+# 3. Almacenamiento (commit) del conjunto de archivos modificados, junto con un mensaje explicativo.
+$ git commit -m "Agregar línea 2"
+
+# 4. "Subida" (push) de las modificaciones al repositorio remoto.
+$ git push</code></pre>
+<p>Revise los cambios aplicados en el repositorio remoto en GitHub. Si se realizan nuevos cambios en el repositorio local, deben repetirse los pasos del 1 al 4. Los comentarios en el commando <code>commit</code> deben reflejar los cambios realizados.</p>
+</div>
+</div>
+<div id="recursos-de-interés-5" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> Recursos de interés<a class="anchor" aria-label="anchor" href="#recursos-de-inter%C3%A9s-5"><i class="fas fa-link"></i></a>
+</h2>
+<p><em>GitHub Archive Program</em>. (s. f.). GitHub Archive Program. Recuperado 10 de abril de 2022, de <a href="https://archiveprogram.github.com/" class="uri">https://archiveprogram.github.com/</a></p>
+<p>Higgins, M. (s. f.). <em>Reproducible Templates for Analysis and Dissemination</em>. Coursera. Recuperado 11 de abril de 2022, de <a href="https://www.coursera.org/learn/reproducible-templates-analysis" class="uri">https://www.coursera.org/learn/reproducible-templates-analysis</a></p>
+<p>Klavins, S. (2020). <em>Version Control part 1</em>. Medium. <a href="https://stevenklavins94.medium.com/version-control-part-1-c5f1b43127f6" class="uri">https://stevenklavins94.medium.com/version-control-part-1-c5f1b43127f6</a></p>
+
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="markdown-lenguaje-de-marcado.html"><span class="header-section-number">6</span> Markdown: lenguaje de marcado</a></div>
+<div class="next"><a href="r---conceptos-b%C3%A1sicos.html"><span class="header-section-number">8</span> R - Conceptos básicos</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#git-sistema-de-control-de-versiones"><span class="header-section-number">7</span> Git: sistema de control de versiones</a></li>
+<li>
+<a class="nav-link" href="#trabajo-previo-2"><span class="header-section-number">7.1</span> Trabajo previo</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tutoriales-2"><span class="header-section-number">7.1.1</span> Tutoriales</a></li>
+<li><a class="nav-link" href="#otros-1"><span class="header-section-number">7.1.2</span> Otros</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#resumen-6"><span class="header-section-number">7.2</span> Resumen</a></li>
+<li><a class="nav-link" href="#descripci%C3%B3n-general-2"><span class="header-section-number">7.3</span> Descripción general</a></li>
+<li><a class="nav-link" href="#como-funciona-git"><span class="header-section-number">7.4</span> ¿Como funciona Git?</a></li>
+<li>
+<a class="nav-link" href="#ejemplos-de-uso-1"><span class="header-section-number">7.5</span> Ejemplos de uso</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#clonaci%C3%B3n-de-un-repositorio-remoto-y-sincronizaci%C3%B3n-de-los-cambios-efectuados-localmente"><span class="header-section-number">7.5.1</span> Clonación de un repositorio remoto y sincronización de los cambios efectuados localmente</a></li></ul>
+</li>
+<li><a class="nav-link" href="#recursos-de-inter%C3%A9s-5"><span class="header-section-number">7.6</span> Recursos de interés</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/07-git.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/07-git.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-06-22.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
