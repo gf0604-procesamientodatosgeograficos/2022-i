@@ -329,3 +329,17 @@ datos-vectoriales-2
 manejo-de-datos-espaciales-con-el-paquete-sf
 datos-raster-2
 manejo-de-datos-espaciales-con-el-paquete-terra
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
+áreas-silvestres-protegidas-de-costa-rica
+aeródromos-de-costa-rica
+vipéridos-de-costa-rica
+creación-de-subconjuntos-espaciales
+configuración
+cantones-de-costa-rica-1
+unión-de-datos-espaciales
+ejemplos-3
+vipéridos-de-costa-rica-1
+en-provincias-1
+registros-de-presencia
+especies
+tabla-y-mapa-interactivos-de-cantidades-de-especies-y-registros-de-presencia

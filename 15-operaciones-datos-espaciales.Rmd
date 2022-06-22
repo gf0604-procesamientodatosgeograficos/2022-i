@@ -1,7 +1,7 @@
 # Operaciones con datos espaciales
 
 ## Resumen
-Las operaciones con atributos en datos vectoriales incluyen creación de subconjuntos espaciales, agregación espacial, cruce de datos espaciales y relaciones de distancia, entre otras. Estas operaciones pueden ejecutarse con funciones del paquete base de R o con las de paquetes de Tidyverse. Por su parte, las operaciones con atributos en datos raster incluyen creación de subconjuntos espaciales y álgebra de mapas, entre otras.
+Las operaciones espaciales en datos vectoriales incluyen creación de subconjuntos espaciales, unión de datos espaciales, agregación espacial y relaciones de distancia, entre otras. Estas operaciones pueden ejecutarse con funciones del paquete base de R o con las de paquetes de Tidyverse. Por su parte, las operaciones espaciales en datos raster incluyen creación de subconjuntos espaciales y álgebra de mapas, entre otras.
 
 ## Trabajo previo
 
@@ -17,7 +17,10 @@ Lovelace, R., Nowosad, J., & Münchow, J. (2019). *Geocomputation with R* (capí
 
 library(dplyr) # transformación de datos
 library(sf) # manejo de datos vectoriales
-library(terra) # manejo de datos raster
+library(DT) # tablas interactivas
+library(leaflet) # mapas interactivos
+library(leaflet.extras) # funciones adicionales de leaflet
+library(leafem) # funciones adicionales de leaflet
 ```
 
 Datos de ejemplo de Lovelace et al.:
@@ -39,7 +42,7 @@ library(spData)
 #### Provincias de Costa Rica
 Es un [archivo GeoJSON con los polígonos de las provincias de Costa Rica](datos/ign/delimitacion-territorial-administrativa/provincias.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para combinarlo más fácilmente con otros conjuntos de datos.
 
-```{r carga-datos-provincias}
+```{r lectura-provincias}
 # Lectura y visualización de datos geoespaciales de provincias
 
 # Lectura
@@ -49,6 +52,13 @@ provincias <-
     quiet = TRUE
   ) %>%
   st_transform(4326) # transformación a WGS84
+
+# Transformación
+provincias <-
+  provincias %>%
+  st_transform(5367) %>%
+  st_simplify(dTolerance = 100) %>% # simplificación de geometrías
+  st_transform(4326)
 
 # Visualización en un mapa
 plot(
@@ -60,6 +70,90 @@ plot(
 )
 ```
 
+#### Cantones de Costa Rica
+Es un [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para combinarlo más fácilmente con otros conjuntos de datos.
+
+```{r lectura-cantones}
+# Lectura y visualización de datos geoespaciales de cantones
+
+# Lectura
+cantones <-
+  st_read(
+    dsn = "datos/ign/delimitacion-territorial-administrativa/cantones.geojson",
+    quiet = TRUE
+  ) %>%
+  st_transform(4326) # transformación a WGS84
+
+# Transformación
+cantones <-
+  cantones %>%
+  st_transform(5367) %>%
+  st_simplify(dTolerance = 100) %>% # simplificación de geometrías
+  st_transform(4326)
+
+# Visualización en un mapa
+plot(
+  cantones$geometry,
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  main = "Cantones de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+#### Aeródromos de Costa Rica
+Es un [archivo GeoJSON con las geometrías de puntos de los aeródromos de Costa Rica](datos/ign/infraestructura/aerodromos.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](https://geos.snitcr.go.cr/be/IGN_200/wfs?version=1.1.0) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para combinarlo más fácilmente con otros conjuntos de datos.
+
+```{r lectura-aerodromos}
+# Lectura y visualización de datos geoespaciales de aeródromos
+
+# Lectura
+aerodromos <-
+  st_read(
+    dsn = "datos/ign/infraestructura/aerodromos.geojson",
+    quiet = TRUE
+  ) %>%
+  st_transform(4326) # transformación a WGS84
+
+# Visualización en un mapa
+plot(
+  aerodromos$geometry,
+  pch = 16,
+  main = "Aeródromos de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+#### Vipéridos de Costa Rica
+Es un [archivo CSV con registros de presencia de la familia *Viperidae* (serpientes venenosas) de Costa Rica](datos/gbif/viperidos.csv). Este archivo proviene de una [consulta al portal de datos de la Infraestructura Mundial de Información en Biodiversidad (GBIF)](https://www.gbif.org/occurrence/download/0362184-210914110416597).
+
+```{r lectura-viperidos}
+# Lectura y visualización de datos geoespaciales de aeródromos
+
+# Lectura
+viperidos <-
+  st_read(
+    "datos/gbif/viperidos.csv",
+    options = c(
+      "X_POSSIBLE_NAMES=decimalLongitude", # columna de longitud decimal
+      "Y_POSSIBLE_NAMES=decimalLatitude"   # columna de latitud decimal
+    ),
+    quiet = TRUE
+  )
+
+# Asignación del CRS WGS84
+st_crs(viperidos) <- 4326
+
+# Visualización en un mapa
+plot(
+  viperidos$geometry,
+  pch = 16,
+  main = "Vipéridos de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
 
 ## Introducción
 Esta lección brinda una visión general de las operaciones espaciales en datos vectoriales implementadas en el paquete `sf` y en datos raster implementadas en el paquete `terra`.
@@ -68,7 +162,7 @@ Esta lección brinda una visión general de las operaciones espaciales en datos 
 Las operaciones espaciales en datos vectoriales incluyen:
 
 - Creación de subconjuntos espaciales (*spatial subsetting*).  
-- Cruce de datos espaciales (*spatial joining*).
+- Unión de datos espaciales (*spatial joining*).
 - Agregación espacial (*spatial aggregation*).
 - Relaciones de distancia. 
 
@@ -76,12 +170,346 @@ Seguidamente, se explicará como maneja estas operaciones el paquete `sf`.
 
 ## Manejo de datos espaciales con el paquete sf
 
-## Datos raster
-Las operaciones espaciales en datos raster incluyen:
+### Creación de subconjuntos espaciales
+Es el proceso de selección de objetos espaciales con base en su relación con otros objetos espaciales. Estas relaciones se expresan como [predicados espaciales](https://en.wikipedia.org/wiki/DE-9IM), los cuales están implementados como [métodos de sf](https://r-spatial.github.io/sf/reference/geos_binary_pred.html).
 
-- .  
-- .  
+La creación de subconjuntos espaciales es análoga a la creación de subconjuntos por datos de atributos. Puede realizarse a través de los operadores `[` y `$` del paquete base de R o por medio de la función `filter()` de `dplyr`.
 
-Seguidamente, se explicará como maneja estas operaciones el paquete `terra`.
+En los dos ejemplos siguientes, se utiliza el método `st_within()` para filtrar los puntos contenidos en un polígono. 
 
-## Manejo de datos espaciales con el paquete terra
+Primero, se utilizan los operadores del paquete base.
+
+```{r st_within-1, message=FALSE}
+# Selección de la provincia de Limón (por atributos)
+limon <- provincias[provincias$provincia == "Limón",]
+
+# Selección de los aeródromos ubicados en Limón (espacial)
+aerodromos_limon <- aerodromos[limon, , op = st_within]
+```
+
+Mapa leaflet.
+
+```{r st_within-leaflet-1}
+# Mapa leaflet
+leaflet() %>%
+  addTiles() %>% # capa base de OSM
+  addPolygons( # capa de provincias (polígonos)
+    data = limon,
+    color = "black",
+    fillColor = "transparent",
+    stroke = TRUE,
+    weight = 1.0,
+  ) %>%  
+  addCircleMarkers( # capa de registros de presencia (puntos)
+    data = aerodromos_limon,
+    stroke = F,
+    radius = 4,
+    fillColor = 'brown',
+    fillOpacity = 1
+  )
+```
+
+El mismo resultado se obtiene con las funciones y operadores de Tidyverse.
+
+```{r st_within-2, message=FALSE}
+# Selección de la provincia de Limón (por atributos)
+limon <-
+  provincias %>%
+  filter(provincia == "Limón")
+
+# Selección de los aeródromos ubicados en Limón (espacial)
+aerodromos_limon <-
+  aerodromos %>%
+  filter(st_within(x = ., y = limon, sparse = FALSE))
+```
+
+En el anterior llamado a `filter()`, la expresión `x = .` es equivalente a `x = aerodromos`. Para una explicación sobre el argumento `sparse`, por favor lea la [sección 4.2.2. del libro “Geocomputation with R” de R. Lovelace et. al.](https://geocompr.robinlovelace.net/spatial-operations.html#topological-relations).
+
+Mapa leaflet.
+
+```{r st_within-leaflet-2}
+# Mapa leaflet
+leaflet() %>%
+  addTiles() %>% # capa base de OSM
+  addPolygons( # capa de provincias (polígonos)
+    data = limon,
+    color = "black",
+    fillColor = "transparent",
+    stroke = TRUE,
+    weight = 1.0,
+  ) %>%  
+  addCircleMarkers( # capa de registros de presencia (puntos)
+    data = aerodromos_limon,
+    stroke = F,
+    radius = 4,
+    fillColor = 'black',
+    fillOpacity = 1
+  )
+```
+
+Además de `st_within()`, `sf` implementa predicados espaciales como, entre otros, `st_contains()`, `st_intersects()` y `st_disjoint()`, entre otros.
+
+### Unión de datos espaciales
+La unión “no espacial” de dos conjuntos de datos se basa en uno o varios campos (llamados llaves o *keys*) que están presentes en ambos conjuntos. Las uniones espaciales se basan en un principio similar pero, en lugar de campos, la relación entre los conjuntos se realiza a través de una operación topológica, a veces llamada *spatial overlay*. Al igual que con los datos de atributos, la unión espacial, ejecutada con el método `st_join()`, agrega una o varias columnas al conjunto de datos destino (i.e. el argumento `x` de la función), provenientes del objeto fuente (i.e. el argumento `y`). La operación topológica que ejecuta por defecto `st_join()` es `st_intersects()`.
+
+#### Ejemplos
+
+##### Vipéridos de Costa Rica
+
+###### En provincias
+En el siguiente ejemplo, se unen los registros de presencia de vipéridos (geometrías de puntos) con la capa de provincias (geometrías de polígonos), para agregar las columnas de código y nombre de provincia al conjunto de registros de presencia.
+
+```{r join-viperidos-provincias}
+# Unión de provincias y vipéridos a través st_join()
+viperidos <- 
+  viperidos %>%
+  st_join(provincias[c("cod_provin", "provincia")])
+
+# Despliegue de los datos unidos
+viperidos %>%
+  st_drop_geometry() %>%
+  select(species, stateProvince, provincia, locality) %>%
+  datatable(options = list(
+    pageLength = 10,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+###### Registros de presencia
+Se cuenta la cantidad de registros de presencia por provincia y se une al data frame `provincias`.
+
+```{r conteo-registros-x-provincia}
+# Conteo de registros de presencia por código de provincia
+registros_viperidos_x_provincia <-
+  viperidos %>%
+  st_drop_geometry() %>%
+  count(cod_provin, name = "registros_viperidos")
+
+# Unión de cantidad de registros de presencia por provincia a provincias
+provincias_viperidos <-
+  provincias %>%
+  left_join(
+    registros_viperidos_x_provincia,
+    by = "cod_provin",
+    copy = FALSE,
+    keep = FALSE
+  )
+```
+
+Paleta de colores para los mapas de coropletas.
+
+```{r colores-provincias-registros-viperidos}
+# Paleta de colores para los mapas
+colores_provincias_registros_viperidos <-
+  colorNumeric(palette = "Reds",
+               domain = provincias_viperidos$registros_viperidos,
+               na.color = "transparent")
+```
+
+Mapa de coropletas generado con `plot()`.
+
+```{r plot-provincias-registros-viperidos}
+# Visualización en un mapa generado con plot()
+plot(
+  provincias_viperidos["registros_viperidos"],
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  col = colores_provincias_registros_viperidos(provincias_viperidos$registros_viperidos),
+  main = "Cantidad de registros de presencia de vipéridos en provincias de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+###### Especies
+Se cuenta la cantidad de especies por provincia y se une al data frame `provincias`.
+
+```{r conteo-especies-x-provincia}
+# Conteo de especies por código de provincia
+especies_viperidos_x_provincia <-
+  viperidos %>%
+  st_drop_geometry() %>%
+  filter(taxonRank == "SPECIES" | taxonRank == "SUBSPECIES") %>% # para excluir identificaciones a género o superiores
+  group_by(cod_provin) %>%
+  summarise(especies_viperidos = n_distinct(species, na.rm = TRUE))
+
+# Unión de cantidad de registros de presencia por provincia a provincias
+provincias_viperidos <-
+  provincias_viperidos %>%
+  left_join(
+    especies_viperidos_x_provincia,
+    by = "cod_provin",
+    copy = FALSE,
+    keep = FALSE
+  )
+```
+
+Paleta de colores para los mapas de coropletas.
+
+```{r colores-provincias-especies-viperidos}
+# Paleta de colores para los mapas
+colores_provincias_especies_viperidos <-
+  colorNumeric(palette = "Blues",
+               domain = provincias_viperidos$especies_viperidos,
+               na.color = "transparent")
+```
+
+Mapa de coropletas generado con `plot()`.
+
+```{r plot-provincias-especies-viperidos}
+# Visualización en un mapa generado con plot()
+plot(
+  provincias_viperidos["especies_viperidos"],
+  extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
+  col = colores_provincias_especies_viperidos(provincias_viperidos$especies_viperidos),
+  main = "Cantidad de especies de vipéridos en provincias de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+###### Tabla y mapa interactivos de cantidades de especies y registros de presencia
+
+Tabla DT.
+
+```{r tabla-provincias-viperidos}
+# Visualización en formato de tabla
+provincias_viperidos %>%
+  st_drop_geometry() %>%
+  select(provincia, especies_viperidos, registros_viperidos) %>%
+  arrange(desc(especies_viperidos)) %>%
+  datatable(options = list(
+    pageLength = 10,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+```
+
+Mapa leaflet.
+
+```{r leaflet-provincias-viperidos}
+# Mapa leaflet de vipéridos en provincias
+leaflet() %>%
+  setView(# centro y nivel inicial de acercamiento
+    lng = -84.19452,
+    lat = 9.572735,
+    zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>% # capa base
+  addPolygons(
+    data = provincias_viperidos,
+    fillColor = ~ colores_provincias_registros_viperidos(provincias_viperidos$registros_viperidos),
+    fillOpacity = 0.8,
+    color = "black",
+    stroke = TRUE,
+    weight = 1.0,
+    popup = paste(
+      paste(
+        "<strong>Provincia:</strong>",
+        provincias_viperidos$provincia
+      ),
+      paste(
+        "<strong>Registros:</strong>",
+        provincias_viperidos$registros_viperidos
+      ),
+      sep = '<br/>'
+    ),
+    group = "Cantidad de registros de vipéridos"
+  ) %>%
+  addPolygons(
+    data = provincias_viperidos,
+    fillColor = ~ colores_provincias_especies_viperidos(provincias_viperidos$especies_viperidos),
+    fillOpacity = 0.8,
+    color = "black",
+    stroke = TRUE,
+    weight = 1.0,
+    popup = paste(
+      paste(
+        "<strong>Provincia:</strong>",
+        provincias_viperidos$provincia
+      ),
+      paste(
+        "<strong>Registros:</strong>",
+        provincias_viperidos$especies_viperidos
+      ),
+      sep = '<br/>'
+    ),
+    group = "Cantidad de especies de vipéridos"
+  ) %>%
+  addHeatmap(
+    data = viperidos,
+    lng = ~decimalLongitude,
+    lat = ~decimalLatitude,
+    radius = 10,
+    blur = 20,
+    group = "Mapa de calor"
+  ) %>%  
+  addCircleMarkers(
+    data = viperidos,
+    stroke = F,
+    radius = 3,
+    fillColor = 'black',
+    fillOpacity = 1,
+    popup = paste(
+      viperidos$species,
+      viperidos$provincia,
+      viperidos$eventDate,
+      paste0("<a href='", viperidos$occurrenceID, "'>Más información</a>"),
+      sep = '<br/>'
+    ),
+    clusterOptions = markerClusterOptions(),
+    group = "Registros de presencia de vipéridos"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c(
+      "Cantidad de registros de vipéridos",
+      "Cantidad de especies de vipéridos",
+      "Mapa de calor",
+      "Registros de presencia de vipéridos"
+    )
+  ) %>%
+  addLegend(
+    position = "bottomleft",
+    pal = colores_provincias_registros_viperidos,
+    values = provincias_viperidos$registros_viperidos,
+    group = "Cantidad de registros de vipéridos",
+    title = "Cantidad de registros"
+  ) %>%
+  addLegend(
+    position = "bottomleft",
+    pal = colores_provincias_especies_viperidos,
+    values = provincias_viperidos$especies_viperidos,
+    group = "Cantidad de especies de vipéridos",
+    title = "Cantidad de especies"
+  )  %>%
+  addResetMapButton() %>%
+  addSearchOSM() %>%
+  addMouseCoordinates() %>%
+  addScaleBar(position = "bottomright", options = scaleBarOptions(imperial = FALSE)) %>%
+  addMiniMap(position = "bottomright") %>%
+  hideGroup("Cantidad de especies de vipéridos") %>%
+  hideGroup("Mapa de calor")  
+```
+
+Algunas consultas:
+
+```{r conteo-especies-viperidos-puntarenas}
+# Conteo de especies de vipéridos en Puntarenas
+viperidos %>%
+  st_drop_geometry() %>%
+  filter(provincia == "Puntarenas") %>%
+  filter(taxonRank == "SPECIES" | taxonRank == "SUBSPECIES") %>%
+  count(species, name = "registros") %>%
+  rename(especie = species) %>%
+  arrange(desc(registros))
+```
+
+```{r conteo-especies-viperidos-limon}
+# Conteo de especies de vipéridos en Limón
+viperidos %>%
+  st_drop_geometry() %>%
+  filter(provincia == "Limón") %>%
+  filter(taxonRank == "SPECIES" | taxonRank == "SUBSPECIES") %>%
+  count(species, name = "registros") %>%
+  rename(especie = species) %>%
+  arrange(desc(registros))
+```
+
