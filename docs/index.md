@@ -1,7 +1,7 @@
 --- 
 title: "GF0604 Procesamiento de datos geográficos 2022-I"
 author: "Manuel Vargas"
-date: "2022-06-23"
+date: "2022-06-25"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

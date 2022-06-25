@@ -1,7 +1,7 @@
 # Operaciones con datos espaciales
 
 ## Resumen
-Las operaciones espaciales en datos vectoriales incluyen creación de subconjuntos espaciales, unión de datos espaciales, agregación espacial y relaciones de distancia, entre otras. Estas operaciones pueden ejecutarse con funciones del paquete base de R o con las de paquetes de Tidyverse. Por su parte, las operaciones espaciales en datos raster incluyen creación de subconjuntos espaciales y álgebra de mapas, entre otras.
+Las operaciones espaciales en datos vectoriales incluyen creación de subconjuntos espaciales, unión de datos espaciales, agregación de datos espaciales y relaciones de distancia, entre otras. Estas operaciones pueden ejecutarse con funciones del paquete base de R o con las de paquetes de Tidyverse. Por su parte, las operaciones espaciales en datos raster incluyen creación de subconjuntos espaciales y álgebra de mapas, entre otras.
 
 ## Trabajo previo
 
@@ -27,13 +27,11 @@ Datos de ejemplo de Lovelace et al.:
 
 ```{r spdata-instalacion, eval=FALSE}
 # Instalación de paquete de datos de ejemplo de Lovelace et al.
-
 install.packages("spData")
 ```
 
 ```{r spdata-carga, message=FALSE}
 # Carga de paquete de datos de ejemplo de Lovelace et al.
-
 library(spData)
 ```
 
@@ -163,7 +161,7 @@ Las operaciones espaciales en datos vectoriales incluyen:
 
 - Creación de subconjuntos espaciales (*spatial subsetting*).  
 - Unión de datos espaciales (*spatial joining*).
-- Agregación espacial (*spatial aggregation*).
+- Agregación de datos espaciales (*spatial aggregation*).
 - Relaciones de distancia. 
 
 Seguidamente, se explicará como maneja estas operaciones el paquete `sf`.
@@ -511,5 +509,76 @@ viperidos %>%
   count(species, name = "registros") %>%
   rename(especie = species) %>%
   arrange(desc(registros))
+```
+
+### Agregación de datos espaciales
+De manera similar al caso de la agregación de atributos, la agregación espacial es una forma de “condensar” o “resumir” datos. Los datos agregados muestran estadísticas de una variable (ej. promedio, suma) en relación con una variable de agrupación. Esto puede lograrse con el método `agregate()` de `sf` o con los métodos `group_by()` y `summarise()` de `dplyr`, utilizados en combinación con `st_join()`.
+
+En el siguiente bloque de código, se utiliza  `summarise()` para mostrar el promedio de altitud de los puntos más altos de Nueva Zelanda (NZ) en cada región del país. Los datos de los puntos más altos están en el objeto   `nz_height` y los de las regiones de Nueva Zelanda en el objeto `nz`.
+
+```{r agregacion-aggregate}
+# Promedio de altitud de puntos más altos para cada región de NZ
+nz_regiones_altitud_promedio_puntos_altos <-
+  nz_height %>%
+  aggregate(by = nz, FUN = mean)
+```
+
+Los resultados se muestran en un mapa `leaflet`.
+
+```{r leaflet-aggregate}
+# Paleta de colores
+colores_nz_regiones_altitud_promedio_puntos_altos <-
+  colorNumeric(palette = "Blues",
+               domain = nz_regiones_altitud_promedio_puntos_altos$elevation,
+               na.color = "transparent")
+
+# Mapa leaflet
+leaflet() %>%
+  addTiles(group = "OpenStreetMap") %>% # capa base de OSM
+  addPolygons(
+    # capa de regiones de NZ (polígonos)
+    data = st_transform(nz_regiones_altitud_promedio_puntos_altos, 4326),
+    color = "black",
+    fillColor = ~ colores_nz_regiones_altitud_promedio_puntos_altos(
+      nz_regiones_altitud_promedio_puntos_altos$elevation
+    ),
+    fillOpacity = 0.8,
+    stroke = TRUE,
+    weight = 1.0,
+    popup = paste(
+      "<strong>Altitud de la región:</strong>",
+      nz_regiones_altitud_promedio_puntos_altos$elevation,
+      "m"
+    ),
+    group = "Regiones de NZ"
+  ) %>%
+  addCircleMarkers(
+    # capa de puntos altos de NZ
+    data = st_transform(nz_height, 4326),
+    stroke = F,
+    radius = 4,
+    fillColor = 'brown',
+    fillOpacity = 1,
+    popup = paste(
+      "<strong>Altitud del punto:</strong>",
+      nz_height$elevation,
+      "m"
+    ),    
+    group = "Puntos altos"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c(
+      "Regiones de NZ",
+      "Puntos altos"
+    )
+  ) %>%
+  addLegend(
+    position = "bottomleft",
+    pal = colores_nz_regiones_altitud_promedio_puntos_altos,
+    values = nz_regiones_altitud_promedio_puntos_altos$elevation,
+    group = "Regiones de NZ",
+    title = "Altitud promedio"
+  )
 ```
 

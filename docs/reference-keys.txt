@@ -338,3 +338,4 @@ en-provincias-1
 registros-de-presencia
 especies
 tabla-y-mapa-interactivos-de-cantidades-de-especies-y-registros-de-presencia
+agregación-de-datos-espaciales
