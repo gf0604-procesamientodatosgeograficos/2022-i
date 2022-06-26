@@ -341,3 +341,11 @@ especies
 tabla-y-mapa-interactivos-de-cantidades-de-especies-y-registros-de-presencia
 agregación-de-datos-espaciales
 relaciones-de-distancia
+datos-raster-2
+manejo-de-datos-espaciales-con-el-paquete-terra
+creación-de-subconjuntos-espaciales-1
+álgebra-de-mapas
+operaciones-locales
+operaciones-focales
+operaciones-zonales
+operaciones-globales
