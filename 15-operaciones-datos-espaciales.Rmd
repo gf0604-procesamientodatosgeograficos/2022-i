@@ -123,6 +123,33 @@ plot(
 )
 ```
 
+#### Cabeceras de cantones y provincias de Costa Rica
+Se origina en un filtro a un [archivo GeoJSON con las geometrías de puntos de los poblados de Costa Rica](datos/ign/infraestructura/poblados.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](https://geos.snitcr.go.cr/be/IGN_NG/wfs?) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para combinarlo más fácilmente con otros conjuntos de datos.
+
+```{r lectura-cabeceras-cantones}
+# Lectura y visualización de datos geoespaciales de cabeceras de cantones y provincias
+
+# Lectura
+cabeceras_cantones_provincias <-
+  st_read(dsn = "datos/ign/nombres-geograficos/poblados.geojson",
+          quiet = TRUE) %>%
+  filter(
+    tipo == "Cabecera de cantón y distrito" |
+      tipo == "Cabecera de provincia - cantón y distrito" |
+      tipo == "Capital y cabecera de provincia"
+  ) %>%
+  st_transform(4326) # transformación a WGS84
+
+# Visualización en un mapa
+plot(
+  cabeceras_cantones_provincias$geometry,
+  pch = 16,
+  main = "Cabeceras de cantones y provincias de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
 #### Vipéridos de Costa Rica
 Es un [archivo CSV con registros de presencia de la familia *Viperidae* (serpientes venenosas) de Costa Rica](datos/gbif/viperidos.csv). Este archivo proviene de una [consulta al portal de datos de la Infraestructura Mundial de Información en Biodiversidad (GBIF)](https://www.gbif.org/occurrence/download/0362184-210914110416597).
 
@@ -582,3 +609,72 @@ leaflet() %>%
   )
 ```
 
+### Relaciones de distancia
+La distancia entre dos objetos `sf` se calcula con el método `st_distance()`. En el siguiente ejemplo, se calcula la distancia entre los puntos correspondientes a varias cabeceras de provincias y cantones de Costa Rica.
+
+```{r distancias-cabeceras-cantones-provincias}
+# Cálculo de distancias entre cabeceras de cantones y provincias
+
+cat("Distancia entre San José y La Cruz:",
+    round(st_distance(
+      filter(cabeceras_cantones_provincias, nombre == "San José"),
+      filter(cabeceras_cantones_provincias, nombre == "La Cruz")
+    ) / 1000, 2),
+    "km",
+    "\n")
+
+cat("Distancia entre San José y Neily:",
+    round(st_distance(
+      filter(cabeceras_cantones_provincias, nombre == "San José"),
+      filter(cabeceras_cantones_provincias, nombre == "Neily")
+    ) / 1000, 2),
+    "km",
+    "\n")
+
+cat("Distancia entre San José y Bribrí:",
+    round(st_distance(
+      filter(cabeceras_cantones_provincias, nombre == "San José"),
+      filter(cabeceras_cantones_provincias, nombre == "Bribrí")
+    ) / 1000, 2),
+    "km",
+    "\n")
+
+cat("Distancia entre Heredia y Alajuela:",
+    round(st_distance(
+      filter(cabeceras_cantones_provincias, nombre == "Heredia"),
+      filter(cabeceras_cantones_provincias, nombre == "Alajuela")
+    ) / 1000, 2),
+    "km",
+    "\n")
+
+cat("Distancia entre Alajuela y Cartago:",
+    round(st_distance(
+      filter(cabeceras_cantones_provincias, nombre == "Alajuela"),
+      filter(cabeceras_cantones_provincias, nombre == "Cartago")
+    ) / 1000, 2),
+    "km",
+    "\n")
+```
+
+Mapa `leaflet` de cabeceras de cantones y provincias.
+
+```{r leaflet-cabeceras-cantones-provincias}
+# Mapa de cabeceras de cantones y provincias
+leaflet() %>%
+  addTiles(group = "OpenStreetMap") %>% # capa base de OSM
+  addCircleMarkers(
+    # capa de puntos altos de NZ
+    data = cabeceras_cantones_provincias,
+    stroke = F,
+    radius = 4,
+    fillColor = 'brown',
+    fillOpacity = 1,
+    popup = cabeceras_cantones_provincias$nombre,
+    group = "Cabeceras de cantones y provincias"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("Cabeceras de cantones y provincias")
+  ) %>%
+  addScaleBar(position = "bottomright", options = scaleBarOptions(imperial = FALSE))
+```

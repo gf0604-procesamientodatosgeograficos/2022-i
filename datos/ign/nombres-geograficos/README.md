@@ -3,6 +3,6 @@ Comandos de GDAL/OGR para la descarga de datos:
 # Poblados
 ogr2ogr \
   -makevalid \
-  toponimos.geojson \
+  poblados.geojson \
   WFS:"https://geos.snitcr.go.cr/be/IGN_NG/wfs?" "IGN_NG:poblados_cr_5k"
 ```

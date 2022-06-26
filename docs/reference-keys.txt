@@ -326,6 +326,7 @@ conjuntos-de-datos-para-ejemplos-2
 provincias-de-costa-rica-1
 cantones-de-costa-rica-1
 aeródromos-de-costa-rica
+cabeceras-de-cantones-y-provincias-de-costa-rica
 vipéridos-de-costa-rica
 introducción-2
 datos-vectoriales-2
@@ -339,3 +340,4 @@ registros-de-presencia
 especies
 tabla-y-mapa-interactivos-de-cantidades-de-especies-y-registros-de-presencia
 agregación-de-datos-espaciales
+relaciones-de-distancia
