@@ -1,7 +1,7 @@
 # Operaciones con datos espaciales
 
 ## Resumen
-Las operaciones espaciales en datos vectoriales incluyen creación de subconjuntos espaciales, unión de datos espaciales, agregación de datos espaciales y relaciones de distancia, entre otras. Estas operaciones pueden ejecutarse con funciones del paquete base de R o con las de paquetes de Tidyverse. Por su parte, las operaciones espaciales en datos raster incluyen creación de subconjuntos espaciales y álgebra de mapas, entre otras.
+Las operaciones espaciales para datos vectoriales incluyen creación de subconjuntos espaciales, unión de datos espaciales, agregación de datos espaciales y relaciones de distancia, entre otras. Por su parte, las operaciones espaciales para datos raster incluyen creación de subconjuntos espaciales y álgebra de mapas, entre otras.
 
 ## Trabajo previo
 
@@ -17,7 +17,7 @@ Lovelace, R., Nowosad, J., & Münchow, J. (2019). *Geocomputation with R* (capí
 
 library(dplyr) # transformación de datos
 library(sf) # manejo de datos vectoriales
-library(terra)
+library(terra) # manejo de datos raster
 library(DT) # tablas interactivas
 library(leaflet) # mapas interactivos
 library(leaflet.extras) # funciones adicionales de leaflet
@@ -37,6 +37,13 @@ install.packages("spDataLarge", repos = "https://nowosad.r-universe.dev")
 library(spData)
 library(spDataLarge)
 ```
+
+También se utiliza el paquete `raster` y con sus métodos:
+
+- `raster::raster()`: para convertir objetos `SpatRaster` a `RasterLayer` y así poder desplegarlos con `leaflet::addRasterImage()`, que solo acepta objetos `RasterLayer`.
+- `raster::aggregate()`: para reducir el tamaño de objetos `RasterLayer` y así poder desplegarlos con `leaflet::addRasterImage()`, que no despliega objetos muy grandes.
+
+`raster` no se carga en este capítulo con la función `library()`. Sus métodos se llaman con la notación *paquete::metodo()*. `raster` requiere la instalación del paquete `rgdal`.
 
 ### Conjuntos de datos para ejemplos
 
@@ -183,11 +190,30 @@ plot(
 )
 ```
 
+#### Altitud de Costa Rica
+Es un [archivo GeoTIFF correspondiente a la altitud de Costa Rica](datos/worldclim/altitud.tif), en resolución de 30 x 30 segundos. Este archivo proviene de [WorldClim](https://www.worldclim.org/), un conjunto de capas climáticas disponibles en varias resoluciones espaciales.
+
+```{r lectura-altitud}
+# Lectura y visualización de datos geoespaciales de altitud de Costa Rica
+
+# Lectura
+altitud <-
+  rast(
+    "datos/worldclim/altitud.tif"
+  )
+
+# Visualización en un mapa
+terra::plot(
+  altitud,
+  main = "Altitud de Costa Rica"
+)
+```
+
 ## Introducción
-Esta lección brinda una visión general de las operaciones espaciales en datos vectoriales implementadas en el paquete `sf` y en datos raster implementadas en el paquete `terra`.
+Esta lección brinda una visión general de las operaciones espaciales para datos vectoriales implementadas en el paquete `sf`, y para datos raster implementadas en el paquete `terra`.
 
 ## Datos vectoriales
-Las operaciones espaciales en datos vectoriales incluyen:
+Las operaciones espaciales para datos vectoriales incluyen:
 
 - Creación de subconjuntos espaciales (*spatial subsetting*).  
 - Unión de datos espaciales (*spatial joining*).
@@ -296,7 +322,7 @@ viperidos <-
 # Despliegue de los datos unidos
 viperidos %>%
   st_drop_geometry() %>%
-  select(species, stateProvince, provincia, locality) %>%
+  dplyr::select(species, stateProvince, provincia, locality) %>%
   datatable(options = list(
     pageLength = 10,
     language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
@@ -403,7 +429,7 @@ Tabla DT.
 # Visualización en formato de tabla
 provincias_viperidos %>%
   st_drop_geometry() %>%
-  select(provincia, especies_viperidos, registros_viperidos) %>%
+  dplyr::select(provincia, especies_viperidos, registros_viperidos) %>%
   arrange(desc(especies_viperidos)) %>%
   datatable(options = list(
     pageLength = 10,
@@ -683,7 +709,7 @@ leaflet() %>%
 ```
 
 ## Datos raster
-Las operaciones espaciales en datos raster incluyen:
+Las operaciones espaciales para datos raster incluyen:
 
 - Creación de subconjuntos espaciales (_spatial subsetting_).  
 - Álgebra de mapas (_map algebra_). 
@@ -705,6 +731,8 @@ plot(elevacion)
 plot(grano)
 ```
 
+También se utilizará la capa de altitud de Costa Rica.
+
 ### Creación de subconjuntos espaciales
 En la lección sobre operaciones con atributos, se explicó como recuperar subconjuntos de objetos raster, ya sea mediante su ID o su posición en filas y columnas. Los subconjuntos de objetos raster también pueden obtenerse mediante la especificación de coordenadas o de otros objetos espaciales.
 
@@ -713,8 +741,21 @@ En la lección sobre operaciones con atributos, se explicó como recuperar subco
 id <- cellFromXY(elevacion, xy = matrix(c(0.1, 0.1), ncol = 2))
 elevacion[id]
 
-# El mismo resultado puede obtenerse con raster::extract()
+# El mismo resultado puede obtenerse con terra::extract()
 terra::extract(elevacion, data.frame(x = 0.1, y = 0.1))
+```
+
+El siguiente bloque de código retorna el valor en la capa de altitud de Costa Rica correspondiente a varios pares de coordenadas (x, y).
+
+```{r cellfromxy-altitud}
+# Altitud del punto en (-84, 10)
+altitud[cellFromXY(altitud, xy = matrix(c(-84, 10), ncol = 2))]
+
+# Altitud del Cerro Chirripó
+altitud[cellFromXY(altitud, xy = matrix(c(-83.488667, 9.484083), ncol = 2))]
+
+# Altitud de la Catedral Metropolitana de San José
+altitud[cellFromXY(altitud, xy = matrix(c(-84.078758, 9.932684), ncol = 2))]
 ```
 
 También es posible consultar las celdas contenidas en la extensión (i.e. los límites) otro raster.
@@ -736,7 +777,7 @@ elevacion[clip]
 
 Los métodos explicados anteriormente solo retornan ID y valores de celdas. Con el operador `[` y el argumento `drop = FALSE` pueden retornarse objetos raster.
 
-```{r terra-rango}
+```{r terra-drop-false}
 # Objeto raster creado a partir de un rango de ID de celdas
 r1 <- elevacion[1:2, drop = FALSE]
 plot(r1)
@@ -746,7 +787,109 @@ r2 <- elevacion[1:3, 1:3, drop = FALSE]
 plot(r2)
 ```
 
-Por último, también es posible obtener subconjuntos raster mediante la aplicación en un objeto raster de una "máscara" (*mask*) con la misma extensión y resolución, y que contenga valores lógicos o `NA`. Esta operación puede realizarse con el método `mask()`.
+El método `crop()` recorta un objeto `SpatRaster` de acuerdo con el contorno de otro objeto espacial, raster o vectorial. El siguiente bloque de código recorta la capa de altitud de Costa Rica con base en un objeto raster ubicado en el centro del país.
+
+```{r altitud-drop-false}
+# Creación de un raster ubicado en el centro del país, alrededor de (-84, 10)
+clip_centro_cr <-
+  rast(
+    xmin = -84.10,
+    xmax = -83.90,
+    ymin = 9.90,
+    ymax = 10.10,
+    res = 0.10
+  )
+
+# Recorte de la capa de altitud con base en el raster del centro del país
+altitud_centro_cr <- crop(altitud, clip_centro_cr)
+plot(altitud_centro_cr)
+```
+
+Seguidamente, la misma capa de altitud se recorta siguiendo el contorno de una capa vectorial de la clase `SpatVector` de `terra`, correspondiente a la provincia de Heredia. El polígono de Heredia debe convertirse a `SpatVector` mediante el método `vect()`.
+
+```{r}
+# Polígono de la provincia de Heredia
+heredia <-
+  provincias %>%
+  filter(provincia == "Heredia")
+
+# Recorte de la capa de altitud
+altitud_heredia <-
+  altitud %>%
+  crop(vect(heredia)) %>%
+  mask(vect(heredia))
+
+plot(altitud_heredia)
+```
+
+El siguiente mapa `leaflet` muestra la capa de altitud de Costa Rica y los recortes efectuados en esta.
+
+```{r leaflet-altitud, message=FALSE, warning=FALSE}
+# Paleta de colores de altitud de Costa Rica
+colores_altitud <-
+  colorNumeric(terrain.colors(25),
+               values(altitud),
+               na.color = "transparent")
+
+# Mapa leaflet
+leaflet() %>%
+  setView(# centro y nivel inicial de acercamiento
+    lng = -84.19452,
+    lat = 9.572735,
+    zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>%
+  addRasterImage(
+    raster::raster(altitud),
+    colors = colores_altitud,
+    opacity = 0.8,
+    group = "Altitud de Costa Rica"
+  ) %>%
+  addRasterImage(
+    raster::raster(altitud_heredia),
+    colors = colores_altitud,
+    opacity = 0.8,
+    group = "Altitud de Heredia"
+  ) %>%
+  addRasterImage(
+    raster::raster(altitud_centro_cr),
+    colors = colores_altitud,
+    opacity = 0.8,
+    group = "Altitud del centro de Costa Rica"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c(
+      "Altitud de Costa Rica",
+      "Altitud de Heredia",
+      "Altitud del centro de Costa Rica"
+    )
+  ) %>%
+  addLegend(
+    title = "Altitud de Costa Rica",
+    values = values(altitud),
+    pal = colores_altitud,
+    position = "bottomleft",
+    group = "Altitud de Costa Rica"
+  ) %>%
+  addLegend(
+    title = "Altitud de Heredia",
+    values = values(altitud_heredia),
+    pal = colores_altitud,
+    position = "bottomleft",
+    group = "Altitud de Heredia"
+  ) %>%
+  addLegend(
+    title = "Altitud del centro de Costa Rica",
+    values = values(altitud_centro_cr),
+    pal = colores_altitud,
+    position = "bottomright",
+    group = "Altitud del centro de Costa Rica"
+  )  %>%
+  hideGroup("Altitud de Heredia") %>%
+  hideGroup("Altitud del centro de Costa Rica")  
+```
+
+También es posible obtener subconjuntos raster mediante la aplicación en un objeto raster de una "máscara" (*mask*) con la misma extensión y resolución, y que contenga valores lógicos o `NA`. Esta operación puede realizarse con el método `mask()`.
 
 ```{r mascara}
 # Creación de una "máscara"
@@ -770,21 +913,29 @@ El álgebra de mapas divide las operaciones raster en cuatro clases (Lovelace et
 Esta clasificación se basa en la cantidad o forma de las celdas utilizadas por cada pixel durante el procesamiento. Otras clasificaciones pueden estar basadas en el área de aplicación del análisis (ej. terreno, hidrología, teledetección).
 
 #### Operaciones locales
-Son operaciones realizadas celda por celda en una o varias capas raster. 
+Son operaciones realizadas celda por celda en una o varias capas raster. Por ejemplo, la reclasificación de una capa mediante el método `classify()`.
 
-```{r algebra-raster-locales}
+```{r algebra-raster-locales-classify}
 # Reclasificación de una capa raster
 rcl <-  matrix(c(0, 12, 1, 12, 24, 2, 24, 36, 3), ncol = 3, byrow = TRUE)
 recl <- classify(elevacion, rcl = rcl)
 plot(recl)
+```
 
-# Álgebra raster con operadores aritméticos
+También operaciones aritméticas, similares a las que se realizan con matrices algebraicas.
+
+```{r algebra-raster-locales-aritmetica}
+# Álgebra raster con operadores aritméticos y de comparación
+
+# Operación aritmética
 elevacion_doble <- elevacion + elevacion
 plot(elevacion_doble)
 
+# Operación aritmética
 elevacion_cuadrado <- elevacion * elevacion
 plot(elevacion_cuadrado)
 
+# Expresión lógica de comparación
 elevacion_mayor_30 <- elev > 30
 plot(elevacion_mayor_30)
 ```
@@ -792,18 +943,52 @@ plot(elevacion_mayor_30)
 El siguiente bloque de código calcula el [Índice de vegetación de diferencia normalizada](https://es.wikipedia.org/wiki/%C3%8Dndice_de_vegetaci%C3%B3n_de_diferencia_normalizada) (NDVI, en inglés, *Normalized difference vegetation index*) en una imagen [Landsat](https://es.wikipedia.org/wiki/Landsat). El NDVI se utiliza para estimar la cantidad, calidad y desarrollo de la vegetación con base a la medición de la intensidad de la radiación de ciertas bandas del espectro electromagnético que la vegetación emite o refleja. El valor del NDVI varía entre -1.0 y +1.0.
 
 ```{r algebra-raster-ndvi}
-# Cálculo de NDVI
+# Cálculo del NDVI
+
+# Imagen Landsat de 4 bandas (4 = red, 3 = infraroja cercana)
 archivo_imagen_landsat = system.file("raster/landsat.tif", package = "spDataLarge")
 imagen_landsat = rast(archivo_imagen_landsat)
 
-ndvi <- function(nir, red){
+plot(imagen_landsat)
+
+# Función para calcular el NDVI (red = banda roja, nir = banda infraroja cercana)
+ndvi <- function(nir, red) {
   (nir - red) / (nir + red)
 }
 
+# Se aplica ndvi() sobre todas las celdas de la capa raster
 raster_ndvi = lapp(imagen_landsat[[c(4, 3)]], fun = ndvi)
 
-plot(imagen_landsat)
 plot(raster_ndvi)
+```
+
+El resultado se aprecia mejor en un mapa `leaflet`. Nótese el uso del método `raster::aggregate()` para reducir el tamaño del objeto `raster_ndvi`, el cual puede ser muy grande para desplegarse con `leaflet::addRasterImage()`.
+
+```{r leaflet-ndvi, message=FALSE, warning=FALSE}
+# Paleta de colores de NDVI
+colores_ndvi <-
+  colorNumeric(rev(grDevices::terrain.colors(25)),
+               values(raster_ndvi),
+               na.color = "transparent")
+
+# Mapa leaflet
+leaflet() %>%
+  addTiles(group = "OpenStreetMap") %>%
+  addRasterImage(
+    raster::aggregate(raster::raster(raster_ndvi), fact = 2, fun = mean),
+    colors = colores_ndvi,
+    opacity = 0.8,
+    group = "NDVI"
+  ) %>%
+  addLayersControl(baseGroups = c("OpenStreetMap"),
+                   overlayGroups = c("NDVI")) %>%
+  addLegend(
+    title = "NDVI",
+    values = values(raster_ndvi),
+    pal = colores_ndvi,
+    position = "bottomleft",
+    group = "NDVI"
+  )  
 ```
 
 #### Operaciones focales
@@ -830,14 +1015,11 @@ zonal(elevacion, grano, fun = "mean") %>%
 Las operaciones globales pueden considerarse un caso particular de las operaciones zonales, en las cuales un raster completo corresponde a una zona. Las operaciones globales más comunes incluyen estadísticas descriptivas para todo un conjunto raster.
 
 ```{r algebra-raster-globales}
-# Lectura de una capa raster de altitud
-altitud <- rast("datos/worldclim/altitud.tif")
-
 # Resumen
-summary(altitud)
+terra::summary(altitud)
 
 # Histograma
-hist(altitud)
+terra::hist(altitud)
 ```
 
 Otras operaciones globales incluyen cálculos de distancia y rasters de "peso" (*weight rasters*) (ej. distancia de cada celda a una celda objetivo, costo en combustible de cada celda a una celda objetivo).

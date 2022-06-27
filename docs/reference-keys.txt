@@ -328,6 +328,7 @@ cantones-de-costa-rica-1
 aeródromos-de-costa-rica
 cabeceras-de-cantones-y-provincias-de-costa-rica
 vipéridos-de-costa-rica
+altitud-de-costa-rica
 introducción-2
 datos-vectoriales-2
 manejo-de-datos-espaciales-con-el-paquete-sf
