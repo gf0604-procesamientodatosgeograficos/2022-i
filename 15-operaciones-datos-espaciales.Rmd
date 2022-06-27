@@ -134,7 +134,7 @@ plot(
 ```
 
 #### Cabeceras de cantones y provincias de Costa Rica
-Se origina en un filtro a un [archivo GeoJSON con las geometrías de puntos de los poblados de Costa Rica](datos/ign/infraestructura/poblados.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](https://geos.snitcr.go.cr/be/IGN_NG/wfs?) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para combinarlo más fácilmente con otros conjuntos de datos.
+Se origina en un filtro a un [archivo GeoJSON con las geometrías de puntos de los poblados de Costa Rica](datos/ign/nombres-geograficos/poblados.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](https://geos.snitcr.go.cr/be/IGN_NG/wfs?) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para combinarlo más fácilmente con otros conjuntos de datos.
 
 ```{r lectura-cabeceras-cantones}
 # Lectura y visualización de datos geoespaciales de cabeceras de cantones y provincias
