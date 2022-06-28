@@ -64,7 +64,7 @@ plot(
 ```
 
 #### Cantones de Costa Rica
-Es un [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN). Se transforma a WGS84 para combinarlo más fácilmente con otros conjuntos de datos.
+Es un [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN).
 
 ```{r lectura-cantones}
 # Lectura y visualización de datos geoespaciales de cantones
@@ -74,8 +74,7 @@ cantones <-
   st_read(
     dsn = "datos/ign/delimitacion-territorial-administrativa/cantones.geojson",
     quiet = TRUE
-  ) %>%
-  st_transform(4326) # transformación a WGS84
+  )
 
 # Transformación
 cantones <-
@@ -89,6 +88,28 @@ plot(
   cantones$geometry,
   extent = st_bbox(c(xmin = -86.0, xmax = -82.3, ymin = 8.0, ymax = 11.3)),
   main = "Cantones de Costa Rica",
+  axes = TRUE,
+  graticule = TRUE
+)
+```
+
+#### Áreas silvestres protegidas de Costa Rica
+Es un [archivo GeoJSON con los polígonos de las áreas silvestres protegidas (ASP) de Costa Rica](datos/sinac/areas-silvestres-protegidas.geojson). Este archivo proviene de un [geoservicio de tipo Web Feature Service (WFS)](http://geos1pne.sirefor.go.cr/wfs) publicado por el Sistema Nacional de Áreas de Conservación (Sinac).
+
+```{r lectura-asp}
+# Lectura y visualización de datos geoespaciales de ASP
+
+# Lectura
+asp <-
+  st_read(
+    dsn = "datos/sinac/areas-silvestres-protegidas.geojson",
+    quiet = TRUE
+  )
+
+# Visualización en un mapa
+plot(
+  asp$geometry,
+  main = "Áreas silvestres protegidas de Costa Rica",
   axes = TRUE,
   graticule = TRUE
 )
@@ -182,7 +203,7 @@ Las operaciones con geometrías en datos vectoriales incluyen:
 Estas operaciones modifican las geometrías de objetos vectoriales.
 
 ### Simplificación
-La simplificación puede realizarse en geometrías de líneas y polígonos. Reduce la cantidad de memoria, disco y ancho de banda que utilizan las geometrías. Para simplificar geometrías, el paquete `sf` incluye el método `st_simplify()`, basado en el algoritmo de Douglas-Peucker, el cual recibe el argumento `dTolerance` para controlar el nivel de generalización de las unidades del mapa. Este argumento se expresa en las unidades de medida del CRS de la capa, por lo que es conveniente utilizar un CRS con unidades de medida de distancias (ej. metros).
+La simplificación puede realizarse en geometrías de líneas y polígonos. Reduce la cantidad de memoria, disco y ancho de banda que utilizan las geometrías. Para simplificar geometrías, el paquete `sf` incluye el método `st_simplify()`, basado en el [algoritmo de Douglas-Peucker](https://es.wikipedia.org/wiki/Algoritmo_de_Ramer%E2%80%93Douglas%E2%80%93Peucker), el cual recibe el argumento `dTolerance` para controlar el nivel de generalización de las unidades del mapa. Este argumento se expresa en las unidades de medida del CRS de la capa, por lo que es conveniente utilizar un CRS con unidades de medida de distancias (ej. metros).
 
 El siguiente bloque de código simplifica la capa de provincias, primero sin preservar su [topología](https://es.wikipedia.org/wiki/Topolog%C3%ADa_geoespacial) y luego preservándola.
 
@@ -493,6 +514,134 @@ leaflet() %>%
   addScaleBar(position = "bottomright", options = scaleBarOptions(imperial = FALSE))
 ```
 
+### Recortes (*clipping*)
+El recorte de una geometría con base en la forma de otra puede realizarse con el método `st_intersection()`, el cual retorna la intersección entre dos geometrías.
+
+En el siguiente bloque de código en R, se recorta la parte del Parque Nacional Braulio Carrillo ubicada en la provincia de San José.
+
+```{r st_intersection-braulio-sanjose, collapse=TRUE}
+# Recorte de la sección del PN Braulio Carrillo ubicada en San José
+
+# Polígono del PN Braulio Carrillo
+braulio_carrillo <-
+  asp %>%
+  filter(nombre_asp == "Braulio Carrillo")
+
+# Polígono de la provincia de San José
+san_jose <-
+  provincias %>%
+  filter(provincia == "San José")
+
+# Recorte
+braulio_carrillo_san_jose <-
+  st_intersection(braulio_carrillo, san_jose)
+
+# Mapa
+plot(
+  braulio_carrillo$geometry,
+  main = "Sección del PN Braulio Carrillo ubicada en San José",
+  axes = TRUE,
+  graticule = TRUE
+)
+
+plot(san_jose$geometry,
+     add = TRUE)
+
+plot(
+  braulio_carrillo_san_jose$geometry,
+  col = "orange",
+  add = TRUE
+)
+```
+
+Mapa `leaflet`. Por ser muy "pesadas", las geometrías se simplifican con `st_simplify()`. Luego se reproyectan con `st_transform()` para convertirlas al CRS WGS84.
+
+```{r leaflet-st_intersection-braulio-sanjose}
+# Mapa leaflet del recorte de la sección del PN Braulio Carrillo ubicada en San José
+
+leaflet() %>%
+  addTiles(group = "OpenStreetMap") %>%
+  addPolygons(
+    data = st_transform(st_simplify(braulio_carrillo, dTolerance = 100), 4326),
+    color = "red",
+    weight = 1.0,
+    group = "PN Braulio Carrillo"
+  ) %>%
+  addPolygons(
+    data = st_transform(st_simplify(san_jose, dTolerance = 100), 4326),
+    color = "blue",
+    weight = 1.0,
+    group = "San José"
+  ) %>%
+  addPolygons(
+    data = st_transform(st_simplify(braulio_carrillo_san_jose, dTolerance = 100), 4326),
+    color = "magenta",
+    weight = 1.0,
+    group = "Intersección"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("PN Braulio Carrillo", "San José", "Intersección")
+  )
+```
+
+### Uniones de geometrías
+En lecciones anteriores, se ha mostrado como agregar geometrías mediante los métodos `aggregate()` y `summarise()`. Internamente, ambos métodos utilizan la función `st_union()` para combinar las geometrías y disolver sus límites.
+
+En el siguiente bloque de código, se unen los cantones de Cartago en una geometría.
+
+```{r st_union, collapse=TRUE}
+# Unión de los cantones de Cartago
+
+# Cantones de la provincia de Cartago
+cantones_cartago <-
+  cantones %>%
+  filter(provincia == "Cartago")
+
+plot(
+  cantones_cartago$geometry,
+  main = "Cantones de Cartago",
+  axes = TRUE,
+  graticule = TRUE)  
+
+# Cantones de la provincia de Cartago unificados
+cantones_cartago_unificados <- 
+  st_union(cantones_cartago)
+
+plot(
+  cantones_cartago_unificados,
+  main = "Cantones de Cartago unificados",
+  axes = TRUE,
+  graticule = TRUE)  
+```
+
+Mapa `leaflet`. Las geometrías se reproyectan con `st_transform()` para convertirlas al CRS WGS84.
+
+```{r leaflet-st_union-cantones-cartago}
+# Mapa leaflet de la unión de los cantones de Cartago
+
+leaflet() %>%
+  addTiles(group = "OpenStreetMap") %>%
+  addPolygons(
+    data = st_transform(cantones_cartago_unificados, 4326),
+    color = "blue",
+    fillColor = "blue",
+    opacity = 1.0,
+    weight = 1.0,
+    group = "Unión de los cantones de Cartago"
+  ) %>%
+  addPolygons(
+    data = st_transform(cantones_cartago, 4326),
+    color = "blue",
+    fillColor = "trasparent",
+    weight = 1.0,
+    group = "Cantones de Cartago"
+  ) %>%  
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("Unión de los cantones de Cartago", "Cantones de Cartago")
+  )
+```
 
 ## Datos raster
 Las operaciones con geometrías en datos raster incluyen:
@@ -501,3 +650,140 @@ Las operaciones con geometrías en datos raster incluyen:
 - Agregación y desagregación.
 
 ## Operaciones con geometrías con el paquete terra
+
+### Intersecciones geométricas
+Los objetos ```SpatRaster``` pueden intersecarse con las funciones [intersect()](https://rdrr.io/pkg/terra/man/intersect.html) y [crop()](https://rdrr.io/pkg/terra/man/crop.html).
+
+```{r raster-intersection}
+# Objeto a recortar
+elevacion <- rast(system.file("raster/elev.tif", package = "spData"))
+
+# Objeto según el cual se hace el recorte
+clip <- rast(
+  xmin = 0.9,
+  xmax = 1.8,
+  ymin = -0.45,
+  ymax = 0.45,
+  resolution = 0.3,
+  vals = rep(1, 9)
+)
+
+# Objeto recortado
+elevacion_recortado <- crop(elevacion, clip)
+
+# Metadatos del objeto recortado
+elevacion_recortado
+
+# Mapeo
+plot(elevacion)
+plot(elevacion_recortado)
+```
+
+### Agregación y desagregación
+La resolución de un raster puede disminuirse con la función `aggregate()` o aumentarse con la función `disaggregate()`.
+
+En el siguiente bloque de código, se utiliza la función `aggregate()` para disminuir la resolución del raster de altitud de Costa Rica por un factor de 8, como se especifica con el argumento `factor = 8`. El argumento `fun = mean` indica que en el raster agrupado, cada celda será el promedio de las cuatro celdas correspondientes en el raster original.
+
+```{r aggregate}
+# Agregación de la capa de altitud de Costa Rica
+
+# Capa de altitud
+plot(
+  altitud,
+  main = "Capa de altitud de Costa Rica",
+  axes = TRUE)
+
+# Agregación
+altitud_agregada <- 
+  altitud %>%
+  aggregate(fact = 8, fun = mean)
+
+# Capa agregada
+plot(
+  altitud_agregada,
+  main = "Capa agregada de altitud de Costa Rica",
+  axes = TRUE)
+
+# Metadatos de la capa original de altitud
+altitud
+
+# Metadatos de la capa agrupada de altitud
+altitud_agregada
+```
+
+La capa de altitud y su capa agregada se muestran en un mapa `leaflet`.
+
+```{r leaflet-aggregate, message=FALSE, warning=FALSE}
+# Mapa leaflet de agregación de la capa de altitud
+
+# Paleta de colores de altitud de Costa Rica
+colores_altitud <-
+  colorNumeric(terrain.colors(25),
+               values(altitud),
+               na.color = "transparent")
+
+# Mapa leaflet
+leaflet() %>%
+  setView(# centro y nivel inicial de acercamiento
+    lng = -84.19452,
+    lat = 9.572735,
+    zoom = 7) %>%
+  addTiles(group = "OpenStreetMap") %>%
+  addRasterImage(
+    raster::raster(altitud),
+    colors = colores_altitud,
+    opacity = 0.8,
+    group = "Altitud"
+  ) %>%
+  addRasterImage(
+    raster::raster(altitud_agregada),
+    colors = colores_altitud,
+    opacity = 0.4,
+    group = "Altitud agregada"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c(
+      "Altitud",
+      "Altitud agregada"
+    )
+  ) %>%
+  addLegend(
+    title = "Altitud",
+    values = values(altitud),
+    pal = colores_altitud,
+    position = "bottomleft",
+    group = "Altitud"
+  ) %>%
+  addLegend(
+    title = "Altitud agregada",
+    values = values(altitud_agregada),
+    pal = colores_altitud,
+    position = "bottomleft",
+    group = "Altitud agregada"
+  )
+```
+
+La función `disagg()` genera varias celdas por cada celda del raster original. Debe especificarse un método con el argumento `method`. Su valor puede ser `""`, para copiar los valores de la celda de entrada o `bilinear`, un método de interpolación.
+
+En el siguiente bloque de código, se desagrega el raster de elevación por un factor de dos.
+
+```{r disaggregate}
+# Desagregación de la capa raster de elevación
+
+# Desagregación de la capa de elevación
+elevacion_desagregada <- 
+  elevacion %>%
+  disagg(fact = 2, method = "bilinear")
+
+plot(elevacion_desagregada,
+  main = "Capa desagregada de elevación",
+  axes = TRUE
+)
+
+# Metadatos de la capa original de elevación
+elevacion
+
+# Metadatos de la capa desagregada de elevación
+elevacion_desagregada
+```

@@ -359,6 +359,7 @@ carga-de-paquetes-3
 conjuntos-de-datos-para-ejemplos-3
 provincias-de-costa-rica-2
 cantones-de-costa-rica-2
+áreas-silvestres-protegidas-de-costa-rica
 red-vial-de-costa-rica
 mamíferos-de-costa-rica
 altitud-de-costa-rica-1
@@ -370,5 +371,9 @@ centroides
 áreas-de-amortiguamiento-buffers
 ejemplos-4
 especies-de-mamíferos-en-riesgo-de-atropello-en-las-cercanías-de-la-ruta-32
+recortes-clipping
+uniones-de-geometrías
 datos-raster-3
 operaciones-con-geometrías-con-el-paquete-terra
+intersecciones-geométricas
+agregación-y-desagregación
