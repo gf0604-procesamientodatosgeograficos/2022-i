@@ -365,6 +365,8 @@ pre code {
 </div>
 
 
+<div id="geometrías-sin-simplificar" class="section level2">
+<h2>Geometrías sin simplificar</h2>
 <p>Comandos de GDAL/OGR para la descarga de datos:</p>
 <pre class="shell"><code># Provincias
 ogr2ogr \
@@ -383,6 +385,62 @@ ogr2ogr \
   -makevalid \
   distritos.geojson \
   WFS:&quot;http://geos.snitcr.go.cr/be/IGN_5/wfs&quot; &quot;IGN_5:limitedistrital_5k&quot;</code></pre>
+</div>
+<div id="geometrías-simplificadas" class="section level2">
+<h2>Geometrías simplificadas</h2>
+<div id="provincias" class="section level3">
+<h3>Provincias</h3>
+<p>Código en R:</p>
+<pre class="r"><code># Paquetes
+library(dplyr)
+library(sf)
+library(leaflet)
+
+# Directorio de trabajo (debe usarse una ruta existente)
+setwd(&quot;datos/ign/delimitacion-territorial-administrativa&quot;)
+getwd()
+
+# Se cargan primero las geometrías sin simplificar del IGN
+provincias &lt;-
+  st_read(
+    dsn = &quot;provincias.geojson&quot;,
+    quiet = TRUE
+  )
+  
+# Simplificación con st_simplify() con preservación de topología
+provincias_simplificado &lt;-
+  provincias %&gt;%
+  st_simplify(dTolerance = 10, preserveTopology = TRUE)
+
+# Visualización
+leaflet() %&gt;%
+  addTiles(group = &quot;OpenStreetMap&quot;) %&gt;%
+  addPolygons(
+    data = st_transform(provincias, 4326),
+    color = &quot;red&quot;,
+    weight = 2.0,
+    group = &quot;Provincias sin simplificar&quot;
+  ) %&gt;%
+  addPolygons(
+    data = st_transform(provincias_simplificado, 4326),
+    color = &quot;black&quot;,
+    weight = 2.0,
+    group = &quot;Provincias simplificadas&quot;
+  ) %&gt;%
+  addLayersControl(
+    baseGroups = c(&quot;OpenStreetMap&quot;),
+    overlayGroups = c(&quot;Provincias sin simplificar&quot;, &quot;Provincias simplificadas&quot;)
+  ) %&gt;%
+  addScaleBar(position = &quot;bottomright&quot;, options = scaleBarOptions(imperial = FALSE))
+  
+# Escritura en un archivo GeoJSON
+st_write(
+  provincias_simplificado, 
+  &quot;provincias_simplificado.geojson&quot;,
+  overwrite = TRUE
+)</code></pre>
+</div>
+</div>
 
 
 
