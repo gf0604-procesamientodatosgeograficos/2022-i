@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 18 Desarrollo de tableros de control | GF0604 Procesamiento de datos geográficos 2022-I</title>
+<meta name="author" content="Manuel Vargas">
+<meta name="description" content="18.1 Resumen Los tableros de control son interfaces gráficas que presentan conjuntos de visualizaciones como tablas, gráficos y mapas. El paquete flexdashboard de R está orientado a la creación de...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Chapter 18 Desarrollo de tableros de control | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta property="og:type" content="book">
+<meta property="og:description" content="18.1 Resumen Los tableros de control son interfaces gráficas que presentan conjuntos de visualizaciones como tablas, gráficos y mapas. El paquete flexdashboard de R está orientado a la creación de...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 18 Desarrollo de tableros de control | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta name="twitter:description" content="18.1 Resumen Los tableros de control son interfaces gráficas que presentan conjuntos de visualizaciones como tablas, gráficos y mapas. El paquete flexdashboard de R está orientado a la creación de...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><script src="libs/plotly-locale-es-2.5.1/es.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script><script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script><link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet">
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet">
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script><script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script><script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script><link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet">
+<script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script><script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script><link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet">
+<script src="libs/fuse_js-3.2.0/fuse_js-prod.js"></script><link href="libs/lfx-search-2.3.7/lfx-search-prod.css" rel="stylesheet">
+<script src="libs/lfx-search-2.3.7/lfx-search-prod.js"></script><script src="libs/lfx-search-2.3.7/lfx-search-bindings.js"></script><script src="libs/clipboard-0.0.1/setClipboardText.js"></script><link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet">
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script><script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">GF0604 Procesamiento de datos geográficos 2022-I</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 18</span> Desarrollo de tableros de control</a></li></ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="desarrollo-de-tableros-de-control" class="section level1" number="18">
+<h1>
+<span class="header-section-number">18</span> Desarrollo de tableros de control<a class="anchor" aria-label="anchor" href="#desarrollo-de-tableros-de-control"><i class="fas fa-link"></i></a>
+</h1>
+<div id="resumen-16" class="section level2" number="18.1">
+<h2>
+<span class="header-section-number">18.1</span> Resumen<a class="anchor" aria-label="anchor" href="#resumen-16"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los tableros de control son interfaces gráficas que presentan conjuntos de visualizaciones como tablas, gráficos y mapas. El paquete <code>flexdashboard</code> de R está orientado a la creación de tableros interactivos mediante R Markdown.</p>
+</div>
+<div id="trabajo-previo-12" class="section level2" number="18.2">
+<h2>
+<span class="header-section-number">18.2</span> Trabajo previo<a class="anchor" aria-label="anchor" href="#trabajo-previo-12"><i class="fas fa-link"></i></a>
+</h2>
+<div id="lecturas-10" class="section level3" number="18.2.1">
+<h3>
+<span class="header-section-number">18.2.1</span> Lecturas<a class="anchor" aria-label="anchor" href="#lecturas-10"><i class="fas fa-link"></i></a>
+</h3>
+<p>Moraga, P. (2019). <em>Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny</em> (capítulo 12). Chapman &amp; Hall/CRC. <a href="https://www.paulamoraga.com/book-geospatial/" class="uri">https://www.paulamoraga.com/book-geospatial/</a></p>
+</div>
+</div>
+<div id="preparativos-4" class="section level2" number="18.3">
+<h2>
+<span class="header-section-number">18.3</span> Preparativos<a class="anchor" aria-label="anchor" href="#preparativos-4"><i class="fas fa-link"></i></a>
+</h2>
+<div id="instalación-y-carga-de-paquetes" class="section level3" number="18.3.1">
+<h3>
+<span class="header-section-number">18.3.1</span> Instalación y carga de paquetes<a class="anchor" aria-label="anchor" href="#instalaci%C3%B3n-y-carga-de-paquetes"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Instalación de flexdashboard</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"flexdashboard"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Carga de flexdashboard</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://rmarkdown.rstudio.com/flexdashboard">flexdashboard</a></span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="tableros-de-control" class="section level2" number="18.4">
+<h2>
+<span class="header-section-number">18.4</span> Tableros de control<a class="anchor" aria-label="anchor" href="#tableros-de-control"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los tableros de control, también llamados tableros de mando, cuadros de mando o, en inglés, <em>dashboards</em>, son interfaces gráficas que presentan visualizaciones de datos junto con herramientas para controlarlas (ej. acercamientos, alejamientos, búsquedas, ordenamientos, filtros). Estas visualizaciones pueden incluir tablas, gráficos y mapas, entre otras (ej. <a href="https://coronavirus.jhu.edu/map.html">COVID-19 Map - Johns Hopkins Coronavirus Resource Center</a>).</p>
+</div>
+<div id="el-paquete-flexdashboard" class="section level2" number="18.5">
+<h2>
+<span class="header-section-number">18.5</span> El paquete flexdashboard<a class="anchor" aria-label="anchor" href="#el-paquete-flexdashboard"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://pkgs.rstudio.com/flexdashboard/">flexdashboard</a> es un paquete de R orientado a la creación de tableros interactivos mediante R Markdown. Algunas de sus principales características son:</p>
+<ul>
+<li>Soporta una gran cantidad de componentes tales como tablas, gráficos, mapas, anotaciones de texto, cajas de valores (<em>value boxes</em>) e indicadores (<em>gauges</em>), entre otros. Algunos de estos componentes están disponibles como <a href="https://www.htmlwidgets.org/">htmlwidgets</a> (herramientas de JavaScript disponibles en R).</li>
+<li>Permite configuraciones (<a href="https://pkgs.rstudio.com/flexdashboard/articles/layouts.html"><em>layouts</em></a>) orientados a filas o a columnas. Los componentes que se colocan en estas configuraciones se adaptan a diferentes tamaños de pantalla (ej. dispositivos móviles).</li>
+<li>Soporta el desarrollo de <a href="https://pkgs.rstudio.com/flexdashboard/articles/using.html#storyboards">storyboards</a>, para presentar secuencias de visualizaciones acompañadas de textos explicativos.</li>
+<li>Opcionalmente, puede utilizarse en combinación con <a href="https://shiny.rstudio.com/">Shiny</a> para añadir interactividad a las visualizaciones.</li>
+<li>Opcionalmente, puede emplear <a href="https://rstudio.github.io/bslib/">bslib</a> para personalizar colores, tipos de letra y otros aspectos visuales de los tableros.</li>
+</ul>
+<div id="estructura-de-un-documento-flexdashboard" class="section level3" number="18.5.1">
+<h3>
+<span class="header-section-number">18.5.1</span> Estructura de un documento flexdashboard<a class="anchor" aria-label="anchor" href="#estructura-de-un-documento-flexdashboard"><i class="fas fa-link"></i></a>
+</h3>
+<p>Como otros documentos R Markdown, la estructura de un tablero de control flexdashboard se basa en los encabezados Markdown, de la siguente manera:</p>
+<ul>
+<li>Encabezados de nivel 1: páginas del tablero.</li>
+<li>Encabezados de nivel 2: filas o columnas.</li>
+<li>Encabezados de nivel 3: secciones de una fila o columna en las que se ubican los diferentes componentes (tablas, gráficos, mapas, <em>value boxes</em>, anotaciones, etc.) en secciones de código (<em>chunks</em>) de R.</li>
+</ul>
+</div>
+<div id="creación-de-un-documento-flexdashboard-en-rstudio" class="section level3" number="18.5.2">
+<h3>
+<span class="header-section-number">18.5.2</span> Creación de un documento flexdashboard en RStudio<a class="anchor" aria-label="anchor" href="#creaci%C3%B3n-de-un-documento-flexdashboard-en-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>Puede crearse con la opción de menú: <code>File - New File - R Markdown - From Template - Flex Dashboard</code>. El tablero de control resultante está basado en una plantilla y puede modificarse.</p>
+</div>
+<div id="documentación" class="section level3" number="18.5.3">
+<h3>
+<span class="header-section-number">18.5.3</span> Documentación<a class="anchor" aria-label="anchor" href="#documentaci%C3%B3n"><i class="fas fa-link"></i></a>
+</h3>
+<p>Se recomienda leer:</p>
+<ul>
+<li><a href="https://pkgs.rstudio.com/flexdashboard/articles/flexdashboard.html">Dashboard basics</a></li>
+<li><a href="https://pkgs.rstudio.com/flexdashboard/articles/using.html">Using flexdashboard</a></li>
+<li><a href="https://pkgs.rstudio.com/flexdashboard/articles/layouts.html">Sample layouts</a></li>
+<li><a href="https://pkgs.rstudio.com/flexdashboard/articles/theme.html">Theming flexdashboard</a></li>
+</ul>
+<p>También es recomendable consultar la <a href="https://pkgs.rstudio.com/flexdashboard/reference/">guía de referencia</a>.</p>
+</div>
+<div id="ejemplos-5" class="section level3" number="18.5.4">
+<h3>
+<span class="header-section-number">18.5.4</span> Ejemplos<a class="anchor" aria-label="anchor" href="#ejemplos-5"><i class="fas fa-link"></i></a>
+</h3>
+<p>El sitio web de <code>flexdashboard</code> contiene enlaces a varios <a href="https://pkgs.rstudio.com/flexdashboard/articles/examples.html">ejemplos de tableros de control</a>.</p>
+<p>También puede consultar el siguiente ejemplo de un tablero de control y su código fuente:</p>
+<ul>
+<li><a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i-mamiferos-flexdashboard/">Datos de felinos de Costa Rica</a></li>
+<li><a href="https://github.com/gf0604-procesamientodatosgeograficos/2022-i-mamiferos-flexdashboard">Código fuente</a></li>
+</ul>
+</div>
+</div>
+<div id="ejercicios-16" class="section level2" number="18.6">
+<h2>
+<span class="header-section-number">18.6</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-16"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p>Cree un repositorio en su cuenta en GitHub, con el nombre <code>tablero-cantones</code> y clónelo a su computadora con RStudio.</p></li>
+<li><p>En el directorio del proyecto que acaba de crear, copie el <a href="https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/ign/delimitacion-territorial-administrativa/cantones.geojson">archivo GeoJSON con los polígonos de los cantones de Costa Rica</a> o su <a href="https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/ign/delimitacion-territorial-administrativa/cantones_simplificados.geojson">versión con geometrías simplificadas</a>.</p></li>
+<li><p>Cree un documento R Markdown correspondiente a un tablero de control y nómbrelo <code>index.Rmd</code>.</p></li>
+<li><p>En las secciones del tablero coloque:</p></li>
+</ol>
+<ul>
+<li>Una tabla creada con el paquete <code>DT</code> que muestre, al menos, las columnas <code>provincia</code>, <code>canton</code> y <code>area</code>.</li>
+<li>Un mapa creado con el paquete <code>leaflet</code> que despliegue una capa base y los polígonos de los cantones.</li>
+<li>Un gráfico de barras creado con los paquetes <code>ggplot2</code> y <code>plotly</code> que muestre el área de cada cantón (o de un subconjunto de cantones que quepa en la pantalla).</li>
+</ul>
+<p>Debe crear las secciones de código necesarias para cargar los paquetes, leer los datos y realizar cualquier transformación requerida.</p>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Publique el proyecto como un sitio en GitHub Pages.</p></li>
+<li><p>Ensaye diferentes configuraciones del tablero de control (si es conveniente, agregue más tablas, gráficos y mapas de ejemplo):</p></li>
+</ol>
+<ul>
+<li>Cambie la configuración de columnas a filas o viceversa.</li>
+<li>Use varias páginas para distribuir los componentes.</li>
+<li>Coloque varios componentes en la misma fila o columna.</li>
+<li>Utilice <a href="https://pkgs.rstudio.com/flexdashboard/articles/layouts.html#tabset-column"><em>tabsets</em></a> en filas y columnas.</li>
+<li>Pruebe otras opciones usadas en los <a href="https://pkgs.rstudio.com/flexdashboard/articles/examples.html">ejemplos</a> o explicadas en las páginas de documentación mencionadas arriba.</li>
+</ul>
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-06-27.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
