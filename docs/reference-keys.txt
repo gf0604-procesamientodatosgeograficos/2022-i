@@ -377,7 +377,6 @@ datos-raster-3
 operaciones-con-geometrías-con-el-paquete-terra
 intersecciones-geométricas
 agregación-y-desagregación
-url-your-book-url-like-httpsbookdown.orgyihuibookdown
 desarrollo-de-tableros-de-control
 resumen-16
 trabajo-previo-12
@@ -388,6 +387,6 @@ tableros-de-control
 el-paquete-flexdashboard
 estructura-de-un-documento-flexdashboard
 creación-de-un-documento-flexdashboard-en-rstudio
+documentación
 ejemplos-5
 ejercicios-16
-documentación
