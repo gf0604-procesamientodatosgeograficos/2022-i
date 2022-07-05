@@ -63,7 +63,7 @@ El sitio web de `flexdashboard` contiene enlaces a varios [ejemplos de tableros 
 
 También puede consultar el siguiente ejemplo de un tablero de control y su código fuente:
 
-- [Datos de felinos de Costa Rica](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-mamiferos-flexdashboard/)
+- [Datos de mamíferos de Costa Rica](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-mamiferos-flexdashboard/)
 - [Código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-mamiferos-flexdashboard)
 
 ## Ejercicios

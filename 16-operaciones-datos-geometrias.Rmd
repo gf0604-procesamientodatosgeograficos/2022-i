@@ -680,7 +680,7 @@ plot(elevacion_recortado)
 ```
 
 ### Agregación y desagregación
-La resolución de un raster puede disminuirse con la función `aggregate()` o aumentarse con la función `disaggregate()`.
+La resolución de un raster puede disminuirse con la función `aggregate()`, para agregación, o aumentarse con la función `disagg()`, para desagregación.
 
 En el siguiente bloque de código, se utiliza la función `aggregate()` para disminuir la resolución del raster de altitud de Costa Rica por un factor de 8, como se especifica con el argumento `factor = 8`. El argumento `fun = mean` indica que en el raster agrupado, cada celda será el promedio de las cuatro celdas correspondientes en el raster original.
 
