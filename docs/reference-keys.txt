@@ -390,4 +390,3 @@ creación-de-un-documento-flexdashboard-en-rstudio
 documentación
 ejemplos-5
 ejercicios-16
-url-your-book-url-like-httpsbookdown.orgyihuibookdown

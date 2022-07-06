@@ -68,26 +68,23 @@ También puede consultar los siguientes ejemplos desarrollados con algunos de lo
 - [Datos de cantones de Costa Rica (flexdasboard + Shiny)](https://mfvargas.shinyapps.io/2022-i-cantones-flexdashboard-shiny/) ([código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard-shiny))
 
 ## Ejercicios
-1. Cree un repositorio en su cuenta en GitHub, con el nombre `tablero-cantones` y clónelo a su computadora con RStudio.
-
-2. En el directorio del proyecto que acaba de crear, copie el [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson) o su [versión con geometrías simplificadas](datos/ign/delimitacion-territorial-administrativa/cantones_simplificados.geojson).
-
-3. Cree un documento R Markdown correspondiente a un tablero de control y nómbrelo `index.Rmd`.
-
-4. En las secciones del tablero coloque:
-
-- Una tabla creada con el paquete `DT` que muestre, al menos, las columnas `provincia`, `canton` y `area`.
-- Un mapa creado con el paquete `leaflet` que despliegue una capa base y los polígonos de los cantones.
-- Un gráfico de barras creado con los paquetes `ggplot2` y `plotly` que muestre el área de cada cantón (o de un subconjunto de cantones que quepa en la pantalla).
-
-Debe crear las secciones de código necesarias para cargar los paquetes, leer los datos y realizar cualquier transformación requerida.
-
-5. Publique el proyecto como un sitio en GitHub Pages.
-
-6. Ensaye diferentes configuraciones del tablero de control (si es conveniente, agregue más tablas, gráficos y mapas de ejemplo):
-
-- Cambie la configuración de columnas a filas o viceversa.
-- Use varias páginas para distribuir los componentes.
-- Coloque varios componentes en la misma fila o columna.
-- Utilice [*tabsets*](https://pkgs.rstudio.com/flexdashboard/articles/layouts.html#tabset-column) en filas y columnas.
-- Pruebe otras opciones usadas en los [ejemplos](https://pkgs.rstudio.com/flexdashboard/articles/examples.html) o explicadas en las páginas de documentación mencionadas arriba.
+1. Desarrolle un tablero de control con datos de cantones de Costa Rica.
+    - Cree un repositorio en su cuenta en GitHub, con el nombre `tablero-cantones` y clónelo a su computadora con RStudio.
+    - En el directorio del proyecto que acaba de crear, copie el [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson) o su [versión con geometrías simplificadas](datos/ign/delimitacion-territorial-administrativa/cantones_simplificados.geojson).
+    - Cree un documento R Markdown correspondiente a un tablero de control y nómbrelo `index.Rmd`.
+    - En las secciones del tablero coloque:
+        - Una tabla creada con el paquete `DT` que muestre, al menos, las columnas `provincia`, `canton` y `area`.
+        - Un mapa creado con el paquete `leaflet` que despliegue una capa base y los polígonos de los cantones.
+        - Un gráfico de barras creado con los paquetes `ggplot2` y `plotly` que muestre el área de cada cantón (o de un subconjunto de cantones que quepa en la pantalla).
+    - Debe crear las secciones de código necesarias para cargar los paquetes, leer los datos y realizar cualquier transformación requerida.
+    - Publique el proyecto como un sitio en GitHub Pages.
+    - Ensaye diferentes configuraciones del tablero de control (si es conveniente, agregue más tablas, gráficos y mapas de ejemplo):
+        - Cambie la configuración de columnas a filas o viceversa.
+        - Use varias páginas para distribuir los componentes.
+        - Coloque varios componentes en la misma fila o columna.
+        - Utilice [*tabsets*](https://pkgs.rstudio.com/flexdashboard/articles/layouts.html#tabset-column) en filas y columnas.
+        - Pruebe otras opciones usadas en los [ejemplos](https://pkgs.rstudio.com/flexdashboard/articles/examples.html) o explicadas en las páginas de documentación mencionadas arriba.
+        
+2. Desarrolle un tablero de control con datos de distritos de Costa Rica ([geometrías de distritos simplificadas](datos/ign/delimitacion-territorial-administrativa/distritos_simplificados.geojson)).
+    - Siga los pasos del ejercicio anterior.
+    - Utilice el paquete `Shiny` para añadir un filtro por cantón y otro por provincia.
