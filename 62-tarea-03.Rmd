@@ -19,11 +19,11 @@ Cada estudiante o pareja de estudiantes debe mostrar que es capaz de:
 4. Desarrollar tableros de control (*dashboards*), con el paquete `flexdashboard` de R, que contengan tablas, gráficos y mapas interactivos.
 
 ## Consideraciones adicionales {-}
-- Esta tarea puede realizarse **individualmente o en parejas**.
+- Esta tarea puede realizarse **individualmente o en parejas**. En este último caso, solo uno de los estudiantes debe realizar la entrega en Mediación Virtual y debe especificarse ahí el nombre del otro estudiante.
 - La entrega en Mediación Virtual finaliza a la hora especificada para cada grupo.
 
 ## Desarrollo {-}
-Cada grupo debe desarrollar un tablero de control con el paquete `flexdashboard` de R que contenga tablas, gráficos y mapas para los siguientes conjuntos de datos:
+Cada estudiante o pareja de estudiantes debe desarrollar un tablero de control con el paquete `flexdashboard` de R que contenga tablas, gráficos y mapas para los siguientes conjuntos de datos:
 
 - [estadisticaspoliciales2021.xls](datos/oij/estadisticas-policiales/estadisticaspoliciales2021.xls), procedente de la [página web de datos abiertos del Organismo de Investigación Juficial (OIJ)](https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos). 
 - [cantones_simplificados.geojson](datos/ign/delimitacion-territorial-administrativa/cantones_simplificados.geojson), procedente de un [geoservicio de tipo Web Feature Service (WFS)](http://geos.snitcr.go.cr/be/IGN_5/wfs) publicado por el Instituto Geográfico Nacional (IGN).
