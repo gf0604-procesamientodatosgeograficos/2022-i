@@ -59,15 +59,16 @@ También es recomendable consultar la [guía de referencia](https://pkgs.rstudio
 ### Ejemplos
 El sitio web de `flexdashboard` contiene enlaces a varios [ejemplos de tableros de control](https://pkgs.rstudio.com/flexdashboard/articles/examples.html).
 
-También puede consultar el siguiente ejemplo de un tablero de control y su código fuente:
+También puede consultar los siguientes ejemplos desarrollados con algunos de los conjuntos de datos utilizados en clase y su código fuente:
 
-- [Datos de mamíferos de Costa Rica](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-mamiferos-flexdashboard/)
-- [Código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-mamiferos-flexdashboard)
+- [Datos de mamíferos de Costa Rica](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-mamiferos-flexdashboard/) ([código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-mamiferos-flexdashboard))
+- [Datos de cantones de Costa Rica](https://gf0604-procesamientodatosgeograficos.github.io/2022-i-cantones-flexdashboard/) ([código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard))
+- [Datos de cantones de Costa Rica (flexdasboard + Shiny)](https://mfvargas.shinyapps.io/2022-i-cantones-flexdashboard-shiny/) ([código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard-shiny))
 
 ## Ejercicios
 1. Cree un repositorio en su cuenta en GitHub, con el nombre `tablero-cantones` y clónelo a su computadora con RStudio.
 
-2. En el directorio del proyecto que acaba de crear, copie el [archivo GeoJSON con los polígonos de los cantones de Costa Rica](https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/ign/delimitacion-territorial-administrativa/cantones.geojson) o su [versión con geometrías simplificadas](https://raw.githubusercontent.com/gf0604-procesamientodatosgeograficos/2022-i/main/datos/ign/delimitacion-territorial-administrativa/cantones_simplificados.geojson).
+2. En el directorio del proyecto que acaba de crear, copie el [archivo GeoJSON con los polígonos de los cantones de Costa Rica](datos/ign/delimitacion-territorial-administrativa/cantones.geojson) o su [versión con geometrías simplificadas](datos/ign/delimitacion-territorial-administrativa/cantones_simplificados.geojson).
 
 3. Cree un documento R Markdown correspondiente a un tablero de control y nómbrelo `index.Rmd`.
 
