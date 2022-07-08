@@ -390,3 +390,14 @@ creación-de-un-documento-flexdashboard-en-rstudio
 documentación
 ejemplos-5
 ejercicios-16
+desarrollo-de-aplicaciones-web-interactivas
+resumen-17
+trabajo-previo-13
+lecturas-11
+preparativos-5
+instalación-y-carga-de-paquetes-1
+desarrollo-de-aplicaciones-web-interactivas-mediante-shiny
+shiny-y-flexdashboard
+documentación-1
+ejemplos-6
+ejercicios-17
