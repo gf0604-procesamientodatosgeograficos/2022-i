@@ -1,7 +1,7 @@
 # Desarrollo de aplicaciones web interactivas
 
 ## Resumen
-En una aplicación web interactiva, el usuario puede modificar el comportamiento de la aplicación, usualmente mediante una interfaz que le permite realizar operaciones como filtros, búsquedas y ordenamientos, entre otros. `Shiny` es un paquete de R que facilita el desarrollo de aplicaciones web interactivas. Un tablero de control desarrollado en `flexdashboard` puede ser adaptado para que funcione como una aplicación `Shiny`.
+En una aplicación web interactiva, el usuario puede modificar el comportamiento de la aplicación, usualmente mediante una interfaz que le permite realizar operaciones como filtros, búsquedas y ordenamientos, entre otros. `Shiny` es un paquete de R que facilita el desarrollo de este tipo de aplicaciones. Un tablero de control desarrollado en `flexdashboard` puede ser adaptado para que funcione como una aplicación `Shiny`.
 
 ## Trabajo previo
 
@@ -34,9 +34,7 @@ Las aplicaciones Shiny deben ejecutarse en un [servidor](https://www.rstudio.com
 Hay varias formas de desarrollar aplicaciones con `Shiny`. En este capítulo se estudiará como hacerlo en un tablero de control desarrollado con `flexdashboard`.
 
 ## Shiny y flexdashboard
-La adición de componentes de `Shiny` a un tablero de control desarrollado con `flexdashboard`, permite convertir un tablero de control "estático" en un [documento interactivo](https://rmarkdown.rstudio.com/authoring_shiny.html). 
-
-Deben ejecutarse los siguientes pasos en el documento R Markdown con el tablero `flexdashboard`:
+La adición de componentes de `Shiny` a un tablero de control desarrollado con `flexdashboard`, permite convertir un tablero de control "estático" en un [documento interactivo](https://rmarkdown.rstudio.com/authoring_shiny.html). Para esto, deben ejecutarse los siguientes pasos en el documento R Markdown con el tablero `flexdashboard`:
 
 1. Añadir `runtime: shiny` a la sección de *front matter* del documento (la que está al inicio, con sintaxis YAML).
 2. Agregar el atributo `{.sidebar}` a la primera columna del tablero, para que funcione como un contenedor de los controles de entrada.
@@ -60,6 +58,8 @@ También puede consultar los siguientes ejemplos desarrollados con algunos de lo
 - [Datos de cantones de Costa Rica (flexdashboard + Shiny)](https://mfvargas.shinyapps.io/2022-i-cantones-flexdashboard-shiny/) ([código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard-shiny))
 
 ## Ejercicios
-1. Agregue al tablero de datos de distritos que desarrolló en el capítulo anterior los siguientes *widgets* de `Shiny`:
-- Una lista de selección de provincia.
-- Una lista de selección de cantón.
+1. En el tablero de datos de distritos que desarrolló en el capítulo anterior:
+    - Agregue los siguientes *widgets* de `Shiny`:
+        - Una lista de selección de provincia.
+        - Una lista de selección de cantón.
+    - Publíquelo en [shinyapps.io](https://www.shinyapps.io/). Puede consultar el video [How to Deploy R Shiny App for Free on Shinyapps.io](https://www.youtube.com/watch?v=2QstfyGX4ZU).

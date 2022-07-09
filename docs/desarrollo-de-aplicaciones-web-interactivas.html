@@ -132,7 +132,7 @@
 <h2>
 <span class="header-section-number">18.1</span> Resumen<a class="anchor" aria-label="anchor" href="#resumen-17"><i class="fas fa-link"></i></a>
 </h2>
-<p>En una aplicación web interactiva, el usuario puede modificar el comportamiento de la aplicación, usualmente mediante una interfaz que le permite realizar operaciones como filtros, búsquedas y ordenamientos, entre otros. <code>Shiny</code> es un paquete de R que facilita el desarrollo de aplicaciones web interactivas. Un tablero de control desarrollado en <code>flexdashboard</code> puede ser adaptado para que funcione como una aplicación <code>Shiny</code>.</p>
+<p>En una aplicación web interactiva, el usuario puede modificar el comportamiento de la aplicación, usualmente mediante una interfaz que le permite realizar operaciones como filtros, búsquedas y ordenamientos, entre otros. <code>Shiny</code> es un paquete de R que facilita el desarrollo de este tipo de aplicaciones. Un tablero de control desarrollado en <code>flexdashboard</code> puede ser adaptado para que funcione como una aplicación <code>Shiny</code>.</p>
 </div>
 <div id="trabajo-previo-13" class="section level2" number="18.2">
 <h2>
@@ -175,8 +175,7 @@
 <h2>
 <span class="header-section-number">18.5</span> Shiny y flexdashboard<a class="anchor" aria-label="anchor" href="#shiny-y-flexdashboard"><i class="fas fa-link"></i></a>
 </h2>
-<p>La adición de componentes de <code>Shiny</code> a un tablero de control desarrollado con <code>flexdashboard</code>, permite convertir un tablero de control “estático” en un <a href="https://rmarkdown.rstudio.com/authoring_shiny.html">documento interactivo</a>.</p>
-<p>Deben ejecutarse los siguientes pasos en el documento R Markdown con el tablero <code>flexdashboard</code>:</p>
+<p>La adición de componentes de <code>Shiny</code> a un tablero de control desarrollado con <code>flexdashboard</code>, permite convertir un tablero de control “estático” en un <a href="https://rmarkdown.rstudio.com/authoring_shiny.html">documento interactivo</a>. Para esto, deben ejecutarse los siguientes pasos en el documento R Markdown con el tablero <code>flexdashboard</code>:</p>
 <ol style="list-style-type: decimal">
 <li>Añadir <code>runtime: shiny</code> a la sección de <em>front matter</em> del documento (la que está al inicio, con sintaxis YAML).</li>
 <li>Agregar el atributo <code>{.sidebar}</code> a la primera columna del tablero, para que funcione como un contenedor de los controles de entrada.</li>
@@ -212,12 +211,18 @@
 <span class="header-section-number">18.8</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-17"><i class="fas fa-link"></i></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li>Agregue al tablero de datos de distritos que desarrolló en el capítulo anterior los siguientes <em>widgets</em> de <code>Shiny</code>:</li>
-</ol>
+<li>En el tablero de datos de distritos que desarrolló en el capítulo anterior:
+<ul>
+<li>Agregue los siguientes <em>widgets</em> de <code>Shiny</code>:
 <ul>
 <li>Una lista de selección de provincia.</li>
 <li>Una lista de selección de cantón.</li>
 </ul>
+</li>
+<li>Publíquelo en <a href="https://www.shinyapps.io/">shinyapps.io</a>. Puede consultar el video <a href="https://www.youtube.com/watch?v=2QstfyGX4ZU">How to Deploy R Shiny App for Free on Shinyapps.io</a>.</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 
