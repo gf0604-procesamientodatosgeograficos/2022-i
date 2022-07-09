@@ -33,7 +33,7 @@ Las aplicaciones Shiny deben ejecutarse en un [servidor](https://www.rstudio.com
 
 Hay varias formas de desarrollar aplicaciones con `Shiny`. En este capítulo se estudiará como hacerlo en un tablero de control desarrollado con `flexdashboard`.
 
-### Shiny y flexdashboard
+## Shiny y flexdashboard
 La adición de componentes de `Shiny` a un tablero de control desarrollado con `flexdashboard`, permite convertir un tablero de control "estático" en un [documento interactivo](https://rmarkdown.rstudio.com/authoring_shiny.html). 
 
 Deben ejecutarse los siguientes pasos en el documento R Markdown con el tablero `flexdashboard`:
@@ -44,21 +44,22 @@ Deben ejecutarse los siguientes pasos en el documento R Markdown con el tablero 
 4. Colocar las salidas en funciones tipo `render` (ej. `renderDT()`, `renderPlotly()`, `renderLeaflet()`), para que así respondan dinámicamente a los cambios en las entradas del usuario y que se redimensionen cuando cambia el tamaño de su contenedor.
 5. Definir [expresiones reactivas](https://shiny.rstudio.com/tutorial/written-tutorial/lesson6/) para detectar las acciones del usuario final y reflejarlas en las salidas del tablero.
 
-### Documentación
+## Documentación
 Se recomienda leer:
 
 - [Shiny - Tutorial](https://shiny.rstudio.com/tutorial/)
 - [Using shiny with flexdashboard](https://rstudio.github.io/flexdashboard/articles/shiny.html)
 
-También es recomendable consultar la [guía de referencia](https://shiny.rstudio.com/reference/shiny/).
+También es recomendable consultar la [guía de referencia de Shiny](https://shiny.rstudio.com/reference/shiny/).
 
-### Ejemplos
+## Ejemplos
 El sitio web de `Shiny` contiene enlaces a varios [ejemplos de aplicaciones interactivas](https://shiny.rstudio.com/gallery/).
 
 También puede consultar los siguientes ejemplos desarrollados con algunos de los conjuntos de datos utilizados en clase y su código fuente:
 
-- [Datos de cantones de Costa Rica (flexdashboard + Shiny)](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard-shiny)
-- [Datos de distritos de Costa Rica (flexdashboard + Shiny)](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-distritos-flexdashboard-shiny)
+- [Datos de cantones de Costa Rica (flexdashboard + Shiny)](https://mfvargas.shinyapps.io/2022-i-cantones-flexdashboard-shiny/) ([código fuente](https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard-shiny))
 
-### Ejercicios
-
+## Ejercicios
+1. Agregue al tablero de datos de distritos que desarrolló en el capítulo anterior los siguientes *widgets* de `Shiny`:
+- Una lista de selección de provincia.
+- Una lista de selección de cantón.

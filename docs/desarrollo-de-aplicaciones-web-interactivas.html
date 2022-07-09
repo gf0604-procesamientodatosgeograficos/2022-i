@@ -170,10 +170,11 @@
 <p>En una aplicación web interactiva, el usuario puede modificar el comportamiento de la aplicación, usualmente mediante una interfaz que le permite realizar operaciones como filtros, búsquedas y ordenamientos, entre otros, para el caso de una aplicación orientada a la visualización de datos. <a href="https://shiny.rstudio.com/">Shiny</a> es un paquete de R que facilita el desarrollo de este tipo de aplicaciones.</p>
 <p>Las aplicaciones Shiny deben ejecutarse en un <a href="https://www.rstudio.com/products/shiny/shiny-server/">servidor</a>, el cual puede estar ubicado en cualquier computador habilitado para ejecutar código en R como, por ejemplo, la estación de trabajo del programador (esta opción se usa principalmente para efectos de desarrollo y pruebas), un servidor ubicado en la red de una organización o un servidor en la nube (ej. <a href="https://www.shinyapps.io/">shinyapps.io</a>, <a href="https://www.rstudio.com/products/connect/">RStudio Connect</a>).</p>
 <p>Hay varias formas de desarrollar aplicaciones con <code>Shiny</code>. En este capítulo se estudiará como hacerlo en un tablero de control desarrollado con <code>flexdashboard</code>.</p>
-<div id="shiny-y-flexdashboard" class="section level3" number="18.4.1">
-<h3>
-<span class="header-section-number">18.4.1</span> Shiny y flexdashboard<a class="anchor" aria-label="anchor" href="#shiny-y-flexdashboard"><i class="fas fa-link"></i></a>
-</h3>
+</div>
+<div id="shiny-y-flexdashboard" class="section level2" number="18.5">
+<h2>
+<span class="header-section-number">18.5</span> Shiny y flexdashboard<a class="anchor" aria-label="anchor" href="#shiny-y-flexdashboard"><i class="fas fa-link"></i></a>
+</h2>
 <p>La adición de componentes de <code>Shiny</code> a un tablero de control desarrollado con <code>flexdashboard</code>, permite convertir un tablero de control “estático” en un <a href="https://rmarkdown.rstudio.com/authoring_shiny.html">documento interactivo</a>.</p>
 <p>Deben ejecutarse los siguientes pasos en el documento R Markdown con el tablero <code>flexdashboard</code>:</p>
 <ol style="list-style-type: decimal">
@@ -184,34 +185,39 @@
 <li>Definir <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson6/">expresiones reactivas</a> para detectar las acciones del usuario final y reflejarlas en las salidas del tablero.</li>
 </ol>
 </div>
-<div id="documentación-1" class="section level3" number="18.4.2">
-<h3>
-<span class="header-section-number">18.4.2</span> Documentación<a class="anchor" aria-label="anchor" href="#documentaci%C3%B3n-1"><i class="fas fa-link"></i></a>
-</h3>
+<div id="documentación-1" class="section level2" number="18.6">
+<h2>
+<span class="header-section-number">18.6</span> Documentación<a class="anchor" aria-label="anchor" href="#documentaci%C3%B3n-1"><i class="fas fa-link"></i></a>
+</h2>
 <p>Se recomienda leer:</p>
 <ul>
 <li><a href="https://shiny.rstudio.com/tutorial/">Shiny - Tutorial</a></li>
 <li><a href="https://rstudio.github.io/flexdashboard/articles/shiny.html">Using shiny with flexdashboard</a></li>
 </ul>
-<p>También es recomendable consultar la <a href="https://shiny.rstudio.com/reference/shiny/">guía de referencia</a>.</p>
+<p>También es recomendable consultar la <a href="https://shiny.rstudio.com/reference/shiny/">guía de referencia de Shiny</a>.</p>
 </div>
-<div id="ejemplos-6" class="section level3" number="18.4.3">
-<h3>
-<span class="header-section-number">18.4.3</span> Ejemplos<a class="anchor" aria-label="anchor" href="#ejemplos-6"><i class="fas fa-link"></i></a>
-</h3>
+<div id="ejemplos-6" class="section level2" number="18.7">
+<h2>
+<span class="header-section-number">18.7</span> Ejemplos<a class="anchor" aria-label="anchor" href="#ejemplos-6"><i class="fas fa-link"></i></a>
+</h2>
 <p>El sitio web de <code>Shiny</code> contiene enlaces a varios <a href="https://shiny.rstudio.com/gallery/">ejemplos de aplicaciones interactivas</a>.</p>
 <p>También puede consultar los siguientes ejemplos desarrollados con algunos de los conjuntos de datos utilizados en clase y su código fuente:</p>
 <ul>
-<li><a href="https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard-shiny">Datos de cantones de Costa Rica (flexdashboard + Shiny)</a></li>
-<li><a href="https://github.com/gf0604-procesamientodatosgeograficos/2022-i-distritos-flexdashboard-shiny">Datos de distritos de Costa Rica (flexdashboard + Shiny)</a></li>
+<li>
+<a href="https://mfvargas.shinyapps.io/2022-i-cantones-flexdashboard-shiny/">Datos de cantones de Costa Rica (flexdashboard + Shiny)</a> (<a href="https://github.com/gf0604-procesamientodatosgeograficos/2022-i-cantones-flexdashboard-shiny">código fuente</a>)</li>
 </ul>
 </div>
-<div id="ejercicios-17" class="section level3" number="18.4.4">
-<h3>
-<span class="header-section-number">18.4.4</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-17"><i class="fas fa-link"></i></a>
-</h3>
-
-</div>
+<div id="ejercicios-17" class="section level2" number="18.8">
+<h2>
+<span class="header-section-number">18.8</span> Ejercicios<a class="anchor" aria-label="anchor" href="#ejercicios-17"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Agregue al tablero de datos de distritos que desarrolló en el capítulo anterior los siguientes <em>widgets</em> de <code>Shiny</code>:</li>
+</ol>
+<ul>
+<li>Una lista de selección de provincia.</li>
+<li>Una lista de selección de cantón.</li>
+</ul>
 </div>
 </div>
 
@@ -231,14 +237,11 @@
 <li>
 <a class="nav-link" href="#preparativos-5"><span class="header-section-number">18.3</span> Preparativos</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#instalaci%C3%B3n-y-carga-de-paquetes-1"><span class="header-section-number">18.3.1</span> Instalación y carga de paquetes</a></li></ul>
 </li>
-<li>
-<a class="nav-link" href="#desarrollo-de-aplicaciones-web-interactivas-mediante-shiny"><span class="header-section-number">18.4</span> Desarrollo de aplicaciones web interactivas mediante Shiny</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#shiny-y-flexdashboard"><span class="header-section-number">18.4.1</span> Shiny y flexdashboard</a></li>
-<li><a class="nav-link" href="#documentaci%C3%B3n-1"><span class="header-section-number">18.4.2</span> Documentación</a></li>
-<li><a class="nav-link" href="#ejemplos-6"><span class="header-section-number">18.4.3</span> Ejemplos</a></li>
-<li><a class="nav-link" href="#ejercicios-17"><span class="header-section-number">18.4.4</span> Ejercicios</a></li>
-</ul>
-</li>
+<li><a class="nav-link" href="#desarrollo-de-aplicaciones-web-interactivas-mediante-shiny"><span class="header-section-number">18.4</span> Desarrollo de aplicaciones web interactivas mediante Shiny</a></li>
+<li><a class="nav-link" href="#shiny-y-flexdashboard"><span class="header-section-number">18.5</span> Shiny y flexdashboard</a></li>
+<li><a class="nav-link" href="#documentaci%C3%B3n-1"><span class="header-section-number">18.6</span> Documentación</a></li>
+<li><a class="nav-link" href="#ejemplos-6"><span class="header-section-number">18.7</span> Ejemplos</a></li>
+<li><a class="nav-link" href="#ejercicios-17"><span class="header-section-number">18.8</span> Ejercicios</a></li>
 </ul>
 
       <div class="book-extra">
@@ -256,7 +259,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-07-08.</p>
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-07-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
