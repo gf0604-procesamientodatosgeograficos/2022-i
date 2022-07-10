@@ -401,3 +401,6 @@ shiny-y-flexdashboard
 documentación-1
 ejemplos-6
 ejercicios-17
+tableros-de-control-desarrollados-con-flexdashboard
+tableros-de-control-desarrollados-con-flexdashboard-y-shiny
+tableros-de-control-desarrollados-con-flexdashboard-1

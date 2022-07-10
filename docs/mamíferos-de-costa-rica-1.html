@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Mamíferos de Costa Rica | GF0604 Procesamiento de datos geográficos 2022-I</title>
+<meta name="author" content="Manuel Vargas">
+<meta name="description" content="18.11 Tableros de control desarrollados con flexdashboard  Datos de mamíferos de Costa Rica (código fuente)">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Mamíferos de Costa Rica | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta property="og:type" content="book">
+<meta property="og:description" content="18.11 Tableros de control desarrollados con flexdashboard  Datos de mamíferos de Costa Rica (código fuente)">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mamíferos de Costa Rica | GF0604 Procesamiento de datos geográficos 2022-I">
+<meta name="twitter:description" content="18.11 Tableros de control desarrollados con flexdashboard  Datos de mamíferos de Costa Rica (código fuente)">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><script src="libs/plotly-locale-es-2.5.1/es.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script><script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script><link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet">
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet">
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script><script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script><script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script><link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet">
+<script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script><script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script><link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet">
+<script src="libs/fuse_js-3.2.0/fuse_js-prod.js"></script><link href="libs/lfx-search-2.3.7/lfx-search-prod.css" rel="stylesheet">
+<script src="libs/lfx-search-2.3.7/lfx-search-prod.js"></script><script src="libs/lfx-search-2.3.7/lfx-search-bindings.js"></script><script src="libs/clipboard-0.0.1/setClipboardText.js"></script><link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet">
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script><script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">GF0604 Procesamiento de datos geográficos 2022-I</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Bienvenida</a></li>
+<li><a class="" href="programa-del-curso.html">Programa del curso</a></li>
+<li class="book-part">I. Introducción a la programación de computadoras</li>
+<li><a class="" href="pensamiento-computacional.html"><span class="header-section-number">1</span> Pensamiento computacional</a></li>
+<li><a class="" href="arquitectura-de-computadoras-y-lenguajes-de-programaci%C3%B3n.html"><span class="header-section-number">2</span> Arquitectura de computadoras y lenguajes de programación</a></li>
+<li><a class="" href="interacci%C3%B3n-humano-computadora.html"><span class="header-section-number">3</span> Interacción humano-computadora</a></li>
+<li><a class="" href="ejemplo-de-interfaz-de-l%C3%ADnea-de-comandos---gdalogr-biblioteca-para-lectura-y-escritura-de-datos-geoespaciales.html"><span class="header-section-number">4</span> Ejemplo de interfaz de línea de comandos - GDAL/OGR: biblioteca para lectura y escritura de datos geoespaciales</a></li>
+<li><a class="" href="reproducibilidad.html"><span class="header-section-number">5</span> Reproducibilidad</a></li>
+<li><a class="" href="markdown-lenguaje-de-marcado.html"><span class="header-section-number">6</span> Markdown: lenguaje de marcado</a></li>
+<li><a class="" href="git-sistema-de-control-de-versiones.html"><span class="header-section-number">7</span> Git: sistema de control de versiones</a></li>
+<li class="book-part">II. El lenguaje de programación R</li>
+<li><a class="" href="r---conceptos-b%C3%A1sicos.html"><span class="header-section-number">8</span> R - Conceptos básicos</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">9</span> R Markdown</a></li>
+<li><a class="" href="tidyverse-colecci%C3%B3n-de-paquetes-para-ciencia-de-datos.html"><span class="header-section-number">10</span> Tidyverse: colección de paquetes para ciencia de datos</a></li>
+<li><a class="" href="dplyr-gram%C3%A1tica-para-manipulaci%C3%B3n-de-datos.html"><span class="header-section-number">11</span> dplyr: gramática para manipulación de datos</a></li>
+<li class="book-part">III. Graficación estadística en R</li>
+<li><a class="" href="paquetes-de-r-para-graficaci%C3%B3n-estad%C3%ADstica.html"><span class="header-section-number">12</span> Paquetes de R para graficación estadística</a></li>
+<li class="book-part">IV. El ecosistema geoespacial de R</li>
+<li><a class="" href="introducci%C3%B3n-al-manejo-de-datos-geoespaciales-en-r.html"><span class="header-section-number">13</span> Introducción al manejo de datos geoespaciales en R</a></li>
+<li><a class="" href="operaciones-con-datos-de-atributos.html"><span class="header-section-number">14</span> Operaciones con datos de atributos</a></li>
+<li><a class="" href="operaciones-con-datos-espaciales.html"><span class="header-section-number">15</span> Operaciones con datos espaciales</a></li>
+<li><a class="" href="operaciones-con-geometr%C3%ADas.html"><span class="header-section-number">16</span> Operaciones con geometrías</a></li>
+<li class="book-part">V. Visualización avanzada</li>
+<li><a class="" href="desarrollo-de-tableros-de-control.html"><span class="header-section-number">17</span> Desarrollo de tableros de control</a></li>
+<li><a class="" href="desarrollo-de-aplicaciones-web-interactivas.html"><span class="header-section-number">18</span> Desarrollo de aplicaciones web interactivas</a></li>
+<li class="book-part">Evaluaciones</li>
+<li><a class="" href="examen-corto-1.html">Examen corto 1</a></li>
+<li><a class="" href="examen-corto-2.html">Examen corto 2</a></li>
+<li><a class="" href="examen-corto-3.html">Examen corto 3</a></li>
+<li><a class="" href="examen-corto-4.html">Examen corto 4</a></li>
+<li><a class="" href="tarea-1.html">Tarea 1</a></li>
+<li><a class="" href="tarea-2.html">Tarea 2</a></li>
+<li><a class="" href="tarea-3.html">Tarea 3</a></li>
+<li class="book-part">Documentos y aplicaciones de ejemplo</li>
+<li><a class="" href="covid-19-en-costa-rica.html">COVID-19 en Costa Rica</a></li>
+<li><a class="" href="felinos-de-costa-rica.html">Felinos de Costa Rica</a></li>
+<li><a class="" href="cantones-y-distritos-de-costa-rica.html">Cantones y distritos de Costa Rica</a></li>
+<li><a class="active" href="mam%C3%ADferos-de-costa-rica-1.html">Mamíferos de Costa Rica</a></li>
+<li class="book-part">Apéndices</li>
+<li><a class="" href="conjuntos-de-datos.html">Conjuntos de datos</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="mamíferos-de-costa-rica-1" class="section level1 unnumbered">
+<h1>Mamíferos de Costa Rica<a class="anchor" aria-label="anchor" href="#mam%C3%ADferos-de-costa-rica-1"><i class="fas fa-link"></i></a>
+</h1>
+<div id="tableros-de-control-desarrollados-con-flexdashboard-1" class="section level2" number="18.11">
+<h2>
+<span class="header-section-number">18.11</span> Tableros de control desarrollados con <code>flexdashboard</code><a class="anchor" aria-label="anchor" href="#tableros-de-control-desarrollados-con-flexdashboard-1"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>
+<a href="https://gf0604-procesamientodatosgeograficos.github.io/2022-i-mamiferos-flexdashboard/">Datos de mamíferos de Costa Rica</a> (<a href="https://github.com/gf0604-procesamientodatosgeograficos/2022-i-mamiferos-flexdashboard">código fuente</a>)</li>
+</ul>
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="cantones-y-distritos-de-costa-rica.html">Cantones y distritos de Costa Rica</a></div>
+<div class="next"><a href="conjuntos-de-datos.html">Conjuntos de datos</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#mam%C3%ADferos-de-costa-rica-1">Mamíferos de Costa Rica</a></li>
+<li><a class="nav-link" href="#tableros-de-control-desarrollados-con-flexdashboard-1"><span class="header-section-number">18.11</span> Tableros de control desarrollados con flexdashboard</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/73-ejemplos-mamiferos.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/73-ejemplos-mamiferos.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>GF0604 Procesamiento de datos geográficos 2022-I</strong>" was written by Manuel Vargas. It was last built on 2022-07-09.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
